@@ -91,14 +91,15 @@ public class Sujeto implements Comparable, Movimiento{
 	
 	// Methods
 	public String toString() {
-		return name + ", con ID (" + ID + ") tiene actualmente " + HP + " puntos de vida.\n" + "Tiene " + money
-				+ " turbo dolares, se mueve a una velocidad de " + speed + " casillas por segundo.\n"
-				+ "Actualmente se encuentra en la posicion (" + mapX + ").(" + mapY + ") del escenario. \n"
-				+ "Su icono en el mapa es: " + icon;
+		return name + ", with ID (" + ID + ") have " + HP + " life points.\n" + "Have " + money
+				+ " Ruralpines, Moves " + speed + " square per turn.\n"
+				+ "It is currently at (" + mapX + ").(" + mapY + ")\n"
+				+ "Its icon is: " + icon + "\n";
 	};
 	
 	@Deprecated
-	public String getInfo() {
+	// Spanish toString
+	private String getInfo() {
 		return name + ", con ID (" + ID + ") tiene actualmente " + HP + " puntos de vida.\n" + "Tiene " + money
 				+ " turbo dolares, se mueve a una velocidad de " + speed + " casillas por segundo.\n"
 				+ "Actualmente se encuentra en la posicion (" + mapX + ").(" + mapY + ") del escenario. \n"

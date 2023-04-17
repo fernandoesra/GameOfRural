@@ -1,5 +1,7 @@
-package base;
+package utils;
 
+import base.CitizenList;
+import base.Sujeto;
 import map.Board;
 
 public class MoveController {

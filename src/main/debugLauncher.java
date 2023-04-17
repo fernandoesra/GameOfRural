@@ -3,9 +3,9 @@ package main;
 import java.util.Scanner;
 
 import base.CitizenList;
-import base.MoveController;
 import base.Sujeto;
 import map.Board;
+import utils.MoveController;
 
 public class debugLauncher {
 	

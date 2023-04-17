@@ -17,7 +17,7 @@ import utils.ListaObjetos;
 public class CitizenList {
 	
 	// List
-	ListaObjetos citizenList = new ListaObjetos();
+	public ListaObjetos citizenList = new ListaObjetos();
 	int IDs;
 	
 	// Constructor
@@ -26,8 +26,12 @@ public class CitizenList {
 		IDs = 1;
 	}
 	
-	// Add diferent citizens
+	public int consultarCantidad() {
+		int cantidad = citizenList.consultarCantidad();
+		return cantidad;
+	}
 	
+	// Add diferent citizens
 	public void addCitizensToMap(Board board) {
 		
 		int mapX = board.getHeight();
@@ -51,8 +55,11 @@ public class CitizenList {
 		}
 	}
 	
-	// Create different citizens
-	
+	/**
+	 * 
+	 * @param ID to search
+	 * @return If the citizen with the ID are on the list, return that citizen
+	 */
 	public Object searchForCitizen(int ID) {
 		Object find = null;
 		for (int i = 0; i < citizenList.consultarCantidad(); i++) {
@@ -72,10 +79,21 @@ public class CitizenList {
 		
 		for (int i = 0; i < citizenList.consultarCantidad(); i++) {
 			
-			respuesta += "Ciudadano "+(i+1)+": "+ citizenList.lecturaIndice(i).toString() + "\n";
+			respuesta += "Citizen "+(i+1)+": "+ citizenList.lecturaIndice(i).toString() + "\n";
 		}
 		
 		return respuesta;
+	}
+	
+	public int getCitizenID(Sujeto search) {
+		int ID = 0;
+		for (int i = 0; i < citizenList.consultarCantidad(); i++) {
+			if (citizenList.lecturaIndice(i) == search) {
+				Sujeto find = (Sujeto) citizenList.lecturaIndice(i);
+				ID = find.ID;
+			}
+		}
+		return ID;
 	}
 	
 	public void createAll(int cantidad) {
