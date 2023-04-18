@@ -1,7 +1,8 @@
 package personas;
 
 import base.Sujeto;
-import minerales.Oro;
+import logs.ActionsLog;
+import minerales.Gold;
 import recursos.Moneda;
 
 /*
@@ -19,11 +20,13 @@ public class Herrero extends Sujeto{
 				);
 	}
 	
-	public Moneda fundir(Oro oro) {
-		int cantidad = (int)((Math.random() * (11 - 1)) + 1);
-		Moneda fundido = new Moneda(cantidad);
+	public Moneda melt(Gold oro) {
+		int pureGold = oro.getAmount();
+		int amount = (int)((Math.random() * ((pureGold*2)+1 - pureGold)) + pureGold);
+		Moneda melted = new Moneda(amount);
 		oro = null;
-		return fundido;
+		ActionsLog.registerAction(this.name + " melted " + pureGold + " gold in " + melted + " ruralcoins");
+		return melted;
 	}
 
 }

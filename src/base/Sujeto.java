@@ -92,7 +92,7 @@ public class Sujeto implements Comparable, Movimiento{
 	// Methods
 	public String toString() {
 		return name + ", with ID (" + ID + ") have " + HP + " life points.\n" + "Have " + money
-				+ " Ruralpines, Moves " + speed + " square per turn.\n"
+				+ " ruralcoins, Moves " + speed + " square per turn.\n"
 				+ "It is currently at (" + mapX + ").(" + mapY + ")\n"
 				+ "Its icon is: " + icon + "\n";
 	};

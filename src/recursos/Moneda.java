@@ -3,29 +3,29 @@ package recursos;
 public class Moneda {
 	
 	// Attributes
-	double total;
+	double quantity;
 	
 	// Constructor
 	public Moneda() {
 	};
 
 	public Moneda(double total) {
-		this.total = total;
+		this.quantity = total;
 	}
 	
 	// Get and Set
-	public void setTotal(double total) {
-		this.total = total;
+	public void setQuantity(double total) {
+		this.quantity = total;
 	}
 	
-	public double getTotal() {
-		return total;
+	public double getQuantity() {
+		return quantity;
 	}
 	
 	// Methods
 	@Override
 	public String toString() {
-		return "" + (Math.floor(total*100.0d) / 100.0d);
+		return "" + (Math.floor(quantity*100.0d) / 100.0d);
 	}
 
 }

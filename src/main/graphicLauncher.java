@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import base.CitizenList;
 import base.Sujeto;
+import logs.ActionsLog;
 import map.Board;
 import utils.MoveController;
 
@@ -38,9 +39,9 @@ public class graphicLauncher extends JFrame {
 	CitizenList citizenList;
 	int actualCitizenID;
 	Sujeto actualCitizen;
+	ActionsLog log;
 	
 	private JPanel mainContentPane;
-	private JTextField actualCitizenInfoText;
 
 	// Main
 	public static void main(String[] args) {
@@ -69,6 +70,9 @@ public class graphicLauncher extends JFrame {
 		// Initialize and fill the map
 		this.initialize();
 		actualCitizenID = 1;
+		
+		// Initialize the action log
+		log = new ActionsLog();
 
 		// JFrame Container
 		setTitle("Game of Rural");
@@ -182,6 +186,23 @@ public class graphicLauncher extends JFrame {
 		JButton buttonInteract = new JButton("Interact");
 		buttonInteract.setBounds(70, 157, 100, 30);
 		
+		// Log panel
+
+		JPanel logPanel = new JPanel();
+		logPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		logPanel.setBounds(870, 414, 757, 267);
+		logPanel.setLayout(null);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 44, 737, 212);
+
+		JTextArea logTextArea = new JTextArea();
+		scrollPane.setViewportView(logTextArea);
+		logTextArea.setEditable(false);
+
+		JLabel logLabel = new JLabel("Log:");
+		logLabel.setBounds(10, 22, 157, 14);
+
 		// Movement buttons
 		
 		JButton buttonDown = new JButton("Down");
@@ -226,26 +247,9 @@ public class graphicLauncher extends JFrame {
 
 		buttonInteract.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				interactButton(textCentralArea);
+				interactButton(textCentralArea, logTextArea);
 			}
 		});
-		
-		// Log panel
-		
-		JPanel logPanel = new JPanel();
-		logPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		logPanel.setBounds(870, 414, 757, 267);
-		logPanel.setLayout(null);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 44, 737, 212);
-		
-		JTextArea logTextArea = new JTextArea();
-		scrollPane.setViewportView(logTextArea);
-		logTextArea.setEditable(false);
-		
-		JLabel logLabel = new JLabel("Log:");
-		logLabel.setBounds(10, 22, 157, 14);
 		
 		// Add all to the containers
 		setContentPane(mainContentPane);
@@ -282,7 +286,7 @@ public class graphicLauncher extends JFrame {
 	
 	// Highlight action
 	
-	public void Highlight(JTextArea txtDisplay) {
+	public void highlightMap(JTextArea txtDisplay) {
 		try {
 			String text = txtDisplay.getText();
 			Highlighter high = txtDisplay.getHighlighter();
@@ -383,7 +387,7 @@ public class graphicLauncher extends JFrame {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenUp(board, toMove);
 		textArea.setText("\n" + board.toString());
-		Highlight(textArea);
+		highlightMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 	}
 
@@ -391,7 +395,7 @@ public class graphicLauncher extends JFrame {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenDown(board, toMove);
 		textArea.setText("\n" + board.toString());
-		Highlight(textArea);
+		highlightMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 	}
 
@@ -399,7 +403,7 @@ public class graphicLauncher extends JFrame {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenRight(board, toMove);
 		textArea.setText("\n" + board.toString());
-		Highlight(textArea);
+		highlightMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 	}
 
@@ -407,19 +411,19 @@ public class graphicLauncher extends JFrame {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenLeft(board, toMove);
 		textArea.setText("\n" + board.toString());
-		Highlight(textArea);
+		highlightMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 	}
 
 	// Interact button
-	public void interactButton(JTextArea textArea) {
-
+	public void interactButton(JTextArea textArea, JTextArea logTextArea) {
+		logTextArea.setText(log.toString());
 	}
 
 	// Show map button
 	public void showMapButton(JTextArea textArea) {
 		textArea.setText("\n" + board.toString());
-		Highlight(textArea);
+		highlightMap(textArea);
 	}
 	
 	// Show all citizens button
