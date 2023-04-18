@@ -33,6 +33,10 @@ public class Sujeto implements Comparable, Movimiento{
 	}
 	
 	// Get and Set
+	public String getName() {
+		return this.name;
+	}
+	
 	public int getID() {
 		return ID;
 	}

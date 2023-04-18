@@ -2,16 +2,26 @@ package utils;
 
 import base.CitizenList;
 import base.Sujeto;
+import logs.ActionsLog;
 import map.Board;
 
 public class MoveController {
-
+	
+	public static void movementLog(Sujeto citizen) {
+		ActionsLog.registerAction(citizen.getName() + "(" + citizen.getID() + ") has beem moved to "
+	+ citizen.getMapX() + "." + citizen.getMapY());
+	}
+	
 	public static void moveOneCitizenUp(Board board, Sujeto citizen) {
 		if (citizen.up(board)) {
 			board.moveSomethingUp(citizen);
 			int newX = board.searchXobject(citizen);
 			int newY = board.searchYobject(citizen);
 			citizen.update(newX, newY);
+			
+			/* If you want to record the movement of the character in the log, you must
+			uncomment the following line */ 
+			// movementLog(citizen);
 		}
 	}
 
@@ -21,6 +31,10 @@ public class MoveController {
 			int newX = board.searchXobject(citizen);
 			int newY = board.searchYobject(citizen);
 			citizen.update(newX, newY);
+			
+			/* If you want to record the movement of the character in the log, you must
+			uncomment the following line */ 
+			// movementLog(citizen);
 		}
 	}
 
@@ -30,6 +44,10 @@ public class MoveController {
 			int newX = board.searchXobject(citizen);
 			int newY = board.searchYobject(citizen);
 			citizen.update(newX, newY);
+			
+			/* If you want to record the movement of the character in the log, you must
+			uncomment the following line */ 
+			// movementLog(citizen);
 		}
 	}
 
@@ -39,6 +57,10 @@ public class MoveController {
 			int newX = board.searchXobject(citizen);
 			int newY = board.searchYobject(citizen);
 			citizen.update(newX, newY);
+			
+			/* If you want to record the movement of the character in the log, you must
+			uncomment the following line */ 
+			// movementLog(citizen);
 		}
 	}
 	
@@ -79,6 +101,9 @@ public class MoveController {
 				actual.update(newX, newY);
 			}
 			
+			/* If you want to record the movement of the character in the log, you must
+			uncomment the following line */ 
+			// movementLog(actual);
 			
 		}
 		
