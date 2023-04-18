@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import base.CitizenList;
 import base.Sujeto;
 import map.Board;
+import utils.ConsoleColors;
 import utils.MoveController;
 
 import javax.swing.JTextArea;
@@ -19,6 +20,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+
+import javax.swing.text.Highlighter;
+import javax.swing.text.Highlighter.HighlightPainter;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.DefaultHighlighter.DefaultHighlightPainter;
+import javax.swing.text.BadLocationException;
+import java.awt.Color;
+
 
 public class graphicLauncher extends JFrame {
 
@@ -76,10 +85,10 @@ public class graphicLauncher extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 10, 1400, 800);
 		scrollPane.setViewportView(textCentralArea);
-		textCentralArea.setEditable(false);
-		textCentralArea.setForeground(new Color(255, 255, 255));
-		textCentralArea.setBackground(new Color(0, 0, 0));
+		textCentralArea.setForeground(new Color(0, 0, 0));
+		textCentralArea.setBackground(new Color(255, 255, 255));
 		textCentralArea.setFont(new Font("Consolas", Font.PLAIN, 14));
+		textCentralArea.getHighlighter();
 
 		// Show actual map button
 		JButton showMapButton = new JButton("Show actual map");
@@ -203,31 +212,132 @@ public class graphicLauncher extends JFrame {
 		contentPane.add(selectIDtextField);
 
 	}
-
+	
+	// Highlight action
+	
+	public void Highlight(JTextArea txtDisplay) {
+		try {
+			String text = txtDisplay.getText();
+			Highlighter high = txtDisplay.getHighlighter();
+			high.removeAllHighlights();
+			
+			// Colors
+			final Color VERY_LIGHT_RED = new Color(255,102,102);
+			HighlightPainter light_red = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_RED);
+			
+			final Color VERY_LIGHT_BLUE = new Color(51,224,255);
+			HighlightPainter very_light_blue = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_BLUE);
+			
+			final Color VERY_LIGHT_GREEN = new Color(102,255,102);
+			HighlightPainter light_green = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_GREEN);
+			
+			final Color VERY_LIGHT_YELLOW = new Color(255,204,0);
+			HighlightPainter light_yellow = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_YELLOW);
+			
+			final Color VERY_LIGHT_GREY = new Color(204,204,204);
+			HighlightPainter light_grey = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_GREY);
+			
+			final Color VERY_LIGHT_BROWN = new Color(153,102,0);
+			HighlightPainter light_brown = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_BROWN);
+			
+			final Color PURPLE= new Color(102,80,200);
+			HighlightPainter purple = new DefaultHighlighter.DefaultHighlightPainter(PURPLE);
+			
+			final Color LIGHT_BLACK = new Color(90,90,90);
+			HighlightPainter light_black = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_BLACK);
+			
+			final Color LIGHT_ORANGE = new Color(155,153,0);
+			HighlightPainter light_orange = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_ORANGE);
+			
+			final Color LIGHT_BLUE = new Color(51,153,255);
+			HighlightPainter light_blue = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_BLUE);
+			
+			// Paint all map
+			// high.addHighlight(158, 3014, DefaultHighlighter.DefaultPainter);
+			
+			// The map start at index 140
+			char mapText[] = board.toString().toCharArray();
+			
+			for (int i = 140; i < mapText.length; i++) {
+				switch (mapText[i]) {
+				case 'A':
+					// Agricultor
+					high.addHighlight(i+1, i+2, light_green);
+					break;
+				case 'C':
+					// Carnicero
+					high.addHighlight(i+1, i+2, light_red);
+					break;
+				case 'I':
+					// Carpintero
+					high.addHighlight(i+1, i+2, light_yellow);
+					break;
+				case 'H':
+					// Herrero
+					high.addHighlight(i+1, i+2, light_grey);
+					break;
+				case 'M':
+					// Maderero
+					high.addHighlight(i+1, i+2, light_brown);
+					break;
+				case 'R':
+					// Minero
+					high.addHighlight(i+1, i+2, light_black);
+					break;
+				case 'B':
+					// Panadero
+					high.addHighlight(i+1, i+2, purple);
+					break;
+				case 'O':
+					// Pastor
+					high.addHighlight(i+1, i+2, light_orange);
+					break;
+				case 'S':
+					// Pescadero
+					high.addHighlight(i+1, i+2, light_blue);
+					break;
+				case 'J':
+					// Pescador
+					high.addHighlight(i+1, i+2, very_light_blue);
+					break;
+				}
+			}
+			
+			// high.addHighlight(1, 2, orange);
+			
+		} catch (Exception ex) {
+			System.err.println("Error "+ex.getMessage());
+		}
+	}
+	
 	// Actions buttons
-
+	
 	public void moveUpButton(JTextArea textArea) {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenUp(board, toMove);
 		textArea.setText("\n" + board.toString());
+		Highlight(textArea);
 	}
 
 	public void moveDownButton(JTextArea textArea) {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenDown(board, toMove);
 		textArea.setText("\n" + board.toString());
+		Highlight(textArea);
 	}
 
 	public void moveRightButton(JTextArea textArea) {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenRight(board, toMove);
 		textArea.setText("\n" + board.toString());
+		Highlight(textArea);
 	}
 
 	public void moveLeftButton(JTextArea textArea) {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenLeft(board, toMove);
 		textArea.setText("\n" + board.toString());
+		Highlight(textArea);
 	}
 
 	// Interact button
@@ -238,6 +348,7 @@ public class graphicLauncher extends JFrame {
 	// Show map button
 	public void showMapButton(JTextArea textArea) {
 		textArea.setText("\n" + board.toString());
+		Highlight(textArea);
 	}
 	
 	// Show all citizens button
@@ -265,7 +376,7 @@ public class graphicLauncher extends JFrame {
 		int width = 50;
 		board = new Board(height, width);
 		citizenList = new CitizenList();
-		citizenList.createAll(5);
+		citizenList.createAll(2);
 		citizenList.addCitizensToMap(board);
 	}
 	// Initialize variables with just 1 Sujeto (for test)
