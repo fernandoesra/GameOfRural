@@ -230,6 +230,23 @@ public class graphicLauncher extends JFrame {
 			}
 		});
 		
+		// Log panel
+		
+		JPanel logPanel = new JPanel();
+		logPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		logPanel.setBounds(870, 414, 757, 267);
+		logPanel.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 44, 737, 212);
+		
+		JTextArea logTextArea = new JTextArea();
+		scrollPane.setViewportView(logTextArea);
+		logTextArea.setEditable(false);
+		
+		JLabel logLabel = new JLabel("Log:");
+		logLabel.setBounds(10, 22, 157, 14);
+		
 		// Add all to the containers
 		setContentPane(mainContentPane);
 		mainContentPane.setLayout(null);
@@ -238,6 +255,7 @@ public class graphicLauncher extends JFrame {
 		mainContentPane.add(buttonsPanel);
 		mainContentPane.add(movementButtonsPane);
 		mainContentPane.add(citizenInfoPanel);
+		mainContentPane.add(logPanel);
 
 		selectCitizensPanel.add(actualCitizenLabel);
 		selectCitizensPanel.add(actualCitizenTextArea);
@@ -256,6 +274,9 @@ public class graphicLauncher extends JFrame {
 		
 		citizenInfoPanel.add(actualCitizenInfoText);
 		citizenInfoPanel.add(actualCitizenInfoLabel);
+		
+		logPanel.add(scrollPane);
+		logPanel.add(logLabel);
 
 	}
 	
