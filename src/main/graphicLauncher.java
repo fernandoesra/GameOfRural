@@ -23,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.text.Highlighter;
 import javax.swing.text.Highlighter.HighlightPainter;
 import javax.swing.text.DefaultHighlighter;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
 
 
 public class graphicLauncher extends JFrame {
@@ -89,7 +91,7 @@ public class graphicLauncher extends JFrame {
 
 		// Show actual map button
 		JButton showMapButton = new JButton("Show actual map");
-		showMapButton.setBounds(20, 835, 189, 50);
+		showMapButton.setBounds(10, 638, 153, 36);
 		showMapButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -99,16 +101,16 @@ public class graphicLauncher extends JFrame {
 
 		// Movement buttons
 		JButton buttonUp = new JButton("Up");
-		buttonUp.setBounds(1499, 634, 100, 30);
+		buttonUp.setBounds(1091, 253, 100, 30);
 
 		JButton buttonDown = new JButton("Down");
-		buttonDown.setBounds(1499, 714, 100, 30);
+		buttonDown.setBounds(1091, 333, 100, 30);
 
 		JButton buttonRight = new JButton("Right");
-		buttonRight.setBounds(1559, 674, 100, 30);
+		buttonRight.setBounds(1151, 293, 100, 30);
 
 		JButton buttonLeft = new JButton("Left");
-		buttonLeft.setBounds(1439, 674, 100, 30);
+		buttonLeft.setBounds(1031, 293, 100, 30);
 
 		buttonUp.addActionListener(new ActionListener() {
 
@@ -140,7 +142,7 @@ public class graphicLauncher extends JFrame {
 
 		// Interact button
 		JButton buttonInteract = new JButton("Interact");
-		buttonInteract.setBounds(1499, 780, 100, 30);
+		buttonInteract.setBounds(1091, 399, 100, 30);
 
 		buttonInteract.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -151,46 +153,52 @@ public class graphicLauncher extends JFrame {
 		// Show all citizens button
 		
 		JButton buttonShowAllCitizens = new JButton("Show all citizens");
-		buttonShowAllCitizens.setBounds(1476, 26, 137, 30);
+		buttonShowAllCitizens.setBounds(181, 638, 153, 36);
 		
 		buttonShowAllCitizens.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				showAllCitizensButton(textCentralArea);
 			}
-		});
+		});/* At start always select the citizen with ID 1 */
+		
+		// Select Citizens Panel
+		JPanel selectCitizensPanel = new JPanel();
+		selectCitizensPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		selectCitizensPanel.setBounds(1031, 40, 213, 166);
+		selectCitizensPanel.setLayout(null);
+		
+		JButton confirmIDbutton = new JButton("Select");
+		confirmIDbutton.setBounds(64, 120, 77, 23);
 		
 		// Objects for show citizens info
 		JLabel actualCitizenLabel = new JLabel("Actual citizen:");
-		actualCitizenLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		actualCitizenLabel.setBounds(1440, 85, 100, 22);/* At start always select the citizen with ID 1 */
+		actualCitizenLabel.setBounds(35, 29, 100, 22);
+		actualCitizenLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		// Objects for select the citizen to move
 		
 		JTextField actualCitizenTextArea = new JTextField();
+		actualCitizenTextArea.setBounds(141, 30, 46, 20);
 		actualCitizenTextArea.setHorizontalAlignment(SwingConstants.CENTER);
 		actualCitizenTextArea.setEditable(false);
-		actualCitizenTextArea.setBounds(1553, 86, 46, 20);
 		actualCitizenTextArea.setColumns(10);
 		actualCitizenTextArea.setText(String.valueOf(actualCitizenID));
 		
 		JLabel selectCitizenLabel = new JLabel("Select citizen (ID):");
-		selectCitizenLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		selectCitizenLabel.setBounds(1487, 128, 112, 22);
+		selectCitizenLabel.setBounds(35, 77, 112, 22);
+		selectCitizenLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
 		JTextField selectIDtextField = new JTextField();
-		selectIDtextField.setBounds(1497, 154, 86, 20);
+		selectIDtextField.setBounds(141, 78, 46, 20);
 		selectIDtextField.setColumns(10);
-		
-		JButton confirmIDbutton = new JButton("Select");
-		confirmIDbutton.setBounds(1495, 185, 89, 23);
-		
+
 		confirmIDbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectCitizenButton(actualCitizenTextArea, selectIDtextField);
 			}
 		});
 		
-		// Add all to the container
+		// Add all to the containers
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.add(scrollPane);
@@ -201,11 +209,13 @@ public class graphicLauncher extends JFrame {
 		contentPane.add(buttonLeft);
 		contentPane.add(buttonInteract);
 		contentPane.add(buttonShowAllCitizens);
-		contentPane.add(actualCitizenLabel);
-		contentPane.add(selectCitizenLabel);
-		contentPane.add(confirmIDbutton);
-		contentPane.add(selectIDtextField);
-		contentPane.add(actualCitizenTextArea);
+		contentPane.add(selectCitizensPanel);
+		
+		selectCitizensPanel.add(actualCitizenLabel);
+		selectCitizensPanel.add(actualCitizenTextArea);
+		selectCitizensPanel.add(selectCitizenLabel);
+		selectCitizensPanel.add(selectIDtextField);
+		selectCitizensPanel.add(confirmIDbutton);
 
 	}
 	
