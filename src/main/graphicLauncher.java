@@ -78,69 +78,19 @@ public class graphicLauncher extends JFrame {
 
 		// Center text area and scroll
 		JTextArea textCentralArea = new JTextArea();
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 10, 850, 570);
-		scrollPane.setViewportView(textCentralArea);
+		JScrollPane scrollPaneForCentralText = new JScrollPane();
+		scrollPaneForCentralText.setBounds(10, 10, 850, 570);
+		scrollPaneForCentralText.setViewportView(textCentralArea);
 		textCentralArea.setForeground(new Color(0, 0, 0));
 		textCentralArea.setBackground(new Color(255, 255, 255));
 		textCentralArea.setFont(new Font("Consolas", Font.PLAIN, 14));
-		textCentralArea.getHighlighter();
-
-		// Movement buttons
-		JButton buttonUp = new JButton("Up");
-		buttonUp.setBounds(1091, 253, 100, 30);
-
-		JButton buttonDown = new JButton("Down");
-		buttonDown.setBounds(1091, 333, 100, 30);
-
-		JButton buttonRight = new JButton("Right");
-		buttonRight.setBounds(1151, 293, 100, 30);
-
-		JButton buttonLeft = new JButton("Left");
-		buttonLeft.setBounds(1031, 293, 100, 30);
-
-		buttonUp.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				moveUpButton(textCentralArea);
-			}
-		});
-
-		buttonDown.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				moveDownButton(textCentralArea);
-			}
-		});
-
-		buttonRight.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				moveRightButton(textCentralArea);
-			}
-		});
-
-		buttonLeft.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				moveLeftButton(textCentralArea);
-			}
-		});
-
-		// Interact button
-		JButton buttonInteract = new JButton("Interact");
-		buttonInteract.setBounds(1091, 399, 100, 30);
-
-		buttonInteract.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				interactButton(textCentralArea);
-			}
-		});/* At start always select the citizen with ID 1 */
+		textCentralArea.getHighlighter();/* At start always select the citizen with ID 1 */
 		
 		// Select Citizens Panel
+		
 		JPanel selectCitizensPanel = new JPanel();
 		selectCitizensPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		selectCitizensPanel.setBounds(1031, 40, 213, 166);
+		selectCitizensPanel.setBounds(883, 27, 213, 166);
 		selectCitizensPanel.setLayout(null);
 		
 		JButton confirmIDbutton = new JButton("Select");
@@ -201,17 +151,72 @@ public class graphicLauncher extends JFrame {
 			}
 		});
 		
+		// Movement Panel
+		
+		JPanel movementButtonsPane = new JPanel();
+		movementButtonsPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		movementButtonsPane.setBounds(870, 204, 244, 199);
+		movementButtonsPane.setLayout(null);
+
+		// Interact button
+		JButton buttonInteract = new JButton("Interact");
+		buttonInteract.setBounds(70, 157, 100, 30);
+		
+		// Movement buttons
+		
+		JButton buttonDown = new JButton("Down");
+		buttonDown.setBounds(70, 91, 100, 30);
+
+		JButton buttonLeft = new JButton("Left");
+		buttonLeft.setBounds(10, 51, 100, 30);
+
+		JButton buttonUp = new JButton("Up");
+		buttonUp.setBounds(70, 11, 100, 30);
+
+		JButton buttonRight = new JButton("Right");
+		buttonRight.setBounds(130, 51, 100, 30);
+
+		buttonRight.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				moveRightButton(textCentralArea);
+			}
+		});
+
+		buttonUp.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				moveUpButton(textCentralArea);
+			}
+		});
+
+		buttonLeft.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				moveLeftButton(textCentralArea);
+			}
+		});
+
+		buttonDown.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				moveDownButton(textCentralArea);
+			}
+		});
+
+		buttonInteract.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				interactButton(textCentralArea);
+			}
+		});
+		
 		// Add all to the containers
 		setContentPane(mainContentPane);
 		mainContentPane.setLayout(null);
-		mainContentPane.add(scrollPane);
-		mainContentPane.add(buttonUp);
-		mainContentPane.add(buttonDown);
-		mainContentPane.add(buttonRight);
-		mainContentPane.add(buttonLeft);
-		mainContentPane.add(buttonInteract);
+		mainContentPane.add(scrollPaneForCentralText);
 		mainContentPane.add(selectCitizensPanel);
 		mainContentPane.add(buttonsPanel);
+		mainContentPane.add(movementButtonsPane);
 
 		selectCitizensPanel.add(actualCitizenLabel);
 		selectCitizensPanel.add(actualCitizenTextArea);
@@ -222,6 +227,11 @@ public class graphicLauncher extends JFrame {
 		buttonsPanel.add(buttonShowAllCitizens);
 		buttonsPanel.add(showMapButton);
 		
+		movementButtonsPane.add(buttonInteract);
+		movementButtonsPane.add(buttonDown);
+		movementButtonsPane.add(buttonLeft);
+		movementButtonsPane.add(buttonUp);
+		movementButtonsPane.add(buttonRight);
 
 	}
 	
