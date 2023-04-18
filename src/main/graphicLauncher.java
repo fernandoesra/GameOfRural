@@ -24,8 +24,6 @@ import javax.swing.text.Highlighter;
 import javax.swing.text.Highlighter.HighlightPainter;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-
 
 public class graphicLauncher extends JFrame {
 
@@ -41,8 +39,7 @@ public class graphicLauncher extends JFrame {
 	int actualCitizenID;
 	Sujeto actualCitizen;
 	
-	private JPanel contentPane;
-	private JTextField textField;
+	private JPanel mainContentPane;
 
 	// Main
 	public static void main(String[] args) {
@@ -76,28 +73,18 @@ public class graphicLauncher extends JFrame {
 		setTitle("Game of Rural");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(110, 45, 1700, 950);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		mainContentPane = new JPanel();
+		mainContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		// Center text area and scroll
 		JTextArea textCentralArea = new JTextArea();
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 10, 1000, 600);
+		scrollPane.setBounds(10, 10, 850, 570);
 		scrollPane.setViewportView(textCentralArea);
 		textCentralArea.setForeground(new Color(0, 0, 0));
 		textCentralArea.setBackground(new Color(255, 255, 255));
 		textCentralArea.setFont(new Font("Consolas", Font.PLAIN, 14));
 		textCentralArea.getHighlighter();
-
-		// Show actual map button
-		JButton showMapButton = new JButton("Show actual map");
-		showMapButton.setBounds(10, 638, 153, 36);
-		showMapButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				showMapButton(textCentralArea);
-			}
-		});
 
 		// Movement buttons
 		JButton buttonUp = new JButton("Up");
@@ -148,17 +135,6 @@ public class graphicLauncher extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				interactButton(textCentralArea);
 			}
-		});
-		
-		// Show all citizens button
-		
-		JButton buttonShowAllCitizens = new JButton("Show all citizens");
-		buttonShowAllCitizens.setBounds(181, 638, 153, 36);
-		
-		buttonShowAllCitizens.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				showAllCitizensButton(textCentralArea);
-			}
 		});/* At start always select the citizen with ID 1 */
 		
 		// Select Citizens Panel
@@ -198,24 +174,54 @@ public class graphicLauncher extends JFrame {
 			}
 		});
 		
-		// Add all to the containers
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		contentPane.add(scrollPane);
-		contentPane.add(showMapButton);
-		contentPane.add(buttonUp);
-		contentPane.add(buttonDown);
-		contentPane.add(buttonRight);
-		contentPane.add(buttonLeft);
-		contentPane.add(buttonInteract);
-		contentPane.add(buttonShowAllCitizens);
-		contentPane.add(selectCitizensPanel);
+		// Button panel
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		buttonsPanel.setBounds(10, 601, 850, 81);
+		buttonsPanel.setLayout(null);
 		
+		// Show actual map button
+		JButton showMapButton = new JButton("Show actual map");
+		showMapButton.setBounds(10, 22, 153, 36);
+
+		// Show all citizens button
+
+		JButton buttonShowAllCitizens = new JButton("Show all citizens");
+		buttonShowAllCitizens.setBounds(173, 22, 153, 36);
+
+		buttonShowAllCitizens.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showAllCitizensButton(textCentralArea);
+			}
+		});
+		showMapButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				showMapButton(textCentralArea);
+			}
+		});
+		
+		// Add all to the containers
+		setContentPane(mainContentPane);
+		mainContentPane.setLayout(null);
+		mainContentPane.add(scrollPane);
+		mainContentPane.add(buttonUp);
+		mainContentPane.add(buttonDown);
+		mainContentPane.add(buttonRight);
+		mainContentPane.add(buttonLeft);
+		mainContentPane.add(buttonInteract);
+		mainContentPane.add(selectCitizensPanel);
+		mainContentPane.add(buttonsPanel);
+
 		selectCitizensPanel.add(actualCitizenLabel);
 		selectCitizensPanel.add(actualCitizenTextArea);
 		selectCitizensPanel.add(selectCitizenLabel);
 		selectCitizensPanel.add(selectIDtextField);
 		selectCitizensPanel.add(confirmIDbutton);
+		
+		buttonsPanel.add(buttonShowAllCitizens);
+		buttonsPanel.add(showMapButton);
+		
 
 	}
 	
