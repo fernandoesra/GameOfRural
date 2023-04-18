@@ -7,7 +7,6 @@ import javax.swing.border.EmptyBorder;
 import base.CitizenList;
 import base.Sujeto;
 import map.Board;
-import utils.ConsoleColors;
 import utils.MoveController;
 
 import javax.swing.JTextArea;
@@ -24,9 +23,6 @@ import javax.swing.JTextField;
 import javax.swing.text.Highlighter;
 import javax.swing.text.Highlighter.HighlightPainter;
 import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.DefaultHighlighter.DefaultHighlightPainter;
-import javax.swing.text.BadLocationException;
-import java.awt.Color;
 
 
 public class graphicLauncher extends JFrame {
@@ -44,6 +40,7 @@ public class graphicLauncher extends JFrame {
 	Sujeto actualCitizen;
 	
 	private JPanel contentPane;
+	private JTextField textField;
 
 	// Main
 	public static void main(String[] args) {
@@ -83,7 +80,7 @@ public class graphicLauncher extends JFrame {
 		// Center text area and scroll
 		JTextArea textCentralArea = new JTextArea();
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 10, 1400, 800);
+		scrollPane.setBounds(10, 10, 1000, 600);
 		scrollPane.setViewportView(textCentralArea);
 		textCentralArea.setForeground(new Color(0, 0, 0));
 		textCentralArea.setBackground(new Color(255, 255, 255));
@@ -165,18 +162,17 @@ public class graphicLauncher extends JFrame {
 		// Objects for show citizens info
 		JLabel actualCitizenLabel = new JLabel("Actual citizen:");
 		actualCitizenLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		actualCitizenLabel.setBounds(1440, 85, 100, 22);
-
-		JTextArea actualCitizenTextArea = new JTextArea();
-		actualCitizenTextArea.setBounds(1547, 85, 66, 22);
-		actualCitizenTextArea.setEditable(false);
-		actualCitizenTextArea.setForeground(new Color(255, 255, 255));
-		actualCitizenTextArea.setBackground(new Color(0, 0, 0));
-		actualCitizenTextArea.setFont(new Font("Consolas", Font.BOLD, 14));
-		actualCitizenTextArea.setText("    " + actualCitizenID); /* At start always select the citizen with ID 1 */
+		actualCitizenLabel.setBounds(1440, 85, 100, 22);/* At start always select the citizen with ID 1 */
 		
 		// Objects for select the citizen to move
-
+		
+		JTextField actualCitizenTextArea = new JTextField();
+		actualCitizenTextArea.setHorizontalAlignment(SwingConstants.CENTER);
+		actualCitizenTextArea.setEditable(false);
+		actualCitizenTextArea.setBounds(1553, 86, 46, 20);
+		actualCitizenTextArea.setColumns(10);
+		actualCitizenTextArea.setText(String.valueOf(actualCitizenID));
+		
 		JLabel selectCitizenLabel = new JLabel("Select citizen (ID):");
 		selectCitizenLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		selectCitizenLabel.setBounds(1487, 128, 112, 22);
@@ -184,7 +180,7 @@ public class graphicLauncher extends JFrame {
 		JTextField selectIDtextField = new JTextField();
 		selectIDtextField.setBounds(1497, 154, 86, 20);
 		selectIDtextField.setColumns(10);
-
+		
 		JButton confirmIDbutton = new JButton("Select");
 		confirmIDbutton.setBounds(1495, 185, 89, 23);
 		
@@ -206,10 +202,10 @@ public class graphicLauncher extends JFrame {
 		contentPane.add(buttonInteract);
 		contentPane.add(buttonShowAllCitizens);
 		contentPane.add(actualCitizenLabel);
-		contentPane.add(actualCitizenTextArea);
 		contentPane.add(selectCitizenLabel);
 		contentPane.add(confirmIDbutton);
 		contentPane.add(selectIDtextField);
+		contentPane.add(actualCitizenTextArea);
 
 	}
 	
@@ -357,7 +353,7 @@ public class graphicLauncher extends JFrame {
 	}
 	
 	// Select one citizen button
-	public void selectCitizenButton(JTextArea textArea, JTextField selectedID) {
+	public void selectCitizenButton(JTextField textArea, JTextField selectedID) {
 		
 		String selected = selectedID.getText();
 		int selectedIDnumber = Integer.parseInt(selected);
@@ -366,7 +362,7 @@ public class graphicLauncher extends JFrame {
 			this.actualCitizen = (Sujeto) citizenList.searchForCitizen(selectedIDnumber);
 			this.actualCitizenID = this.actualCitizen.getID();
 			selectedID.setText("");
-			textArea.setText("    " + String.valueOf(actualCitizenID));
+			textArea.setText(String.valueOf(actualCitizenID));
 		}
 	}
 
