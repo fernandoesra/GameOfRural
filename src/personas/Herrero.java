@@ -25,7 +25,7 @@ public class Herrero extends Sujeto{
 		int amount = (int)((Math.random() * ((pureGold*2)+1 - pureGold)) + pureGold);
 		Moneda melted = new Moneda(amount);
 		oro = null;
-		ActionsLog.registerAction(this.name + " melted " + pureGold + " gold in " + melted + " ruralcoins");
+		ActionsLog.registerAction(this.name +"(" + this.ID + ")" + " melted " + pureGold + " gold in " + melted + " ruralcoins");
 		return melted;
 	}
 
