@@ -25,6 +25,7 @@ import javax.swing.text.Highlighter;
 import javax.swing.text.Highlighter.HighlightPainter;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.border.BevelBorder;
+import javax.swing.ImageIcon;
 
 public class graphicLauncher extends JFrame {
 
@@ -251,6 +252,11 @@ public class graphicLauncher extends JFrame {
 			}
 		});
 		
+		// Banner image
+		JLabel bannerLabel = new JLabel("");
+		bannerLabel.setIcon(new ImageIcon(graphicLauncher.class.getResource("/resources/bannerGoR.png")));
+		bannerLabel.setBounds(10, 693, 1664, 207);
+		
 		// Add all to the containers
 		setContentPane(mainContentPane);
 		mainContentPane.setLayout(null);
@@ -260,6 +266,7 @@ public class graphicLauncher extends JFrame {
 		mainContentPane.add(movementButtonsPane);
 		mainContentPane.add(citizenInfoPanel);
 		mainContentPane.add(logPanel);
+		mainContentPane.add(bannerLabel);
 
 		selectCitizensPanel.add(actualCitizenLabel);
 		selectCitizensPanel.add(actualCitizenTextArea);
