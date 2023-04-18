@@ -40,6 +40,7 @@ public class graphicLauncher extends JFrame {
 	Sujeto actualCitizen;
 	
 	private JPanel mainContentPane;
+	private JTextField actualCitizenInfoText;
 
 	// Main
 	public static void main(String[] args) {
@@ -78,6 +79,7 @@ public class graphicLauncher extends JFrame {
 
 		// Center text area and scroll
 		JTextArea textCentralArea = new JTextArea();
+		textCentralArea.setEditable(false);
 		JScrollPane scrollPaneForCentralText = new JScrollPane();
 		scrollPaneForCentralText.setBounds(10, 10, 850, 570);
 		scrollPaneForCentralText.setViewportView(textCentralArea);
@@ -118,9 +120,27 @@ public class graphicLauncher extends JFrame {
 		selectIDtextField.setBounds(141, 78, 46, 20);
 		selectIDtextField.setColumns(10);
 
+		// Citizen info panel
+
+		JPanel citizenInfoPanel = new JPanel();
+		citizenInfoPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		citizenInfoPanel.setBounds(1124, 27, 503, 376);
+		citizenInfoPanel.setLayout(null);
+
+		JTextArea actualCitizenInfoText = new JTextArea();
+		actualCitizenInfoText.setBackground(new Color(255, 255, 255));
+		actualCitizenInfoText.setFont(new Font("Consolas", Font.PLAIN, 11));
+		actualCitizenInfoText.setEditable(false);
+		actualCitizenInfoText.setBounds(10, 41, 483, 324);
+		actualCitizenInfoText.setColumns(10);
+		actualCitizenInfoText.setText("\n" + citizenList.getInfoID(actualCitizenID));
+
+		JLabel actualCitizenInfoLabel = new JLabel("Actual citizen info:");
+		actualCitizenInfoLabel.setBounds(10, 16, 158, 14);
+
 		confirmIDbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectCitizenButton(actualCitizenTextArea, selectIDtextField);
+				selectCitizenButton(actualCitizenTextArea, selectIDtextField, actualCitizenInfoText);
 			}
 		});
 		
@@ -179,28 +199,28 @@ public class graphicLauncher extends JFrame {
 		buttonRight.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				moveRightButton(textCentralArea);
+				moveRightButton(textCentralArea,actualCitizenInfoText);
 			}
 		});
 
 		buttonUp.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				moveUpButton(textCentralArea);
+				moveUpButton(textCentralArea,actualCitizenInfoText);
 			}
 		});
 
 		buttonLeft.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				moveLeftButton(textCentralArea);
+				moveLeftButton(textCentralArea,actualCitizenInfoText);
 			}
 		});
 
 		buttonDown.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				moveDownButton(textCentralArea);
+				moveDownButton(textCentralArea,actualCitizenInfoText);
 			}
 		});
 
@@ -217,6 +237,7 @@ public class graphicLauncher extends JFrame {
 		mainContentPane.add(selectCitizensPanel);
 		mainContentPane.add(buttonsPanel);
 		mainContentPane.add(movementButtonsPane);
+		mainContentPane.add(citizenInfoPanel);
 
 		selectCitizensPanel.add(actualCitizenLabel);
 		selectCitizensPanel.add(actualCitizenTextArea);
@@ -232,6 +253,9 @@ public class graphicLauncher extends JFrame {
 		movementButtonsPane.add(buttonLeft);
 		movementButtonsPane.add(buttonUp);
 		movementButtonsPane.add(buttonRight);
+		
+		citizenInfoPanel.add(actualCitizenInfoText);
+		citizenInfoPanel.add(actualCitizenInfoLabel);
 
 	}
 	
@@ -334,32 +358,36 @@ public class graphicLauncher extends JFrame {
 	
 	// Actions buttons
 	
-	public void moveUpButton(JTextArea textArea) {
+	public void moveUpButton(JTextArea textArea, JTextArea citizenInfo) {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenUp(board, toMove);
 		textArea.setText("\n" + board.toString());
 		Highlight(textArea);
+		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 	}
 
-	public void moveDownButton(JTextArea textArea) {
+	public void moveDownButton(JTextArea textArea, JTextArea citizenInfo) {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenDown(board, toMove);
 		textArea.setText("\n" + board.toString());
 		Highlight(textArea);
+		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 	}
 
-	public void moveRightButton(JTextArea textArea) {
+	public void moveRightButton(JTextArea textArea, JTextArea citizenInfo) {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenRight(board, toMove);
 		textArea.setText("\n" + board.toString());
 		Highlight(textArea);
+		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 	}
 
-	public void moveLeftButton(JTextArea textArea) {
+	public void moveLeftButton(JTextArea textArea, JTextArea citizenInfo) {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenLeft(board, toMove);
 		textArea.setText("\n" + board.toString());
 		Highlight(textArea);
+		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 	}
 
 	// Interact button
@@ -379,7 +407,7 @@ public class graphicLauncher extends JFrame {
 	}
 	
 	// Select one citizen button
-	public void selectCitizenButton(JTextField textArea, JTextField selectedID) {
+	public void selectCitizenButton(JTextField textArea, JTextField selectedID, JTextArea citizenInfo) {
 		
 		String selected = selectedID.getText();
 		int selectedIDnumber = Integer.parseInt(selected);
@@ -389,6 +417,7 @@ public class graphicLauncher extends JFrame {
 			this.actualCitizenID = this.actualCitizen.getID();
 			selectedID.setText("");
 			textArea.setText(String.valueOf(actualCitizenID));
+			citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 		}
 	}
 

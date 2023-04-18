@@ -85,6 +85,16 @@ public class CitizenList {
 		return respuesta;
 	}
 	
+	public String getInfoID(int ID) {
+		String info = "";
+		
+		if ((Sujeto)this.searchForCitizen(ID) != null) {
+			Sujeto search = (Sujeto)this.searchForCitizen(ID);
+			info = search.toString();
+		}
+		return info;
+	}
+	
 	public int getCitizenID(Sujeto search) {
 		int ID = 0;
 		for (int i = 0; i < citizenList.consultarCantidad(); i++) {
