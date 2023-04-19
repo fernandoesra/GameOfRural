@@ -17,11 +17,12 @@ import works.Fisherman;
 public class CitizenList {
 	
 	// List
-	public ObjectsList citizenList = new ObjectsList();
+	public ObjectsList citizenList;
 	int IDs;
 	
 	// Constructor
 	public CitizenList() {
+		citizenList = new ObjectsList();
 		IDs = 1;
 	}
 	

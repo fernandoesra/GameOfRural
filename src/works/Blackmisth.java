@@ -3,7 +3,7 @@ package works;
 import base.Man;
 import gameResources.Money;
 import logs.ActionsLog;
-import minerales.MinedGold;
+import minerals.MinedGold;
 
 /*
  * FILL = ((Math.random() * (maxPercent - minPercent)) + minPercent);

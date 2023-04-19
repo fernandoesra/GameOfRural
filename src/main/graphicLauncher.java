@@ -9,6 +9,7 @@ import base.Man;
 import base.ResourcesList;
 import logs.ActionsLog;
 import map.Board;
+import utils.InteractController;
 import utils.MoveController;
 
 import javax.swing.JTextArea;
@@ -468,6 +469,7 @@ public class graphicLauncher extends JFrame {
 
 	// Interact button
 	public void interactButton(JTextArea textArea, JTextArea logTextArea) {
+		InteractController.interactSpecific(board, actualCitizen);
 		logTextArea.setText(log.toString());
 	}
 

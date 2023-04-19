@@ -162,6 +162,30 @@ public class Board {
 		return newY;
 	}
 	
+	public String getNameOfItem(int searchX, int searchY) {
+		String nameOfItem = "";
+		if (!this.validPosition(searchX, searchY)) {
+			nameOfItem = board[searchX][searchY].getClass().getName();
+		}
+		return nameOfItem;
+	}
+	
+	public Object getObjectAt(int searchX, int searchY) {
+		Object searched = null;
+		if (!this.validPosition(searchX, searchY)) {
+			searched = board[searchX][searchY];
+		}
+		return searched;
+	}
+	
+	public boolean eraseObjectAt(int searchX, int searchY) {
+		boolean erased = false;
+		if (!this.validPosition(searchX, searchY)) {
+			board[searchX][searchY] = null;
+		}
+		return erased;
+	}
+	
 	public boolean addSomething(Object obj, int mapX, int mapY) {
 		boolean added = false;
 		if (validPosition(mapX,mapY)) {
@@ -281,6 +305,7 @@ public class Board {
 					// Draw the icons
 					
 					String superClassName = board[i][j].getClass().getSuperclass().getName();
+					
 					if (superClassName.indexOf("Man")>= 0) {
 						text += ((Man)board[i][j]).getIcon()+"|";
 					}

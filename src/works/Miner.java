@@ -2,8 +2,9 @@ package works;
 
 import base.Man;
 import gameResources.Money;
-import minerales.GoldOreMineral;
-import minerales.MinedGold;
+import logs.ActionsLog;
+import minerals.GoldOreMineral;
+import minerals.MinedGold;
 
 public class Miner extends Man {
 
@@ -28,6 +29,9 @@ public class Miner extends Man {
 		int random = (int) ((Math.random() * ((amountOfPureGold * 0.90) - (amountOfPureGold * 0.50)))
 				+ (amountOfPureGold * 0.50));
 		MinedGold groundMineral = new MinedGold(random);
+		ActionsLog.registerAction(this.name +"(" + this.ID + ") has mined a gold ore and has manage to"
+				+ "refine a total of " + random + " gold mined.");
+		this.inventory.addToInventory(groundMineral);
 		return groundMineral;
 	}
 	

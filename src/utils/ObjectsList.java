@@ -83,7 +83,7 @@ public class ObjectsList {
 		}
 	}
 
-	protected void eraseFromIndex(int indice) {
+	public void eraseFromIndex(int indice) {
 		int longitud = lista.length -1;
 		if (indice <= longitud) {
 			for (int i = indice; i < longitud; i++) {
@@ -106,7 +106,7 @@ public class ObjectsList {
 		return respuesta;
 	}
 
-	protected int search(Object busqueda) {
+	public int search(Object busqueda) {
 		int respuesta = -1;
 		for (int i = 0; i < lista.length; i++) {
 			if (lista[i] == busqueda) {

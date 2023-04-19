@@ -1,16 +1,17 @@
 package base;
 
 import map.Board;
-import minerales.GoldOreMineral;
+import minerals.GoldOreMineral;
 import utils.ObjectsList;
 
 public class ResourcesList {
 	
 	// List
-	public ObjectsList resourceList = new ObjectsList();
+	ObjectsList resourceList;
 	
 	// Constructor
 	public ResourcesList() {
+		resourceList = new ObjectsList();
 	}
 	
 	// Methods

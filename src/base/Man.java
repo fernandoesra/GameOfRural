@@ -16,6 +16,7 @@ public class Man implements Comparable, Movimiento{
 	protected int mapY;
 	protected int speed;
 	public String icon;
+	public Inventory inventory;
 	
 	// Constructor
 	public Man() {};
@@ -30,6 +31,7 @@ public class Man implements Comparable, Movimiento{
 		this.mapY = mapY;
 		this.speed = speed;
 		this.icon = icon;
+		this.inventory = new Inventory();
 	}
 	
 	// Get and Set
@@ -98,7 +100,7 @@ public class Man implements Comparable, Movimiento{
 		return name + ", with ID (" + ID + ") have " + HP + " life points.\n" + "Have " + money
 				+ " ruralcoins, Moves " + speed + " square per turn.\n"
 				+ "It is currently at (" + mapX + ").(" + mapY + ")\n"
-				+ "Its icon is: " + icon + "\n";
+				+ "Its icon is: " + icon + "\n" + inventory;
 	};
 	
 	@Override
