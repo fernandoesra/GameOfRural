@@ -11,10 +11,20 @@ public class Farmer extends Man{
 	}
 
 	public Farmer(int ID, int HP, Money money, int mapX, int mapY, int speed) {
-		super(ID, HP, money, mapX, mapY, speed, "F"				
-				// ConsoleColors.GREEN_BOLD+('F')+ConsoleColors.RESET
-				//ConsoleColors.GREEN_BOLD+((char)10624)+ConsoleColors.RESET
-				);
+		super(ID, HP, money, mapX, mapY, speed, "F");
 	}	
 	
+	@Override
+	public String toString() {
+		String toReturn = super.toString();
+		char jobChar[] = this.getClass().getName().toCharArray();
+		String jobName = "";
+		for (int i = 6; i < jobChar.length; i++) {
+			jobName += jobChar[i];
+		}
+		
+		toReturn += "His job is to be a " + jobName;
+		
+		return toReturn;
+	}
 }

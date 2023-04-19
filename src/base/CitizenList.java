@@ -2,7 +2,7 @@ package base;
 
 import gameResources.Money;
 import map.Board;
-import utils.ListaObjetos;
+import utils.ObjectsList;
 import works.Farmer;
 import works.Butcher;
 import works.Carpenter;
@@ -17,18 +17,18 @@ import works.Fisherman;
 public class CitizenList {
 	
 	// List
-	public ListaObjetos citizenList = new ListaObjetos();
+	public ObjectsList citizenList = new ObjectsList();
 	int IDs;
 	
 	// Constructor
 	public CitizenList() {
-		super();
 		IDs = 1;
 	}
 	
-	public int consultarCantidad() {
-		int cantidad = citizenList.consultarCantidad();
-		return cantidad;
+	// Methods
+	public int getLength() {
+		int length = citizenList.getLength();
+		return length;
 	}
 	
 	// Add diferent citizens
@@ -37,7 +37,7 @@ public class CitizenList {
 		int mapX = board.getHeight();
 		int mapY = board.getWidth();
 		
-		for (int i = 0; i < citizenList.consultarCantidad(); i++) {
+		for (int i = 0; i < citizenList.getLength(); i++) {
 			
 			int tryMapX = 0;
 			int tryMapY = 0;
@@ -47,8 +47,8 @@ public class CitizenList {
 				tryMapY = (int)((Math.random() * (mapY - 0)) + 0);
 			} while (board.validPosition(tryMapX, tryMapY) == false);
 			
-			board.addSomething(citizenList.lecturaIndice(i), tryMapX, tryMapY);
-			Man a1 = (Man)citizenList.lecturaIndice(i);
+			board.addSomething(citizenList.getObjectOnIndex(i), tryMapX, tryMapY);
+			Man a1 = (Man)citizenList.getObjectOnIndex(i);
 			a1.setMapX(tryMapX);
 			a1.setMapY(tryMapY);
 
@@ -62,9 +62,9 @@ public class CitizenList {
 	 */
 	public Object searchForCitizen(int ID) {
 		Object find = null;
-		for (int i = 0; i < citizenList.consultarCantidad(); i++) {
+		for (int i = 0; i < citizenList.getLength(); i++) {
 			
-			Man toFind = (Man) citizenList.lecturaIndice(i);
+			Man toFind = (Man) citizenList.getObjectOnIndex(i);
 			
 			if (toFind.ID == ID) {
 				find = toFind;
@@ -77,9 +77,9 @@ public class CitizenList {
 	public String toString() {
 		String respuesta = "";
 		
-		for (int i = 0; i < citizenList.consultarCantidad(); i++) {
+		for (int i = 0; i < citizenList.getLength(); i++) {
 			
-			respuesta += "Citizen "+(i+1)+": "+ citizenList.lecturaIndice(i).toString() + "\n";
+			respuesta += "Citizen "+(i+1)+": "+ citizenList.getObjectOnIndex(i).toString() + "\n\n";
 		}
 		
 		return respuesta;
@@ -97,124 +97,124 @@ public class CitizenList {
 	
 	public int getCitizenID(Man search) {
 		int ID = 0;
-		for (int i = 0; i < citizenList.consultarCantidad(); i++) {
-			if (citizenList.lecturaIndice(i) == search) {
-				Man find = (Man) citizenList.lecturaIndice(i);
+		for (int i = 0; i < citizenList.getLength(); i++) {
+			if (citizenList.getObjectOnIndex(i) == search) {
+				Man find = (Man) citizenList.getObjectOnIndex(i);
 				ID = find.ID;
 			}
 		}
 		return ID;
 	}
 	
-	public void createAll(int cantidad) {
-		this.createAgricultor(cantidad);
-		this.createCarnicero(cantidad);
-		this.createCarpintero(cantidad);
-		this.createHerrero(cantidad);
-		this.createMaderero(cantidad);
-		this.createMinero(cantidad);
-		this.createPanadero(cantidad);
-		this.createPastor(cantidad);
-		this.createPescadero(cantidad);
-		this.createPescador(cantidad);
+	public void createAll(int total) {
+		this.createFarmer(total);
+		this.createButcher(total);
+		this.createCarpenter(total);
+		this.createBlackmisth(total);
+		this.createLumberjack(total);
+		this.createMiner(total);
+		this.createBaker(total);
+		this.createShepherd(total);
+		this.createFishmonger(total);
+		this.createFisherman(total);
 	}
 	
-	public void createAgricultor(int cantidad) {
+	public void createFarmer(int amount) {
 		
-		for (int i = 0; i < cantidad; i++) {
+		for (int i = 0; i < amount; i++) {
 			Money zeroMoney = new Money(0);
 			Farmer newCitizen = new Farmer(IDs,30,zeroMoney,0,0,1);
-			citizenList.addFinal(newCitizen);
+			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
 	}
 	
-	public void createCarnicero(int cantidad) {
+	public void createButcher(int amount) {
 
-		for (int i = 0; i < cantidad; i++) {
+		for (int i = 0; i < amount; i++) {
 			Money zeroMoney = new Money(0);
 			Butcher newCitizen = new Butcher(IDs, 30, zeroMoney, 0, 0, 1);
-			citizenList.addFinal(newCitizen);
+			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
 	}
 	
-	public void createCarpintero(int cantidad) {
+	public void createCarpenter(int amount) {
 
-		for (int i = 0; i < cantidad; i++) {
+		for (int i = 0; i < amount; i++) {
 			Money zeroMoney = new Money(0);
 			Carpenter newCitizen = new Carpenter(IDs, 30, zeroMoney, 0, 0, 1);
-			citizenList.addFinal(newCitizen);
+			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
 	}
 	
-	public void createHerrero(int cantidad) {
+	public void createBlackmisth(int amount) {
 
-		for (int i = 0; i < cantidad; i++) {
+		for (int i = 0; i < amount; i++) {
 			Money zeroMoney = new Money(0);
 			Blackmisth newCitizen = new Blackmisth(IDs, 30, zeroMoney, 0, 0, 1);
-			citizenList.addFinal(newCitizen);
+			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
 	}
 	
-	public void createMaderero(int cantidad) {
+	public void createLumberjack(int amount) {
 
-		for (int i = 0; i < cantidad; i++) {
+		for (int i = 0; i < amount; i++) {
 			Money zeroMoney = new Money(0);
 			Lumberjack newCitizen = new Lumberjack(IDs, 30, zeroMoney, 0, 0, 1);
-			citizenList.addFinal(newCitizen);
+			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
 	}
 	
-	public void createMinero(int cantidad) {
+	public void createMiner(int amount) {
 
-		for (int i = 0; i < cantidad; i++) {
+		for (int i = 0; i < amount; i++) {
 			Money zeroMoney = new Money(0);
 			Miner newCitizen = new Miner(IDs, 30, zeroMoney, 0, 0, 1);
-			citizenList.addFinal(newCitizen);
+			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
 	}
 	
-	public void createPanadero(int cantidad) {
+	public void createBaker(int amount) {
 
-		for (int i = 0; i < cantidad; i++) {
+		for (int i = 0; i < amount; i++) {
 			Money zeroMoney = new Money(0);
 			Baker newCitizen = new Baker(IDs, 30, zeroMoney, 0, 0, 1);
-			citizenList.addFinal(newCitizen);
+			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
 	}
 	
-	public void createPastor(int cantidad) {
+	public void createShepherd(int amount) {
 
-		for (int i = 0; i < cantidad; i++) {
+		for (int i = 0; i < amount; i++) {
 			Money zeroMoney = new Money(0);
 			Shepherd newCitizen = new Shepherd(IDs, 30, zeroMoney, 0, 0, 1);
-			citizenList.addFinal(newCitizen);
+			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
 	}
 	
-	public void createPescadero(int cantidad) {
+	public void createFishmonger(int amount) {
 
-		for (int i = 0; i < cantidad; i++) {
+		for (int i = 0; i < amount; i++) {
 			Money zeroMoney = new Money(0);
 			Fishmonger newCitizen = new Fishmonger(IDs, 30, zeroMoney, 0, 0, 1);
-			citizenList.addFinal(newCitizen);
+			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
 	}
 	
-	public void createPescador(int cantidad) {
+	public void createFisherman(int amount) {
 
-		for (int i = 0; i < cantidad; i++) {
+		for (int i = 0; i < amount; i++) {
 			Money zeroMoney = new Money(0);
 			Fisherman newCitizen = new Fisherman(IDs, 30, zeroMoney, 0, 0, 1);
-			citizenList.addFinal(newCitizen);
+			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
 	}

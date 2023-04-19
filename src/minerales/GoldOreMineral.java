@@ -4,16 +4,13 @@ import base.Resource;
 
 public class GoldOreMineral extends Resource{
 	
-	// Amount of gold from the resource
-	int amount;
-	
-	public GoldOreMineral(String name, String icon) {
-		super("Gold ore", icon);
-		this.amount = (int)((Math.random() * (11 - 1)) + 1);
+	/**
+	 * Create a new ore gold with a random amount between 1 and 10
+	 */
+	public GoldOreMineral() {
+		super("An ore of gold", "NEED ICON" ,0);
+		int random = (int)((Math.random() * (11 - 1)) + 1);
+		this.setAmount(random);
 	}
 	
-	public int getAmount() {
-		return amount;
-	}
-
 }

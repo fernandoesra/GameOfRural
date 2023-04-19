@@ -43,7 +43,7 @@ public class debugLauncher {
 		System.out.println(listaCiudadanos);
 		*/
 		
-		listaCiudadanos.createAgricultor(1);
+		listaCiudadanos.createFarmer(1);
 		listaCiudadanos.addCitizensToMap(board);
 		
 		String eleccion = "";

@@ -530,7 +530,7 @@ public class graphicLauncher extends JFrame {
 		int width = 50;
 		board = new Board(height, width);
 		citizenList = new CitizenList();
-		citizenList.createAgricultor(quantity);
+		citizenList.createFarmer(quantity);
 		citizenList.addCitizensToMap(board);
 	}
 }

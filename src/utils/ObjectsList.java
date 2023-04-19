@@ -3,27 +3,27 @@ package utils;
 
 import java.util.Arrays;
 
-public class ListaObjetos {
+public class ObjectsList {
 	
-	// Atributos
+	// Attributes
 	protected Object lista[];
 
 	// Constructor
-	public ListaObjetos() {
+	public ObjectsList() {
 		lista = new Object[0];
 	}
 
-	// Get y Set
+	// Get and Set
 	public Object[] getLista() {
 		return lista;
 	}
 
-	// Metodos
+	// Methods
 	@Override
 	public String toString() {
 		String respuesta = "";
 		for (int i = 0; i < lista.length; i++) {
-			respuesta += "Objeto "+(i+1)+": "+lista[i].toString() + "\n";
+			respuesta += "Object "+(i+1)+": "+lista[i].toString() + "\n";
 		}
 		return respuesta;
 	}
@@ -31,7 +31,7 @@ public class ListaObjetos {
 	@Override
 	public boolean equals(Object obj) {
 		boolean respuesta = false;
-		ListaObjetos l1 = (ListaObjetos) obj;
+		ObjectsList l1 = (ObjectsList) obj;
 		int aciertos = lista.length;
 		for (int i = 0; i < lista.length && i < l1.lista.length; i++) {
 			if (lista[i].equals(obj)) {
@@ -44,17 +44,17 @@ public class ListaObjetos {
 		return respuesta;
 	}
 
-	public int consultarCantidad() {
+	public int getLength() {
 		int cantidad = lista.length;
 		return cantidad;
 	}
 
-	public void addFinal(Object numero) {
+	public void addEnd(Object numero) {
 		lista = Arrays.copyOf(lista, lista.length + 1);
 		lista[lista.length - 1] = numero;
 	}
 
-	private void addInicio(Object numero) {
+	private void addStart(Object numero) {
 		lista = Arrays.copyOf(lista, lista.length + 1);
 		for (int i = lista.length - 1; i > 0; i--) {
 			lista[i] = lista[i - 1];
@@ -62,18 +62,18 @@ public class ListaObjetos {
 		lista[0] = numero;
 	}
 
-	private void addEnIndice(Object numero, int indice) {
+	private void addOnIndex(Object numero, int index) {
 		int longitud = lista.length - 1;
-		if (indice <= longitud) {
+		if (index <= longitud) {
 			lista = Arrays.copyOf(lista, lista.length + 1);
-			System.arraycopy(lista, indice, lista, indice + 1, lista.length - indice - 1);
-			lista[indice] = numero;
+			System.arraycopy(lista, index, lista, index + 1, lista.length - index - 1);
+			lista[index] = numero;
 		} else {
 			System.out.println("El indice está fuera de rango");
 		}
 	}
 
-	private void fusionListas(ListaObjetos lista2) {
+	private void mergeLists(ObjectsList lista2) {
 		int longitud1 = lista.length;
 		int longitud2 = lista2.lista.length;
 		int longTotal = longitud1 + longitud2;
@@ -83,7 +83,7 @@ public class ListaObjetos {
 		}
 	}
 
-	protected void elimiarIndice(int indice) {
+	protected void eraseFromIndex(int indice) {
 		int longitud = lista.length -1;
 		if (indice <= longitud) {
 			for (int i = indice; i < longitud; i++) {
@@ -95,7 +95,7 @@ public class ListaObjetos {
 		}
 	}
 
-	public Object lecturaIndice(int indice) {
+	public Object getObjectOnIndex(int indice) {
 		Object respuesta = null;
 		int longitud = lista.length - 1;
 		if (indice <= longitud) {
@@ -106,7 +106,7 @@ public class ListaObjetos {
 		return respuesta;
 	}
 
-	protected int buscar(Object busqueda) {
+	protected int search(Object busqueda) {
 		int respuesta = -1;
 		for (int i = 0; i < lista.length; i++) {
 			if (lista[i] == busqueda) {

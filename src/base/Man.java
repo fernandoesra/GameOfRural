@@ -101,15 +101,6 @@ public class Man implements Comparable, Movimiento{
 				+ "Its icon is: " + icon + "\n";
 	};
 	
-	@Deprecated
-	// Spanish toString
-	private String getInfo() {
-		return name + ", con ID (" + ID + ") tiene actualmente " + HP + " puntos de vida.\n" + "Tiene " + money
-				+ " turbo dolares, se mueve a una velocidad de " + speed + " casillas por segundo.\n"
-				+ "Actualmente se encuentra en la posicion (" + mapX + ").(" + mapY + ") del escenario. \n"
-				+ "Su icono en el mapa es: " + icon;
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		boolean equals = false;
@@ -138,6 +129,10 @@ public class Man implements Comparable, Movimiento{
 		comparable = this.ID - other.ID;
 		return comparable;
 		
+	}
+	
+	public void addMoney(Money newMoney) {
+		this.money.setQuantity(this.money.getQuantity() + newMoney.getQuantity());
 	}
 	
 	public void update(int newX, int newY) {

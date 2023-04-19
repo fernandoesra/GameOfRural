@@ -1,5 +1,6 @@
 Possible icons:
 Fish: ConsoleColors.CYAN_BOLD+((char)8670)+ConsoleColors.RESET
+Farmer: ConsoleColors.GREEN_BOLD+((char)10624)+ConsoleColors.RESET
 
 Round to two decimals 00.00
 endMoney = (Math.floor(money*100.0d) / 100.0d)
@@ -13,10 +14,10 @@ ICONS:
  I - Carpintero   - Carpenter
  H - Herrero      - Blacksmith
  L - Maderero     - Lumberjack
-  M - Minero       - Miner
+ M - Minero       - Miner
  B - Panadero     - Baker
-  S - Pastor       - Shepherd
-  G - Pescadero    - Fishmonger
+ S - Pastor       - Shepherd
+ G - Pescadero    - Fishmonger
  J - Pescador     - Fisherman
 
 ACTIONS:

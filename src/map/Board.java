@@ -20,6 +20,11 @@ public class Board {
 		AleatoricName newName = new AleatoricName();
 		this.name = newName.toString();
 		newName = null;
+		/*
+		 * If you want to customize the town name uncomment the following line and write
+		 * here the name of your town
+		 */
+		// this.name = "San Vicente de Alcántara";
 		board = new Object[28][50];
 		this.height = board.length;
 		this.width = board[0].length;
@@ -34,6 +39,11 @@ public class Board {
 		AleatoricName newName = new AleatoricName();
 		this.name = newName.toString();
 		newName = null;
+		/*
+		 * If you want to customize the town name uncomment the following line and write
+		 * here the name of your town
+		 */
+		// this.name = "San Vicente de Alcántara";
 		board = new Object[height][width];
 		this.height = height;
 		this.width = width;

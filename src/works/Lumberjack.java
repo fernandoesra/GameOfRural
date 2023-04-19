@@ -17,14 +17,25 @@ public class Lumberjack extends Man{
 	}
 	
 	public Object cutTree(Tree tree) {
-		
 		int amount = tree.getAmount();
-		
-		Wood woodPlanks = new Wood(icon, icon);
+		Wood woodPlanks = new Wood(icon, icon, 0);
 		woodPlanks.setAmount(amount/2);
-		
 		return woodPlanks;
 		
+	}
+	
+	@Override
+	public String toString() {
+		String toReturn = super.toString();
+		char jobChar[] = this.getClass().getName().toCharArray();
+		String jobName = "";
+		for (int i = 6; i < jobChar.length; i++) {
+			jobName += jobChar[i];
+		}
+		
+		toReturn += "His job is to be a " + jobName;
+		
+		return toReturn;
 	}
 
 }
