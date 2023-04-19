@@ -27,6 +27,20 @@ import javax.swing.text.DefaultHighlighter;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
 
+/**
+ * The graphicLauncher its the main class of the project.
+ * Here we create the graphic interface and create the
+ * interaction for the buttons.
+ * Also here we instance the attributes like the board or
+ * the list of citizens and register the action log.
+ * 
+ * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @see map.Board
+ * @see base.CitizenList
+ * @see logs.ActionsLog
+ * 
+ */
+
 public class graphicLauncher extends JFrame {
 
 	/**
@@ -43,12 +57,14 @@ public class graphicLauncher extends JFrame {
 	ActionsLog log;
 	
 	private JPanel mainContentPane;
-
+	
 	// Main
 	public static void main(String[] args) {
 		// Methods to launch before the interface
 
-		// JFrame method
+		/**
+		 * Create the interface
+		 */
 		EventQueue.invokeLater(new Runnable() {
 
 			public void run() {
@@ -65,7 +81,9 @@ public class graphicLauncher extends JFrame {
 
 	}
 
-	// Graphic constructor
+	/**
+	 * Empty constructor, launch from the main.
+	 */
 	public graphicLauncher() {
 
 		// Initialize and fill the map
@@ -74,7 +92,10 @@ public class graphicLauncher extends JFrame {
 		
 		// Initialize the action log
 		log = new ActionsLog();
-
+		
+		/*
+		 * From here we create all the graphic objetcs of Java Swing
+		 */
 		// JFrame Container
 		setTitle("Game of Rural");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -291,11 +312,12 @@ public class graphicLauncher extends JFrame {
 
 	}
 	
-	// Highlight action
-	
-	public void highlightMap(JTextArea txtDisplay) {
+	/**
+	 * 
+	 * @param txtDisplay JTextArea where we want to change the color of the citizens
+	 */
+	public void highlightCitizensMainMap(JTextArea txtDisplay) {
 		try {
-			String text = txtDisplay.getText();
 			Highlighter high = txtDisplay.getHighlighter();
 			high.removeAllHighlights();
 			
@@ -330,14 +352,16 @@ public class graphicLauncher extends JFrame {
 			final Color LIGHT_BLUE = new Color(51,153,255);
 			HighlightPainter light_blue = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_BLUE);
 			
-			// Paint all map
+			// Paint all map (For test and range)
 			// high.addHighlight(158, 3014, DefaultHighlighter.DefaultPainter);
 			
-			// The map start at index 140
-			char mapText[] = board.toString().toCharArray();
+			// The map start at index 140 aprox, its depend on the length of the town name
+			// high.addHighlight(coordinateX, coordinateX+total_range, color);
 			
-			for (int i = 140; i < mapText.length; i++) {
-				switch (mapText[i]) {
+			char mapOnText[] = board.toString().toCharArray();
+			
+			for (int i = 140; i < mapOnText.length; i++) {
+				switch (mapOnText[i]) {
 				case 'A':
 					// Agricultor
 					high.addHighlight(i+1, i+2, light_green);
@@ -380,45 +404,58 @@ public class graphicLauncher extends JFrame {
 					break;
 				}
 			}
-			
-			// high.addHighlight(1, 2, orange);
-			
 		} catch (Exception ex) {
 			System.err.println("Error "+ex.getMessage());
 		}
 	}
 	
-	// Actions buttons
-	
+	// Actions of the buttons
+	/**
+	 * If its possible move the selected citizen up
+	 * @param textArea JTextArea where draw the map
+	 * @param citizenInfo JTextArea where write the actual citizen info
+	 */
 	public void moveUpButton(JTextArea textArea, JTextArea citizenInfo) {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenUp(board, toMove);
 		textArea.setText("\n" + board.toString());
-		highlightMap(textArea);
+		highlightCitizensMainMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 	}
-
+	/**
+	 * If its possible move the selected citizen down
+	 * @param textArea JTextArea where draw the map
+	 * @param citizenInfo JTextArea where write the actual citizen info
+	 */
 	public void moveDownButton(JTextArea textArea, JTextArea citizenInfo) {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenDown(board, toMove);
 		textArea.setText("\n" + board.toString());
-		highlightMap(textArea);
+		highlightCitizensMainMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 	}
-
+	/**
+	 * If its possible move the selected citizen to the right
+	 * @param textArea JTextArea where draw the map
+	 * @param citizenInfo JTextArea where write the actual citizen info
+	 */
 	public void moveRightButton(JTextArea textArea, JTextArea citizenInfo) {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenRight(board, toMove);
 		textArea.setText("\n" + board.toString());
-		highlightMap(textArea);
+		highlightCitizensMainMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 	}
-
+	/**
+	 * If its possible move the selected citizen to the left
+	 * @param textArea JTextArea where draw the map
+	 * @param citizenInfo JTextArea where write the actual citizen info
+	 */
 	public void moveLeftButton(JTextArea textArea, JTextArea citizenInfo) {
 		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenLeft(board, toMove);
 		textArea.setText("\n" + board.toString());
-		highlightMap(textArea);
+		highlightCitizensMainMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 	}
 
@@ -428,17 +465,33 @@ public class graphicLauncher extends JFrame {
 	}
 
 	// Show map button
+	/**
+	 * Change the text of the param textArea for the board.toString
+	 * @param textArea JTextArea to draw the map
+	 */
 	public void showMapButton(JTextArea textArea) {
 		textArea.setText("\n" + board.toString());
-		highlightMap(textArea);
+		highlightCitizensMainMap(textArea);
 	}
 	
 	// Show all citizens button
+	/**
+	 * Change the text of the param textArea for the citizenList.toString
+	 * @param textArea JTextArea to write all the info about the citizens
+	 */
 	public void showAllCitizensButton(JTextArea textArea) {
 		textArea.setText(citizenList.toString());
 	}
 	
 	// Select one citizen button
+	/**
+	 * Change the actual citizen to move or interact
+	 * 
+	 * @param textArea    Show the ID number of the actual citizen
+	 * @param selectedID  The JTetField where the user write a ID and try to change
+	 *                    the actual citizen to that citizen
+	 * @param citizenInfo JTextArea to write refresh the info of the actual citizen
+	 */
 	public void selectCitizenButton(JTextField textArea, JTextField selectedID, JTextArea citizenInfo) {
 		
 		String selected = selectedID.getText();
@@ -453,22 +506,29 @@ public class graphicLauncher extends JFrame {
 		}
 	}
 
-	// Initialize variables
+	/**
+	 * This method initialize the map with a length of 28x50 and create one citizen
+	 * of each job on the citizenList. Then add the citizens to the map.
+	 */
 	public void initialize() {
 		int height = 28;
 		int width = 50;
 		board = new Board(height, width);
 		citizenList = new CitizenList();
-		citizenList.createAll(2);
+		citizenList.createAll(1);
 		citizenList.addCitizensToMap(board);
 	}
-	// Initialize variables with just 1 Sujeto (for test)
-	public void initialize(int cantidad) {
+
+	/**
+	 * Test method to initialize the map with just X citizens of just one job type.
+	 * @param quantity The amount of citizens to create and add to the map.
+	 */
+	public void initialize(int quantity) {
 		int height = 28;
 		int width = 50;
 		board = new Board(height, width);
 		citizenList = new CitizenList();
-		citizenList.createAgricultor(cantidad);
+		citizenList.createAgricultor(quantity);
 		citizenList.addCitizensToMap(board);
 	}
 }
