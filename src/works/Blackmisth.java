@@ -1,21 +1,21 @@
-package personas;
+package works;
 
 import base.Man;
+import gameResources.Money;
 import logs.ActionsLog;
 import minerales.GoldOreMineral;
-import recursos.Money;
 
 /*
  * FILL = ((Math.random() * (maxPercent - minPercent)) + minPercent);
  */
 
-public class Herrero extends Man{
+public class Blackmisth extends Man{
 	
-	public Herrero() {
+	public Blackmisth() {
 		super();
 	}
 
-	public Herrero(int ID, int HP, Money money, int mapX, int mapY, int speed) {
+	public Blackmisth(int ID, int HP, Money money, int mapX, int mapY, int speed) {
 		super(ID, HP, money, mapX, mapY, speed, "H"
 				);
 	}

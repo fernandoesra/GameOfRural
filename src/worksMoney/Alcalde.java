@@ -1,4 +1,4 @@
-package personas;
+package worksMoney;
 
 import base.Man;
 

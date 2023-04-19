@@ -313,6 +313,8 @@ public class graphicLauncher extends JFrame {
 	}
 	
 	/**
+	 * This method search on the text on the JTextArea of the map for the characters
+	 * of the different jobs and then highlight every character on a different color
 	 * 
 	 * @param txtDisplay JTextArea where we want to change the color of the citizens
 	 */
@@ -355,51 +357,51 @@ public class graphicLauncher extends JFrame {
 			// Paint all map (For test and range)
 			// high.addHighlight(158, 3014, DefaultHighlighter.DefaultPainter);
 			
-			// The map start at index 140 aprox, its depend on the length of the town name
+			// The map start at index 135-150 aprox, its depend on the length of the town name
 			// high.addHighlight(coordinateX, coordinateX+total_range, color);
 			
 			char mapOnText[] = board.toString().toCharArray();
 			
-			for (int i = 140; i < mapOnText.length; i++) {
+			for (int i = 135; i < mapOnText.length; i++) {
 				switch (mapOnText[i]) {
-				case 'A':
-					// Agricultor
+				case 'F':
+					// Farmer
 					high.addHighlight(i+1, i+2, light_green);
 					break;
-				case 'C':
-					// Carnicero
+				case 'K':
+					// Butcher
 					high.addHighlight(i+1, i+2, light_red);
 					break;
 				case 'I':
-					// Carpintero
+					// Carpenter
 					high.addHighlight(i+1, i+2, light_yellow);
 					break;
 				case 'H':
-					// Herrero
+					// Blackmisth
 					high.addHighlight(i+1, i+2, light_grey);
 					break;
-				case 'M':
-					// Maderero
+				case 'L':
+					// Lumberjack
 					high.addHighlight(i+1, i+2, light_brown);
 					break;
-				case 'R':
-					// Minero
+				case 'M':
+					// Miner
 					high.addHighlight(i+1, i+2, light_black);
 					break;
 				case 'B':
-					// Panadero
+					// Baker
 					high.addHighlight(i+1, i+2, purple);
 					break;
-				case 'O':
-					// Pastor
+				case 'S':
+					// Shepherd
 					high.addHighlight(i+1, i+2, light_orange);
 					break;
-				case 'S':
-					// Pescadero
+				case 'G':
+					// Fishmonger
 					high.addHighlight(i+1, i+2, light_blue);
 					break;
 				case 'J':
-					// Pescador
+					// Fisherman
 					high.addHighlight(i+1, i+2, very_light_blue);
 					break;
 				}

@@ -1,4 +1,4 @@
-package recursos;
+package gameResources;
 
 public class Money {
 	

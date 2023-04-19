@@ -1,18 +1,18 @@
 package base;
 
+import gameResources.Money;
 import map.Board;
-import personas.Agricultor;
-import personas.Carnicero;
-import personas.Carpintero;
-import personas.Herrero;
-import personas.Maderero;
-import personas.Minero;
-import personas.Panadero;
-import personas.Pastor;
-import personas.Pescadero;
-import personas.Pescador;
-import recursos.Money;
 import utils.ListaObjetos;
+import works.Farmer;
+import works.Butcher;
+import works.Carpenter;
+import works.Blackmisth;
+import works.Lumberjack;
+import works.Miner;
+import works.Baker;
+import works.Shepherd;
+import works.Fishmonger;
+import works.Fisherman;
 
 public class CitizenList {
 	
@@ -123,7 +123,7 @@ public class CitizenList {
 		
 		for (int i = 0; i < cantidad; i++) {
 			Money zeroMoney = new Money(0);
-			Agricultor newCitizen = new Agricultor(IDs,30,zeroMoney,0,0,1);
+			Farmer newCitizen = new Farmer(IDs,30,zeroMoney,0,0,1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
 		}
@@ -133,7 +133,7 @@ public class CitizenList {
 
 		for (int i = 0; i < cantidad; i++) {
 			Money zeroMoney = new Money(0);
-			Carnicero newCitizen = new Carnicero(IDs, 30, zeroMoney, 0, 0, 1);
+			Butcher newCitizen = new Butcher(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
 		}
@@ -143,7 +143,7 @@ public class CitizenList {
 
 		for (int i = 0; i < cantidad; i++) {
 			Money zeroMoney = new Money(0);
-			Carpintero newCitizen = new Carpintero(IDs, 30, zeroMoney, 0, 0, 1);
+			Carpenter newCitizen = new Carpenter(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
 		}
@@ -153,7 +153,7 @@ public class CitizenList {
 
 		for (int i = 0; i < cantidad; i++) {
 			Money zeroMoney = new Money(0);
-			Herrero newCitizen = new Herrero(IDs, 30, zeroMoney, 0, 0, 1);
+			Blackmisth newCitizen = new Blackmisth(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
 		}
@@ -163,7 +163,7 @@ public class CitizenList {
 
 		for (int i = 0; i < cantidad; i++) {
 			Money zeroMoney = new Money(0);
-			Maderero newCitizen = new Maderero(IDs, 30, zeroMoney, 0, 0, 1);
+			Lumberjack newCitizen = new Lumberjack(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
 		}
@@ -173,7 +173,7 @@ public class CitizenList {
 
 		for (int i = 0; i < cantidad; i++) {
 			Money zeroMoney = new Money(0);
-			Minero newCitizen = new Minero(IDs, 30, zeroMoney, 0, 0, 1);
+			Miner newCitizen = new Miner(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
 		}
@@ -183,7 +183,7 @@ public class CitizenList {
 
 		for (int i = 0; i < cantidad; i++) {
 			Money zeroMoney = new Money(0);
-			Panadero newCitizen = new Panadero(IDs, 30, zeroMoney, 0, 0, 1);
+			Baker newCitizen = new Baker(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
 		}
@@ -193,7 +193,7 @@ public class CitizenList {
 
 		for (int i = 0; i < cantidad; i++) {
 			Money zeroMoney = new Money(0);
-			Pastor newCitizen = new Pastor(IDs, 30, zeroMoney, 0, 0, 1);
+			Shepherd newCitizen = new Shepherd(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
 		}
@@ -203,7 +203,7 @@ public class CitizenList {
 
 		for (int i = 0; i < cantidad; i++) {
 			Money zeroMoney = new Money(0);
-			Pescadero newCitizen = new Pescadero(IDs, 30, zeroMoney, 0, 0, 1);
+			Fishmonger newCitizen = new Fishmonger(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
 		}
@@ -213,7 +213,7 @@ public class CitizenList {
 
 		for (int i = 0; i < cantidad; i++) {
 			Money zeroMoney = new Money(0);
-			Pescador newCitizen = new Pescador(IDs, 30, zeroMoney, 0, 0, 1);
+			Fisherman newCitizen = new Fisherman(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
 		}

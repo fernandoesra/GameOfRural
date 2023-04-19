@@ -1,7 +1,7 @@
 package base;
 
+import gameResources.Money;
 import map.Board;
-import recursos.Money;
 import utils.AleatoricName;
 import utils.Movimiento;
 
