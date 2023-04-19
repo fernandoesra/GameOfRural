@@ -1,18 +1,18 @@
 package utils;
 
 import base.CitizenList;
-import base.Sujeto;
+import base.Man;
 import logs.ActionsLog;
 import map.Board;
 
 public class MoveController {
 	
-	public static void movementLog(Sujeto citizen) {
+	public static void movementLog(Man citizen) {
 		ActionsLog.registerAction(citizen.getName() + "(" + citizen.getID() + ") has beem moved to "
 	+ citizen.getMapX() + "." + citizen.getMapY());
 	}
 	
-	public static void moveOneCitizenUp(Board board, Sujeto citizen) {
+	public static void moveOneCitizenUp(Board board, Man citizen) {
 		if (citizen.up(board)) {
 			board.moveSomethingUp(citizen);
 			int newX = board.searchXobject(citizen);
@@ -25,7 +25,7 @@ public class MoveController {
 		}
 	}
 
-	public static void moveOneCitizenDown(Board board, Sujeto citizen) {
+	public static void moveOneCitizenDown(Board board, Man citizen) {
 		if (citizen.down(board)) {
 			board.moveSomethingDown(citizen);
 			int newX = board.searchXobject(citizen);
@@ -38,7 +38,7 @@ public class MoveController {
 		}
 	}
 
-	public static void moveOneCitizenRight(Board board, Sujeto citizen) {
+	public static void moveOneCitizenRight(Board board, Man citizen) {
 		if (citizen.right(board)) {
 			board.moveSomethingRight(citizen);
 			int newX = board.searchXobject(citizen);
@@ -51,7 +51,7 @@ public class MoveController {
 		}
 	}
 
-	public static void moveOneCitizenLeft(Board board, Sujeto citizen) {
+	public static void moveOneCitizenLeft(Board board, Man citizen) {
 		if (citizen.left(board)) {
 			board.moveSomethingLeft(citizen);
 			int newX = board.searchXobject(citizen);
@@ -69,7 +69,7 @@ public class MoveController {
 		int citizensTotal = citizens.citizenList.consultarCantidad();
 		
 		for (int i = 0; i < citizensTotal; i++) {
-			Sujeto actual = (Sujeto) citizens.citizenList.lecturaIndice(i);
+			Man actual = (Man) citizens.citizenList.lecturaIndice(i);
 			
 			int direction = (int)((Math.random() * (5 - 1)) + 1);
 			

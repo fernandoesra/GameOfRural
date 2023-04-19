@@ -1,15 +1,15 @@
 package personas;
 
-import base.Sujeto;
-import recursos.Moneda;
+import base.Man;
+import recursos.Money;
 
-public class Carnicero extends Sujeto{
+public class Carnicero extends Man{
 	
 	public Carnicero() {
 		super();
 	}
 
-	public Carnicero(int ID, int HP, Moneda money, int mapX, int mapY, int speed) {
+	public Carnicero(int ID, int HP, Money money, int mapX, int mapY, int speed) {
 		super(ID, HP, money, mapX, mapY, speed, "C"
 				);
 	}

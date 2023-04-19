@@ -1,14 +1,14 @@
 package minerales;
 
-import base.Recurso;
+import base.Resource;
 
-public class Gold extends Recurso{
+public class GoldOreMineral extends Resource{
 	
 	// Amount of gold from the resource
 	int amount;
 	
-	public Gold(String name, String icon) {
-		super("Mena de oro", icon);
+	public GoldOreMineral(String name, String icon) {
+		super("Gold ore", icon);
 		this.amount = (int)((Math.random() * (11 - 1)) + 1);
 	}
 	

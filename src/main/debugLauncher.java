@@ -3,7 +3,7 @@ package main;
 import java.util.Scanner;
 
 import base.CitizenList;
-import base.Sujeto;
+import base.Man;
 import map.Board;
 import utils.MoveController;
 
@@ -51,7 +51,7 @@ public class debugLauncher {
 		do {
 			System.out.println(board);
 			System.out.println("Moverte con W, A, S, D");
-			Sujeto toMove = (Sujeto) listaCiudadanos.searchForCitizen(1);
+			Man toMove = (Man) listaCiudadanos.searchForCitizen(1);
 			eleccion = sc1.next();
 
 			switch (eleccion) {

@@ -1,13 +1,13 @@
 package base;
 
-public class Recurso {
+public class Resource {
 	
 	// Attributes
 	String name;
 	String icon;
 
 	// Constructor
-	public Recurso(String name, String icon) {
+	public Resource(String name, String icon) {
 		icon = "";
 	}
 

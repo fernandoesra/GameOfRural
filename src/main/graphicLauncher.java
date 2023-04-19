@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import base.CitizenList;
-import base.Sujeto;
+import base.Man;
 import logs.ActionsLog;
 import map.Board;
 import utils.MoveController;
@@ -53,7 +53,7 @@ public class graphicLauncher extends JFrame {
 	Board board;
 	CitizenList citizenList;
 	int actualCitizenID;
-	Sujeto actualCitizen;
+	Man actualCitizen;
 	ActionsLog log;
 	
 	private JPanel mainContentPane;
@@ -416,7 +416,7 @@ public class graphicLauncher extends JFrame {
 	 * @param citizenInfo JTextArea where write the actual citizen info
 	 */
 	public void moveUpButton(JTextArea textArea, JTextArea citizenInfo) {
-		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
+		Man toMove = (Man) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenUp(board, toMove);
 		textArea.setText("\n" + board.toString());
 		highlightCitizensMainMap(textArea);
@@ -428,7 +428,7 @@ public class graphicLauncher extends JFrame {
 	 * @param citizenInfo JTextArea where write the actual citizen info
 	 */
 	public void moveDownButton(JTextArea textArea, JTextArea citizenInfo) {
-		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
+		Man toMove = (Man) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenDown(board, toMove);
 		textArea.setText("\n" + board.toString());
 		highlightCitizensMainMap(textArea);
@@ -440,7 +440,7 @@ public class graphicLauncher extends JFrame {
 	 * @param citizenInfo JTextArea where write the actual citizen info
 	 */
 	public void moveRightButton(JTextArea textArea, JTextArea citizenInfo) {
-		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
+		Man toMove = (Man) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenRight(board, toMove);
 		textArea.setText("\n" + board.toString());
 		highlightCitizensMainMap(textArea);
@@ -452,7 +452,7 @@ public class graphicLauncher extends JFrame {
 	 * @param citizenInfo JTextArea where write the actual citizen info
 	 */
 	public void moveLeftButton(JTextArea textArea, JTextArea citizenInfo) {
-		Sujeto toMove = (Sujeto) citizenList.searchForCitizen(actualCitizenID);
+		Man toMove = (Man) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenLeft(board, toMove);
 		textArea.setText("\n" + board.toString());
 		highlightCitizensMainMap(textArea);
@@ -498,7 +498,7 @@ public class graphicLauncher extends JFrame {
 		int selectedIDnumber = Integer.parseInt(selected);
 		
 		if (citizenList.searchForCitizen(selectedIDnumber) != null ) {
-			this.actualCitizen = (Sujeto) citizenList.searchForCitizen(selectedIDnumber);
+			this.actualCitizen = (Man) citizenList.searchForCitizen(selectedIDnumber);
 			this.actualCitizenID = this.actualCitizen.getID();
 			selectedID.setText("");
 			textArea.setText(String.valueOf(actualCitizenID));

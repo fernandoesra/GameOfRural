@@ -1,26 +1,26 @@
 package base;
 
 import map.Board;
-import recursos.Moneda;
+import recursos.Money;
 import utils.AleatoricName;
 import utils.Movimiento;
 
-public class Sujeto implements Comparable, Movimiento{
+public class Man implements Comparable, Movimiento{
 	
 	// Attributes
 	protected String name;
 	protected int ID;
 	protected int HP;
-	protected Moneda money;
+	protected Money money;
 	protected int mapX;
 	protected int mapY;
 	protected int speed;
 	public String icon;
 	
 	// Constructor
-	public Sujeto() {};
+	public Man() {};
 	
-	public Sujeto(int ID, int HP, Moneda money, int mapX, int mapY, int speed, String icon) {
+	public Man(int ID, int HP, Money money, int mapX, int mapY, int speed, String icon) {
 		AleatoricName newName = new AleatoricName(3,20);
 		this.name = newName.toString();
 		this.ID = ID;
@@ -53,11 +53,11 @@ public class Sujeto implements Comparable, Movimiento{
 		HP = hP;
 	}
 
-	public Moneda getMoney() {
+	public Money getMoney() {
 		return money;
 	}
 
-	public void setMoney(Moneda money) {
+	public void setMoney(Money money) {
 		this.money = money;
 	}
 
@@ -113,7 +113,7 @@ public class Sujeto implements Comparable, Movimiento{
 	@Override
 	public boolean equals(Object obj) {
 		boolean equals = false;
-		Sujeto other = (Sujeto) obj;
+		Man other = (Man) obj;
 		if(
 			other.ID == this.ID &&
 			other.HP == this.HP &&
@@ -134,7 +134,7 @@ public class Sujeto implements Comparable, Movimiento{
 	public int compareTo(Object obj) {
 		
 		int comparable = 0;
-		Sujeto other = (Sujeto) obj;
+		Man other = (Man) obj;
 		comparable = this.ID - other.ID;
 		return comparable;
 		

@@ -1,7 +1,7 @@
 package personas;
 
-import base.Sujeto;
+import base.Man;
 
-public class Alguacil extends Sujeto{
+public class Alguacil extends Man{
 
 }

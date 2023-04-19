@@ -1,15 +1,15 @@
 package personas;
 
-import base.Sujeto;
-import recursos.Moneda;
+import base.Man;
+import recursos.Money;
 
-public class Minero extends Sujeto{
+public class Minero extends Man{
 	
 	public Minero() {
 		super();
 	}
 
-	public Minero(int ID, int HP, Moneda money, int mapX, int mapY, int speed) {
+	public Minero(int ID, int HP, Money money, int mapX, int mapY, int speed) {
 		super(ID, HP, money, mapX, mapY, speed, "R"
 				);
 	}

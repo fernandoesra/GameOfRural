@@ -11,7 +11,7 @@ import personas.Panadero;
 import personas.Pastor;
 import personas.Pescadero;
 import personas.Pescador;
-import recursos.Moneda;
+import recursos.Money;
 import utils.ListaObjetos;
 
 public class CitizenList {
@@ -48,7 +48,7 @@ public class CitizenList {
 			} while (board.validPosition(tryMapX, tryMapY) == false);
 			
 			board.addSomething(citizenList.lecturaIndice(i), tryMapX, tryMapY);
-			Sujeto a1 = (Sujeto)citizenList.lecturaIndice(i);
+			Man a1 = (Man)citizenList.lecturaIndice(i);
 			a1.setMapX(tryMapX);
 			a1.setMapY(tryMapY);
 
@@ -64,7 +64,7 @@ public class CitizenList {
 		Object find = null;
 		for (int i = 0; i < citizenList.consultarCantidad(); i++) {
 			
-			Sujeto toFind = (Sujeto) citizenList.lecturaIndice(i);
+			Man toFind = (Man) citizenList.lecturaIndice(i);
 			
 			if (toFind.ID == ID) {
 				find = toFind;
@@ -88,18 +88,18 @@ public class CitizenList {
 	public String getInfoID(int ID) {
 		String info = "";
 		
-		if ((Sujeto)this.searchForCitizen(ID) != null) {
-			Sujeto search = (Sujeto)this.searchForCitizen(ID);
+		if ((Man)this.searchForCitizen(ID) != null) {
+			Man search = (Man)this.searchForCitizen(ID);
 			info = search.toString();
 		}
 		return info;
 	}
 	
-	public int getCitizenID(Sujeto search) {
+	public int getCitizenID(Man search) {
 		int ID = 0;
 		for (int i = 0; i < citizenList.consultarCantidad(); i++) {
 			if (citizenList.lecturaIndice(i) == search) {
-				Sujeto find = (Sujeto) citizenList.lecturaIndice(i);
+				Man find = (Man) citizenList.lecturaIndice(i);
 				ID = find.ID;
 			}
 		}
@@ -122,7 +122,7 @@ public class CitizenList {
 	public void createAgricultor(int cantidad) {
 		
 		for (int i = 0; i < cantidad; i++) {
-			Moneda zeroMoney = new Moneda(0);
+			Money zeroMoney = new Money(0);
 			Agricultor newCitizen = new Agricultor(IDs,30,zeroMoney,0,0,1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
@@ -132,7 +132,7 @@ public class CitizenList {
 	public void createCarnicero(int cantidad) {
 
 		for (int i = 0; i < cantidad; i++) {
-			Moneda zeroMoney = new Moneda(0);
+			Money zeroMoney = new Money(0);
 			Carnicero newCitizen = new Carnicero(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
@@ -142,7 +142,7 @@ public class CitizenList {
 	public void createCarpintero(int cantidad) {
 
 		for (int i = 0; i < cantidad; i++) {
-			Moneda zeroMoney = new Moneda(0);
+			Money zeroMoney = new Money(0);
 			Carpintero newCitizen = new Carpintero(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
@@ -152,7 +152,7 @@ public class CitizenList {
 	public void createHerrero(int cantidad) {
 
 		for (int i = 0; i < cantidad; i++) {
-			Moneda zeroMoney = new Moneda(0);
+			Money zeroMoney = new Money(0);
 			Herrero newCitizen = new Herrero(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
@@ -162,7 +162,7 @@ public class CitizenList {
 	public void createMaderero(int cantidad) {
 
 		for (int i = 0; i < cantidad; i++) {
-			Moneda zeroMoney = new Moneda(0);
+			Money zeroMoney = new Money(0);
 			Maderero newCitizen = new Maderero(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
@@ -172,7 +172,7 @@ public class CitizenList {
 	public void createMinero(int cantidad) {
 
 		for (int i = 0; i < cantidad; i++) {
-			Moneda zeroMoney = new Moneda(0);
+			Money zeroMoney = new Money(0);
 			Minero newCitizen = new Minero(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
@@ -182,7 +182,7 @@ public class CitizenList {
 	public void createPanadero(int cantidad) {
 
 		for (int i = 0; i < cantidad; i++) {
-			Moneda zeroMoney = new Moneda(0);
+			Money zeroMoney = new Money(0);
 			Panadero newCitizen = new Panadero(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
@@ -192,7 +192,7 @@ public class CitizenList {
 	public void createPastor(int cantidad) {
 
 		for (int i = 0; i < cantidad; i++) {
-			Moneda zeroMoney = new Moneda(0);
+			Money zeroMoney = new Money(0);
 			Pastor newCitizen = new Pastor(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
@@ -202,7 +202,7 @@ public class CitizenList {
 	public void createPescadero(int cantidad) {
 
 		for (int i = 0; i < cantidad; i++) {
-			Moneda zeroMoney = new Moneda(0);
+			Money zeroMoney = new Money(0);
 			Pescadero newCitizen = new Pescadero(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;
@@ -212,7 +212,7 @@ public class CitizenList {
 	public void createPescador(int cantidad) {
 
 		for (int i = 0; i < cantidad; i++) {
-			Moneda zeroMoney = new Moneda(0);
+			Money zeroMoney = new Money(0);
 			Pescador newCitizen = new Pescador(IDs, 30, zeroMoney, 0, 0, 1);
 			citizenList.addFinal(newCitizen);
 			IDs++;

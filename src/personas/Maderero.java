@@ -1,26 +1,26 @@
 package personas;
 
-import base.Sujeto;
-import recursos.Arbol;
-import recursos.Madera;
-import recursos.Moneda;
+import base.Man;
+import recursos.Tree;
+import recursos.Wood;
+import recursos.Money;
 
-public class Maderero extends Sujeto{
+public class Maderero extends Man{
 	
 	public Maderero() {
 		super();
 	}
 
-	public Maderero(int ID, int HP, Moneda money, int mapX, int mapY, int speed) {
+	public Maderero(int ID, int HP, Money money, int mapX, int mapY, int speed) {
 		super(ID, HP, money, mapX, mapY, speed, "M"
 				);
 	}
 	
-	public Object talar(Arbol tree) {
+	public Object talar(Tree tree) {
 		
-		int cantidad = tree.getCantidad();
+		int cantidad = tree.getAmount();
 		
-		Madera resultado = new Madera(icon, icon);
+		Wood resultado = new Wood(icon, icon);
 		resultado.setCantidad(cantidad/2);
 		
 		return resultado;

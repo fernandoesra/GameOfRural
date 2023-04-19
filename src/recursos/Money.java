@@ -1,15 +1,15 @@
 package recursos;
 
-public class Moneda {
+public class Money {
 	
 	// Attributes
 	double quantity;
 	
 	// Constructor
-	public Moneda() {
+	public Money() {
 	};
 
-	public Moneda(double total) {
+	public Money(double total) {
 		this.quantity = total;
 	}
 	

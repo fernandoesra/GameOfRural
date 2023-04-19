@@ -1,13 +1,13 @@
 package base;
 
-public class Mueble implements Comparable {
+public class Furniture implements Comparable {
 
 	// Attributes
 	String name;
 	String icon;
 
 	// Constructor
-	public Mueble(String name, String icon) {
+	public Furniture(String name, String icon) {
 		this.name = name;
 		this.icon = icon;
 	}
@@ -38,7 +38,7 @@ public class Mueble implements Comparable {
 	@Override
 	public boolean equals(Object obj) {
 		boolean equal = false;
-		Mueble other = (Mueble) obj;
+		Furniture other = (Furniture) obj;
 
 		if (this.name.equals(other.name)) {
 			equal = true;
@@ -50,7 +50,7 @@ public class Mueble implements Comparable {
 	@Override
 	public int compareTo(Object obj) {
 		int compare = 0;
-		Mueble other = (Mueble) obj;
+		Furniture other = (Furniture) obj;
 		compare = this.name.compareTo(other.name);
 		return compare;
 	}
