@@ -549,6 +549,7 @@ public class graphicLauncher extends JFrame {
 		
 		citizenList = new CitizenList();
 		citizenList.createMiner(quantity);
+		citizenList.createBlackmisth(quantity);
 		citizenList.addCitizensToMap(board);
 	}
 }

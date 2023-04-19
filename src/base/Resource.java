@@ -15,6 +15,11 @@ public class Resource {
 	}
 
 	// Get and Set
+	
+	public String getName() {
+		return this.name;
+	}
+	
 	public String getIcon() {
 		return icon;
 	}

@@ -23,6 +23,34 @@ public class Inventory {
 		return removed;
 	}
 	
+	public boolean searchForName(String nameToSearch) {
+		boolean find = false;
+		if (inventory.getLength() > 0) {
+			for (int i = 0; i < inventory.getLength(); i++) {
+				Resource actual = (Resource) inventory.getObjectOnIndex(i);
+				if (actual.getName().equals(nameToSearch)) {
+					find = true;
+					break;
+				}
+			}
+		}
+		return find;
+	}
+	
+	public Object fetchForName(String nameToFetch) {
+		Object toFetch = null;
+		if (inventory.getLength() > 0) {
+			for (int i = 0; i < inventory.getLength(); i++) {
+				Resource actual = (Resource) inventory.getObjectOnIndex(i);
+				if (actual.getName().equals(nameToFetch)) {
+					toFetch = inventory.getObjectOnIndex(i);
+					break;
+				}
+			}
+		}
+		return toFetch;
+	}
+	
 	public String toString() {
 		String listInventory = "";
 		
