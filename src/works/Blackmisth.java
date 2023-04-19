@@ -30,7 +30,7 @@ public class Blackmisth extends Man{
 	 */
 	public Money melt(MinedGold gold) {
 		int minedGold = gold.getAmount();
-		double amount = ((Math.random() * ((minedGold*2.5)+1 - minedGold)) + minedGold);
+		double amount = ((Math.random() * ((minedGold*2.6)+1 - minedGold)) + minedGold);
 		Money melted = new Money(amount);
 		this.addMoney(melted);
 		ActionsLog.registerAction(this.name +"(" + this.ID + ")" + " melted " + minedGold + " gold in " + melted + " ruralcoins");
