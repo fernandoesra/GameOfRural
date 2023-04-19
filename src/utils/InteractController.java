@@ -9,8 +9,10 @@ public class InteractController {
 	
 	public static void interactSpecific(Board board, Man genericCitizen) {
 		
+		
 		String nameOfClass = genericCitizen.getClass().getName();
 		
+		// Miner actions
 		if (nameOfClass.indexOf("Miner") >= 0) {
 			Miner actualMiner = (Miner) genericCitizen;
 			int actualX = actualMiner.getMapX();
