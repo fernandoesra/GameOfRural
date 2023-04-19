@@ -544,7 +544,7 @@ public class graphicLauncher extends JFrame {
 		board = new Board(height, width);
 		
 		resourcesList = new ResourcesList();
-		resourcesList.addGoldOreMineral(1);
+		resourcesList.addGoldOreMineral(20);
 		resourcesList.addResourcesToMap(board);
 		
 		citizenList = new CitizenList();

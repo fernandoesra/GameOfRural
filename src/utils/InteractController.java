@@ -81,34 +81,38 @@ public class InteractController {
 		Blackmisth actualBlackmisth = (Blackmisth) genericBlackmisth;
 		int actualX = actualBlackmisth.getMapX();
 		int actualY = actualBlackmisth.getMapY();
-		
+
 		// Search up position
 		if (!board.validPosition(actualX - 1, actualY) && board.inBounds(actualX - 1, actualY)) {
 			String nameOfItem = board.getNameOfItem(actualX - 1, actualY);
 			if (nameOfItem.indexOf("Miner") >= 0) {
 				Miner adjacentMiner = (Miner) board.getObjectAt(actualX - 1, actualY);
-				
-				if (adjacentMiner.inventory.searchForName("Mined gold")) {
-					MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
-					actualBlackmisth.melt(actualMine);
-					adjacentMiner.inventory.removeFromInventory(actualMine);
-				}
-				
+
+				do {
+					if (adjacentMiner.inventory.searchForName("Mined gold")) {
+						MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
+						actualBlackmisth.melt(actualMine);
+						adjacentMiner.inventory.removeFromInventory(actualMine);
+					}
+				} while (adjacentMiner.inventory.searchForName("Mined gold"));
+
 			}
 		}
-		
+
 		// Search down position
 		if (!board.validPosition(actualX + 1, actualY) && board.inBounds(actualX + 1, actualY)) {
 			String nameOfItem = board.getNameOfItem(actualX + 1, actualY);
 			if (nameOfItem.indexOf("Miner") >= 0) {
 				Miner adjacentMiner = (Miner) board.getObjectAt(actualX + 1, actualY);
-				
-				if (adjacentMiner.inventory.searchForName("Mined gold")) {
-					MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
-					actualBlackmisth.melt(actualMine);
-					adjacentMiner.inventory.removeFromInventory(actualMine);
-				}
-				
+
+				do {
+					if (adjacentMiner.inventory.searchForName("Mined gold")) {
+						MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
+						actualBlackmisth.melt(actualMine);
+						adjacentMiner.inventory.removeFromInventory(actualMine);
+					}
+				} while (adjacentMiner.inventory.searchForName("Mined gold"));
+
 			}
 		}
 
@@ -117,12 +121,14 @@ public class InteractController {
 			String nameOfItem = board.getNameOfItem(actualX, actualY + 1);
 			if (nameOfItem.indexOf("Miner") >= 0) {
 				Miner adjacentMiner = (Miner) board.getObjectAt(actualX, actualY + 1);
-				
-				if (adjacentMiner.inventory.searchForName("Mined gold")) {
-					MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
-					actualBlackmisth.melt(actualMine);
-					adjacentMiner.inventory.removeFromInventory(actualMine);
-				}				
+
+				do {
+					if (adjacentMiner.inventory.searchForName("Mined gold")) {
+						MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
+						actualBlackmisth.melt(actualMine);
+						adjacentMiner.inventory.removeFromInventory(actualMine);
+					}
+				} while (adjacentMiner.inventory.searchForName("Mined gold"));
 			}
 		}
 
@@ -131,12 +137,14 @@ public class InteractController {
 			String nameOfItem = board.getNameOfItem(actualX, actualY - 1);
 			if (nameOfItem.indexOf("Miner") >= 0) {
 				Miner adjacentMiner = (Miner) board.getObjectAt(actualX, actualY - 1);
-				
-				if (adjacentMiner.inventory.searchForName("Mined gold")) {
-					MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
-					actualBlackmisth.melt(actualMine);
-					adjacentMiner.inventory.removeFromInventory(actualMine);
-				}				
+
+				do {
+					if (adjacentMiner.inventory.searchForName("Mined gold")) {
+						MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
+						actualBlackmisth.melt(actualMine);
+						adjacentMiner.inventory.removeFromInventory(actualMine);
+					}
+				} while (adjacentMiner.inventory.searchForName("Mined gold"));
 			}
 		}
 
