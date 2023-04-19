@@ -272,7 +272,7 @@ public class graphicLauncher extends JFrame {
 
 		buttonInteract.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				interactButton(textCentralArea, logTextArea);
+				interactButton(textCentralArea, logTextArea, actualCitizenInfoText);
 			}
 		});
 		
@@ -315,6 +315,9 @@ public class graphicLauncher extends JFrame {
 		
 		// Show the map when the game start
 		showMapButton(textCentralArea);
+		
+		// Select the first citizen to start the game
+		this.actualCitizen = (Man) citizenList.searchForCitizen(1);
 
 	}
 	
@@ -468,8 +471,11 @@ public class graphicLauncher extends JFrame {
 	}
 
 	// Interact button
-	public void interactButton(JTextArea textArea, JTextArea logTextArea) {
+	public void interactButton(JTextArea mapTextArea, JTextArea logTextArea, JTextArea citizenInfo) {
 		InteractController.interactSpecific(board, actualCitizen);
+		mapTextArea.setText("\n" + board.toString());
+		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
+		highlightCitizensMainMap(mapTextArea);
 		logTextArea.setText(log.toString());
 	}
 
