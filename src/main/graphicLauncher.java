@@ -278,7 +278,7 @@ public class graphicLauncher extends JFrame {
 		
 		// Banner image
 		JLabel bannerLabel = new JLabel("");
-		bannerLabel.setIcon(new ImageIcon(graphicLauncher.class.getResource("/resources/bannerGoR.png")));
+		bannerLabel.setIcon(new ImageIcon("resources/bannerGoR.png"));
 		bannerLabel.setBounds(10, 693, 1664, 207);
 		
 		// Add all to the containers
