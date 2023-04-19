@@ -22,8 +22,7 @@ public class Blackmisth extends Man{
 	
 	/**
 	 * This method takes an object of type MinedGold to "melt" it into money. It
-	 * will return a total of between 100% and 200% of the original amount. It will
-	 * also delete the MinedGold object.
+	 * will return a total of between 100% and 200% of the original amount.
 	 * 
 	 * @param gold A MinedGold object to take the amount value
 	 * @return A Money object with the amount value of coins generated between the
@@ -33,7 +32,6 @@ public class Blackmisth extends Man{
 		int minedGold = gold.getAmount();
 		int amount = (int)((Math.random() * ((minedGold*2)+1 - minedGold)) + minedGold);
 		Money melted = new Money(amount);
-		gold = null;
 		ActionsLog.registerAction(this.name +"(" + this.ID + ")" + " melted " + minedGold + " gold in " + melted + " ruralcoins");
 		return melted;
 	}

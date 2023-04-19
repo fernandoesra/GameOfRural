@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import base.CitizenList;
 import base.Man;
+import base.ResourcesList;
 import logs.ActionsLog;
 import map.Board;
 import utils.MoveController;
@@ -52,6 +53,7 @@ public class graphicLauncher extends JFrame {
 	int width;
 	Board board;
 	CitizenList citizenList;
+	ResourcesList resourcesList;
 	int actualCitizenID;
 	Man actualCitizen;
 	ActionsLog log;
@@ -78,7 +80,7 @@ public class graphicLauncher extends JFrame {
 		});
 
 		// Methods to launche after the interface
-
+		
 	}
 
 	/**
@@ -87,7 +89,7 @@ public class graphicLauncher extends JFrame {
 	public graphicLauncher() {
 
 		// Initialize and fill the map
-		this.initialize();
+		this.initialize(1);
 		actualCitizenID = 1;
 		
 		// Initialize the action log
@@ -309,6 +311,9 @@ public class graphicLauncher extends JFrame {
 		
 		logPanel.add(scrollPane);
 		logPanel.add(logLabel);
+		
+		// Show the map when the game start
+		showMapButton(textCentralArea);
 
 	}
 	
@@ -529,8 +534,13 @@ public class graphicLauncher extends JFrame {
 		int height = 28;
 		int width = 50;
 		board = new Board(height, width);
+		
+		resourcesList = new ResourcesList();
+		resourcesList.addGoldOreMineral(1);
+		resourcesList.addResourcesToMap(board);
+		
 		citizenList = new CitizenList();
-		citizenList.createFarmer(quantity);
+		citizenList.createMiner(quantity);
 		citizenList.addCitizensToMap(board);
 	}
 }

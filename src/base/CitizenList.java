@@ -122,8 +122,7 @@ public class CitizenList {
 	public void createFarmer(int amount) {
 		
 		for (int i = 0; i < amount; i++) {
-			Money zeroMoney = new Money(0);
-			Farmer newCitizen = new Farmer(IDs,30,zeroMoney,0,0,1);
+			Farmer newCitizen = new Farmer(IDs,30,actualMoney(),0,0,1);
 			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
@@ -132,8 +131,7 @@ public class CitizenList {
 	public void createButcher(int amount) {
 
 		for (int i = 0; i < amount; i++) {
-			Money zeroMoney = new Money(0);
-			Butcher newCitizen = new Butcher(IDs, 30, zeroMoney, 0, 0, 1);
+			Butcher newCitizen = new Butcher(IDs, 30, actualMoney(), 0, 0, 1);
 			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
@@ -142,8 +140,7 @@ public class CitizenList {
 	public void createCarpenter(int amount) {
 
 		for (int i = 0; i < amount; i++) {
-			Money zeroMoney = new Money(0);
-			Carpenter newCitizen = new Carpenter(IDs, 30, zeroMoney, 0, 0, 1);
+			Carpenter newCitizen = new Carpenter(IDs, 30, actualMoney(), 0, 0, 1);
 			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
@@ -153,7 +150,7 @@ public class CitizenList {
 
 		for (int i = 0; i < amount; i++) {
 			Money zeroMoney = new Money(0);
-			Blackmisth newCitizen = new Blackmisth(IDs, 30, zeroMoney, 0, 0, 1);
+			Blackmisth newCitizen = new Blackmisth(IDs, 30, actualMoney(), 0, 0, 1);
 			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
@@ -162,8 +159,7 @@ public class CitizenList {
 	public void createLumberjack(int amount) {
 
 		for (int i = 0; i < amount; i++) {
-			Money zeroMoney = new Money(0);
-			Lumberjack newCitizen = new Lumberjack(IDs, 30, zeroMoney, 0, 0, 1);
+			Lumberjack newCitizen = new Lumberjack(IDs, 30, actualMoney(), 0, 0, 1);
 			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
@@ -172,8 +168,7 @@ public class CitizenList {
 	public void createMiner(int amount) {
 
 		for (int i = 0; i < amount; i++) {
-			Money zeroMoney = new Money(0);
-			Miner newCitizen = new Miner(IDs, 30, zeroMoney, 0, 0, 1);
+			Miner newCitizen = new Miner(IDs, 30, actualMoney(), 0, 0, 1);
 			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
@@ -182,8 +177,7 @@ public class CitizenList {
 	public void createBaker(int amount) {
 
 		for (int i = 0; i < amount; i++) {
-			Money zeroMoney = new Money(0);
-			Baker newCitizen = new Baker(IDs, 30, zeroMoney, 0, 0, 1);
+			Baker newCitizen = new Baker(IDs, 30, actualMoney(), 0, 0, 1);
 			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
@@ -192,8 +186,7 @@ public class CitizenList {
 	public void createShepherd(int amount) {
 
 		for (int i = 0; i < amount; i++) {
-			Money zeroMoney = new Money(0);
-			Shepherd newCitizen = new Shepherd(IDs, 30, zeroMoney, 0, 0, 1);
+			Shepherd newCitizen = new Shepherd(IDs, 30, actualMoney(), 0, 0, 1);
 			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
@@ -202,8 +195,7 @@ public class CitizenList {
 	public void createFishmonger(int amount) {
 
 		for (int i = 0; i < amount; i++) {
-			Money zeroMoney = new Money(0);
-			Fishmonger newCitizen = new Fishmonger(IDs, 30, zeroMoney, 0, 0, 1);
+			Fishmonger newCitizen = new Fishmonger(IDs, 30, actualMoney(), 0, 0, 1);
 			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
@@ -212,11 +204,26 @@ public class CitizenList {
 	public void createFisherman(int amount) {
 
 		for (int i = 0; i < amount; i++) {
-			Money zeroMoney = new Money(0);
-			Fisherman newCitizen = new Fisherman(IDs, 30, zeroMoney, 0, 0, 1);
+			Fisherman newCitizen = new Fisherman(IDs, 30, actualMoney(), 0, 0, 1);
 			citizenList.addEnd(newCitizen);
 			IDs++;
 		}
+	}
+	
+	public Money actualMoney() {
+		// return zeroMoney();
+		return aleatoricMoney();
+	}
+	
+	public Money zeroMoney() {
+		Money zeroMoney = new Money(0);
+		return zeroMoney;
+	}
+	
+	public Money aleatoricMoney() {
+		double random = ((Math.random() * (101 - 1)) + 1);
+		Money randomMoney = new Money(random);
+		return randomMoney;
 	}
 	
 }

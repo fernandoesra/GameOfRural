@@ -1,6 +1,7 @@
 package map;
 
 import base.Man;
+import base.Resource;
 import utils.AleatoricName;
 
 public class Board {
@@ -282,6 +283,10 @@ public class Board {
 					String superClassName = board[i][j].getClass().getSuperclass().getName();
 					if (superClassName.indexOf("Man")>= 0) {
 						text += ((Man)board[i][j]).getIcon()+"|";
+					}
+					
+					if (superClassName.indexOf("Resource")>= 0) {
+						text += ((Resource)board[i][j]).getIcon()+"|";
 					}
 					
 					// text += board[i][j].toString() + "|";
