@@ -1,5 +1,6 @@
-package base;
+package main;
 
+import base.Resource;
 import utils.ObjectsList;
 
 public class Inventory {

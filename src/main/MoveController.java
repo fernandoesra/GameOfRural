@@ -1,6 +1,5 @@
-package utils;
+package main;
 
-import base.CitizenList;
 import base.Man;
 import logs.ActionsLog;
 import map.Board;

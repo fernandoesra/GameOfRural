@@ -1,9 +1,9 @@
 package works;
 
 import base.Man;
-import gameResources.Money;
-import gameResources.Tree;
-import gameResources.Wood;
+import base.Tree;
+import resources.Money;
+import resources.Wood;
 
 public class Lumberjack extends Man{
 	

@@ -1,7 +1,8 @@
-package base;
+package main;
 
-import gameResources.Money;
+import base.Man;
 import map.Board;
+import resources.Money;
 import utils.ObjectsList;
 import works.Farmer;
 import works.Butcher;
@@ -67,7 +68,7 @@ public class CitizenList {
 			
 			Man toFind = (Man) citizenList.getObjectOnIndex(i);
 			
-			if (toFind.ID == ID) {
+			if (toFind.getID() == ID) {
 				find = toFind;
 			}
 		}
@@ -101,7 +102,7 @@ public class CitizenList {
 		for (int i = 0; i < citizenList.getLength(); i++) {
 			if (citizenList.getObjectOnIndex(i) == search) {
 				Man find = (Man) citizenList.getObjectOnIndex(i);
-				ID = find.ID;
+				ID = find.getID();
 			}
 		}
 		return ID;

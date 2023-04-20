@@ -2,6 +2,7 @@ package map;
 
 import base.Man;
 import base.Resource;
+import base.Tree;
 import utils.AleatoricName;
 
 public class Board {
@@ -312,6 +313,10 @@ public class Board {
 					
 					if (superClassName.indexOf("Resource")>= 0) {
 						text += ((Resource)board[i][j]).getIcon()+"|";
+					}
+					
+					if (superClassName.indexOf("Tree")>= 0) {
+						text += ((Tree)board[i][j]).getIcon()+"|";
 					}
 					
 					// text += board[i][j].toString() + "|";

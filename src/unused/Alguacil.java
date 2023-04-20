@@ -1,4 +1,4 @@
-package worksMoney;
+package unused;
 
 import base.Man;
 

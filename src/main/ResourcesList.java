@@ -1,4 +1,4 @@
-package base;
+package main;
 
 import map.Board;
 import minerals.GoldOreMineral;
@@ -15,6 +15,10 @@ public class ResourcesList {
 	}
 	
 	// Methods
+	
+	public void addGenericResource(Object newResource) {
+		resourceList.addEnd(newResource);
+	}
 	
 	public void addResourcesToMap(Board board) {
 		int mapX = board.getHeight();

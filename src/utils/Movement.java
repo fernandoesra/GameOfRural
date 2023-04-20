@@ -2,7 +2,7 @@ package utils;
 
 import map.Board;
 
-public interface Movimiento {
+public interface Movement {
 	
 	public boolean up(Board board);
 	

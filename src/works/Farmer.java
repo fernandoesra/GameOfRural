@@ -1,7 +1,7 @@
 package works;
 
 import base.Man;
-import gameResources.Money;
+import resources.Money;
 import utils.ConsoleColors;
 
 public class Farmer extends Man{

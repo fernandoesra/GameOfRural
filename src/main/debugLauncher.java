@@ -2,10 +2,8 @@ package main;
 
 import java.util.Scanner;
 
-import base.CitizenList;
 import base.Man;
 import map.Board;
-import utils.MoveController;
 
 public class debugLauncher {
 	

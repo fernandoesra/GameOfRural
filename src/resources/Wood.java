@@ -1,4 +1,4 @@
-package gameResources;
+package resources;
 
 import base.Resource;
 

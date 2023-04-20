@@ -1,10 +1,10 @@
 package works;
 
 import base.Man;
-import gameResources.Money;
 import logs.ActionsLog;
 import minerals.GoldOreMineral;
 import minerals.MinedGold;
+import resources.Money;
 
 public class Miner extends Man {
 

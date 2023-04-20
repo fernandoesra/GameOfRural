@@ -4,13 +4,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import base.CitizenList;
+
 import base.Man;
-import base.ResourcesList;
 import logs.ActionsLog;
 import map.Board;
-import utils.InteractController;
-import utils.MoveController;
 
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -38,7 +35,7 @@ import javax.swing.ImageIcon;
  * 
  * @author Fernando Tarriño del Pozo (FernandoEsra)
  * @see map.Board
- * @see base.CitizenList
+ * @see main.CitizenList
  * @see logs.ActionsLog
  * 
  */
@@ -58,6 +55,7 @@ public class graphicLauncher extends JFrame {
 	int actualCitizenID;
 	Man actualCitizen;
 	ActionsLog log;
+	BiomeGenerator biomeGenerator;
 	
 	private JPanel mainContentPane;
 	
@@ -89,6 +87,9 @@ public class graphicLauncher extends JFrame {
 	 */
 	public graphicLauncher() {
 
+		// Initialize the biome generator
+		biomeGenerator = new BiomeGenerator();
+		
 		// Initialize and fill the map
 		this.initialize(1);
 		actualCitizenID = 1;
@@ -331,38 +332,6 @@ public class graphicLauncher extends JFrame {
 		try {
 			Highlighter high = txtDisplay.getHighlighter();
 			high.removeAllHighlights();
-			
-			// Colors
-			final Color VERY_LIGHT_RED = new Color(255,102,102);
-			HighlightPainter light_red = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_RED);
-			
-			final Color VERY_LIGHT_BLUE = new Color(51,224,255);
-			HighlightPainter very_light_blue = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_BLUE);
-			
-			final Color VERY_LIGHT_GREEN = new Color(102,255,102);
-			HighlightPainter light_green = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_GREEN);
-			
-			final Color VERY_LIGHT_YELLOW = new Color(255,204,0);
-			HighlightPainter light_yellow = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_YELLOW);
-			
-			final Color VERY_LIGHT_GREY = new Color(204,204,204);
-			HighlightPainter light_grey = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_GREY);
-			
-			final Color VERY_LIGHT_BROWN = new Color(153,102,0);
-			HighlightPainter light_brown = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_BROWN);
-			
-			final Color PURPLE= new Color(102,80,200);
-			HighlightPainter purple = new DefaultHighlighter.DefaultHighlightPainter(PURPLE);
-			
-			final Color LIGHT_BLACK = new Color(90,90,90);
-			HighlightPainter light_black = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_BLACK);
-			
-			final Color LIGHT_ORANGE = new Color(155,153,0);
-			HighlightPainter light_orange = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_ORANGE);
-			
-			final Color LIGHT_BLUE = new Color(51,153,255);
-			HighlightPainter light_blue = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_BLUE);
-			
 			// Paint all map (For test and range)
 			// high.addHighlight(158, 3014, DefaultHighlighter.DefaultPainter);
 			
@@ -375,49 +344,140 @@ public class graphicLauncher extends JFrame {
 				switch (mapOnText[i]) {
 				case 'F':
 					// Farmer
-					high.addHighlight(i+1, i+2, light_green);
+					high.addHighlight(i+1, i+2, setColor(3));
 					break;
 				case 'K':
 					// Butcher
-					high.addHighlight(i+1, i+2, light_red);
+					high.addHighlight(i+1, i+2, setColor(1));
 					break;
 				case 'I':
 					// Carpenter
-					high.addHighlight(i+1, i+2, light_yellow);
+					high.addHighlight(i+1, i+2, setColor(4));
 					break;
 				case 'H':
 					// Blackmisth
-					high.addHighlight(i+1, i+2, light_grey);
+					high.addHighlight(i+1, i+2, setColor(5));
 					break;
 				case 'L':
 					// Lumberjack
-					high.addHighlight(i+1, i+2, light_brown);
+					high.addHighlight(i+1, i+2, setColor(6));
 					break;
 				case 'M':
 					// Miner
-					high.addHighlight(i+1, i+2, light_black);
+					high.addHighlight(i+1, i+2, setColor(8));
 					break;
 				case 'B':
 					// Baker
-					high.addHighlight(i+1, i+2, purple);
+					high.addHighlight(i+1, i+2, setColor(7));
 					break;
 				case 'S':
 					// Shepherd
-					high.addHighlight(i+1, i+2, light_orange);
+					high.addHighlight(i+1, i+2, setColor(9));
 					break;
 				case 'G':
 					// Fishmonger
-					high.addHighlight(i+1, i+2, light_blue);
+					high.addHighlight(i+1, i+2, setColor(10));
 					break;
 				case 'J':
 					// Fisherman
-					high.addHighlight(i+1, i+2, very_light_blue);
+					high.addHighlight(i+1, i+2, setColor(2));
 					break;
 				}
 			}
 		} catch (Exception ex) {
 			System.err.println("Error "+ex.getMessage());
 		}
+	}
+	
+	public void highlightResources(JTextArea txtDisplay) {
+		try {
+			Highlighter high = txtDisplay.getHighlighter();
+			high.removeAllHighlights();
+			// Paint all map (For test and range)
+			// The map start at index 135-150 aprox, its depend on the length of the town name
+			char mapOnText[] = board.toString().toCharArray();
+			for (int i = 135; i < mapOnText.length; i++) {
+				switch (mapOnText[i]) {
+				case '#':
+					// Tree
+					high.addHighlight(i+1, i+2, setColor(3));
+					break;
+				
+				}
+			}
+		} catch (Exception ex) {
+			System.err.println("Error "+ex.getMessage());
+		}
+	}
+	
+	/**
+	 * 
+	 * @param index A number between 1 and 10
+	 * @return A HighlightPainter objetc with one color asigned. If the number of
+	 *         the param its not between 1 and 10 return white
+	 */
+	
+	public HighlightPainter setColor(int index) {
+		/*
+		 * Colors: 1 - light_red 2 - very_light_blue 3 - light_green 4 - light_yellow 5
+		 * - light_grey 6 - light_brown 7 - purple 8 - light_black 9 - light_orange 10 -
+		 * light_blue
+		 * 
+		 */
+
+		final Color white = new Color(255, 255, 255);
+		HighlightPainter selectedColor = new DefaultHighlighter.DefaultHighlightPainter(white);
+
+		if (index == 1) {
+			final Color VERY_LIGHT_RED = new Color(255, 102, 102);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_RED);
+		}
+		if (index == 2) {
+			final Color VERY_LIGHT_BLUE = new Color(51, 224, 255);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_BLUE);
+		}
+
+		if (index == 3) {
+			final Color VERY_LIGHT_GREEN = new Color(102, 255, 102);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_GREEN);
+		}
+
+		if (index == 4) {
+			final Color VERY_LIGHT_YELLOW = new Color(255, 204, 0);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_YELLOW);
+		}
+
+		if (index == 5) {
+			final Color VERY_LIGHT_GREY = new Color(204, 204, 204);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_GREY);
+		}
+
+		if (index == 6) {
+			final Color VERY_LIGHT_BROWN = new Color(153, 102, 0);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_BROWN);
+		}
+
+		if (index == 7) {
+			final Color PURPLE = new Color(102, 80, 200);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(PURPLE);
+		}
+
+		if (index == 8) {
+			final Color LIGHT_BLACK = new Color(90, 90, 90);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_BLACK);
+		}
+
+		if (index == 9) {
+			final Color LIGHT_ORANGE = new Color(155, 153, 0);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_ORANGE);
+		}
+
+		if (index == 10) {
+			final Color LIGHT_BLUE = new Color(51, 153, 255);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_BLUE);
+		}
+
+		return selectedColor;
 	}
 	
 	// Actions of the buttons
@@ -432,6 +492,7 @@ public class graphicLauncher extends JFrame {
 		textArea.setText("\n" + board.toString());
 		highlightCitizensMainMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
+		highlightResources(textArea);
 	}
 	/**
 	 * If its possible move the selected citizen down
@@ -444,6 +505,7 @@ public class graphicLauncher extends JFrame {
 		textArea.setText("\n" + board.toString());
 		highlightCitizensMainMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
+		highlightResources(textArea);
 	}
 	/**
 	 * If its possible move the selected citizen to the right
@@ -456,6 +518,7 @@ public class graphicLauncher extends JFrame {
 		textArea.setText("\n" + board.toString());
 		highlightCitizensMainMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
+		highlightResources(textArea);
 	}
 	/**
 	 * If its possible move the selected citizen to the left
@@ -468,6 +531,7 @@ public class graphicLauncher extends JFrame {
 		textArea.setText("\n" + board.toString());
 		highlightCitizensMainMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
+		highlightResources(textArea);
 	}
 
 	// Interact button
@@ -477,6 +541,7 @@ public class graphicLauncher extends JFrame {
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
 		highlightCitizensMainMap(mapTextArea);
 		logTextArea.setText(log.toString());
+		highlightResources(mapTextArea);
 	}
 
 	// Show map button
@@ -487,6 +552,7 @@ public class graphicLauncher extends JFrame {
 	public void showMapButton(JTextArea textArea) {
 		textArea.setText("\n" + board.toString());
 		highlightCitizensMainMap(textArea);
+		highlightResources(textArea);
 	}
 	
 	// Show all citizens button
@@ -546,6 +612,8 @@ public class graphicLauncher extends JFrame {
 		resourcesList = new ResourcesList();
 		resourcesList.addGoldOreMineral(20);
 		resourcesList.addResourcesToMap(board);
+		
+		biomeGenerator.createForest(board, resourcesList, 12, 10);
 		
 		citizenList = new CitizenList();
 		citizenList.createMiner(quantity);

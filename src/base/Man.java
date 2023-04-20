@@ -1,11 +1,12 @@
 package base;
 
-import gameResources.Money;
+import main.Inventory;
 import map.Board;
+import resources.Money;
 import utils.AleatoricName;
-import utils.Movimiento;
+import utils.Movement;
 
-public class Man implements Comparable, Movimiento{
+public class Man implements Comparable, Movement{
 	
 	// Attributes
 	protected String name;

@@ -1,7 +1,7 @@
 package works;
 
 import base.Man;
-import gameResources.Money;
+import resources.Money;
 
 public class Baker extends Man{
 	
