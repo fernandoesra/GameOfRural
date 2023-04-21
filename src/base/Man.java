@@ -23,7 +23,7 @@ public class Man implements Comparable, Movement{
 	public Man() {};
 	
 	public Man(int ID, int HP, Money money, int mapX, int mapY, int speed, String icon) {
-		AleatoricName newName = new AleatoricName(3,20);
+		AleatoricName newName = new AleatoricName(3,10);
 		this.name = newName.toString();
 		this.ID = ID;
 		this.HP = HP;

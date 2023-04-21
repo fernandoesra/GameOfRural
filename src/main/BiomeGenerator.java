@@ -1,6 +1,7 @@
 package main;
 
 import base.Tree;
+import base.Water;
 import map.Board;
 import resources.AcaciaTree;
 import resources.AlderTree;
@@ -9,6 +10,84 @@ import resources.BasswoodTree;
 import resources.CedarTree;
 
 public class BiomeGenerator {
+	
+	public void createRiver(Board board, int rivers) {
+		int mapLengthX = board.getHeight();
+		int mapLengthY = board.getWidth();
+		// int randomMapX = 0;
+		int MapY = 0;
+		for (int i = 0; i < rivers; i++) {
+			
+			int riverActualX = (int)((Math.random() * (mapLengthX-1 - 0)) + 0);
+			
+			for (int j = 0; j < mapLengthY; j++) {
+				Water fillWater = new Water();
+				
+				int mainRiver = (int)((Math.random() * (101 - 0)) + 0);
+				if (mainRiver <= 90) {
+					if (board.inBounds(riverActualX, MapY+j)) {
+						board.addSomething(fillWater, riverActualX, MapY+j);
+					}
+				}
+				
+				int doubleRiver = (int)((Math.random() * (101 - 0)) + 0);
+				if (doubleRiver <= 80) {
+					if (board.inBounds(riverActualX-1,  MapY+j)) {
+						board.addSomething(fillWater, riverActualX-1, MapY+j);
+					}
+				}
+				
+				int borderUp = (int)((Math.random() * (101 - 0)) + 0);
+				if (borderUp <= 20) {
+					if (board.inBounds(riverActualX-2, MapY+j)) {
+						board.addSomething(fillWater, riverActualX-2, MapY+j);
+					}
+				}
+				
+				int borderDown = (int)((Math.random() * (101 - 0)) + 0);
+				if (borderDown <= 20) {
+					if (board.inBounds(riverActualX+1, MapY+j)) {
+						board.addSomething(fillWater, riverActualX+1, MapY+j);
+					}
+				}
+				
+				int moveRiverCenterUp = (int)((Math.random() * (101 - 0)) + 0);
+				if (moveRiverCenterUp <= 10) {
+					if (board.inBounds(riverActualX-1, MapY+j)) {
+						riverActualX -= 1;
+					}
+				} else {
+					int moveRiverCenterDown = (int)((Math.random() * (101 - 0)) + 0);
+					if (moveRiverCenterDown<=10) {
+						if (board.inBounds(riverActualX+1, MapY+j)) {
+							riverActualX += 1;
+						}
+					}
+				}
+			}
+			
+			// Generate bridges
+			int totalBridges = 0;
+			do {
+				for (int j = 0; j < mapLengthY; j++) {
+
+					int actualBridge = (int) ((Math.random() * (101 - 0)) + 0);
+					if (actualBridge <= 5) {
+
+						for (int k = 0; k < mapLengthX; k++) {
+							if (board.inBounds(k, j)) {
+								board.eraseObjectAt(k, j);
+							}
+						}
+						totalBridges++;
+					}
+
+				}
+			} while (totalBridges < 2);
+			
+		}
+		
+	}
 	
 	public void createForest(Board board, ResourcesList resourcesList, int forests, int density) {
 		
@@ -34,20 +113,20 @@ public class BiomeGenerator {
 					int numericOperandY = (int)((Math.random() * (3 - 0)) + 0);
 					
 					if (numericOperandX == 0) {
-						randomMapX = (int)((Math.random() * (randomMapX - randomMapX)) + randomMapX);
+						randomMapX = (int)((Math.random() * (randomMapX+1 - randomMapX)) + randomMapX);
 					}
 					if (numericOperandX == 1) {
-						randomMapX = (int)((Math.random() * (randomMapX+1 - randomMapX)) + randomMapX);
+						randomMapX = (int)((Math.random() * (randomMapX+2 - randomMapX)) + randomMapX);
 					}
 					if (numericOperandX == 2) {
 						randomMapX = (int)((Math.random() * (randomMapX-1 - randomMapX)) + randomMapX);
 					}
 					
 					if (numericOperandY == 0) {
-						randomMapY = (int)((Math.random() * (randomMapY - randomMapY)) + randomMapY);
+						randomMapY = (int)((Math.random() * (randomMapY+1 - randomMapY)) + randomMapY);
 					}
 					if (numericOperandY == 1) {
-						randomMapY = (int)((Math.random() * (randomMapY+1 - randomMapY)) + randomMapY);
+						randomMapY = (int)((Math.random() * (randomMapY+2 - randomMapY)) + randomMapY);
 					}
 					if (numericOperandY == 2) {
 						randomMapY = (int)((Math.random() * (randomMapY-1 - randomMapY)) + randomMapY);

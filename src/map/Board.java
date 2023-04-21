@@ -3,6 +3,7 @@ package map;
 import base.Man;
 import base.Resource;
 import base.Tree;
+import base.Water;
 import utils.AleatoricName;
 
 public class Board {
@@ -102,6 +103,18 @@ public class Board {
 		return valid;
 	}
 	
+	public boolean isWater(int searchX, int searchY) {
+		boolean water = false;
+		if(inBounds(searchX, searchY) && board[searchX][searchY] != null) {
+			String className = board[searchX][searchY].getClass().getName();
+			if (className.indexOf("Water")>=0) {
+				water = true;
+			}
+		}
+		
+		return water;
+	}
+	
 	/**
 	 * 
 	 * @param Length for board (height). First coordinate.
@@ -111,7 +124,7 @@ public class Board {
 	 */
 	public boolean validPosition(int newX, int newY) {
 		boolean valid = false;
-		if (inBounds(newX, newY) && board[newX][newY] == null) {
+		if (inBounds(newX, newY) && board[newX][newY] == null && !isWater(newX,newY)) {
 			valid = true;
 		}
 		return valid;
@@ -306,7 +319,7 @@ public class Board {
 					// Draw the icons
 					
 					String superClassName = board[i][j].getClass().getSuperclass().getName();
-					
+					String className = board[i][j].getClass().getName();
 					if (superClassName.indexOf("Man")>= 0) {
 						text += ((Man)board[i][j]).getIcon()+"|";
 					}
@@ -317,6 +330,10 @@ public class Board {
 					
 					if (superClassName.indexOf("Tree")>= 0) {
 						text += ((Tree)board[i][j]).getIcon()+"|";
+					}
+					
+					if (className.indexOf("Water")>= 0) {
+						text += ((Water)board[i][j]).getIcon()+"|";
 					}
 					
 					// text += board[i][j].toString() + "|";

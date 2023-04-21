@@ -91,7 +91,7 @@ public class graphicLauncher extends JFrame {
 		biomeGenerator = new BiomeGenerator();
 		
 		// Initialize and fill the map
-		this.initialize(1);
+		this.initialize();
 		actualCitizenID = 1;
 		
 		// Initialize the action log
@@ -328,7 +328,7 @@ public class graphicLauncher extends JFrame {
 	 * 
 	 * @param txtDisplay JTextArea where we want to change the color of the citizens
 	 */
-	public void highlightCitizensMainMap(JTextArea txtDisplay) {
+	public void highlightMainMap(JTextArea txtDisplay) {
 		try {
 			Highlighter high = txtDisplay.getHighlighter();
 			high.removeAllHighlights();
@@ -342,6 +342,8 @@ public class graphicLauncher extends JFrame {
 			
 			for (int i = 135; i < mapOnText.length; i++) {
 				switch (mapOnText[i]) {
+				
+				// People:
 				case 'F':
 					// Farmer
 					high.addHighlight(i+1, i+2, setColor(3));
@@ -382,27 +384,16 @@ public class graphicLauncher extends JFrame {
 					// Fisherman
 					high.addHighlight(i+1, i+2, setColor(2));
 					break;
-				}
-			}
-		} catch (Exception ex) {
-			System.err.println("Error "+ex.getMessage());
-		}
-	}
-	
-	public void highlightResources(JTextArea txtDisplay) {
-		try {
-			Highlighter high = txtDisplay.getHighlighter();
-			high.removeAllHighlights();
-			// Paint all map (For test and range)
-			// The map start at index 135-150 aprox, its depend on the length of the town name
-			char mapOnText[] = board.toString().toCharArray();
-			for (int i = 135; i < mapOnText.length; i++) {
-				switch (mapOnText[i]) {
+					
+				// Resources:
 				case '#':
 					// Tree
-					high.addHighlight(i+1, i+2, setColor(3));
+					high.addHighlight(i+1, i+2, setColor(12));
 					break;
-				
+				case '+':
+					// Water
+					high.addHighlight(i+1, i+2, setColor(11));
+					break;
 				}
 			}
 		} catch (Exception ex) {
@@ -433,7 +424,7 @@ public class graphicLauncher extends JFrame {
 			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_RED);
 		}
 		if (index == 2) {
-			final Color VERY_LIGHT_BLUE = new Color(51, 224, 255);
+			final Color VERY_LIGHT_BLUE = new Color(51, 190, 255);
 			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_BLUE);
 		}
 
@@ -473,8 +464,18 @@ public class graphicLauncher extends JFrame {
 		}
 
 		if (index == 10) {
-			final Color LIGHT_BLUE = new Color(51, 153, 255);
+			final Color LIGHT_BLUE = new Color(51, 130, 255);
 			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_BLUE);
+		}
+		
+		if (index == 11) {
+			final Color WATER_BLUE = new Color(30, 230, 255);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(WATER_BLUE);
+		}
+		
+		if (index == 12) {
+			final Color TREE_GREEN = new Color(84, 168, 51);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(TREE_GREEN);
 		}
 
 		return selectedColor;
@@ -490,9 +491,8 @@ public class graphicLauncher extends JFrame {
 		Man toMove = (Man) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenUp(board, toMove);
 		textArea.setText("\n" + board.toString());
-		highlightCitizensMainMap(textArea);
+		highlightMainMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
-		highlightResources(textArea);
 	}
 	/**
 	 * If its possible move the selected citizen down
@@ -503,9 +503,8 @@ public class graphicLauncher extends JFrame {
 		Man toMove = (Man) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenDown(board, toMove);
 		textArea.setText("\n" + board.toString());
-		highlightCitizensMainMap(textArea);
+		highlightMainMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
-		highlightResources(textArea);
 	}
 	/**
 	 * If its possible move the selected citizen to the right
@@ -516,9 +515,8 @@ public class graphicLauncher extends JFrame {
 		Man toMove = (Man) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenRight(board, toMove);
 		textArea.setText("\n" + board.toString());
-		highlightCitizensMainMap(textArea);
+		highlightMainMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
-		highlightResources(textArea);
 	}
 	/**
 	 * If its possible move the selected citizen to the left
@@ -529,9 +527,8 @@ public class graphicLauncher extends JFrame {
 		Man toMove = (Man) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenLeft(board, toMove);
 		textArea.setText("\n" + board.toString());
-		highlightCitizensMainMap(textArea);
+		highlightMainMap(textArea);
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
-		highlightResources(textArea);
 	}
 
 	// Interact button
@@ -539,9 +536,8 @@ public class graphicLauncher extends JFrame {
 		InteractController.interactSpecific(board, actualCitizen);
 		mapTextArea.setText("\n" + board.toString());
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
-		highlightCitizensMainMap(mapTextArea);
+		highlightMainMap(mapTextArea);
 		logTextArea.setText(log.toString());
-		highlightResources(mapTextArea);
 	}
 
 	// Show map button
@@ -551,8 +547,7 @@ public class graphicLauncher extends JFrame {
 	 */
 	public void showMapButton(JTextArea textArea) {
 		textArea.setText("\n" + board.toString());
-		highlightCitizensMainMap(textArea);
-		highlightResources(textArea);
+		highlightMainMap(textArea);
 	}
 	
 	// Show all citizens button
@@ -595,6 +590,12 @@ public class graphicLauncher extends JFrame {
 		int height = 28;
 		int width = 50;
 		board = new Board(height, width);
+
+		resourcesList = new ResourcesList();
+
+		biomeGenerator.createRiver(board, 2);
+		biomeGenerator.createForest(board, resourcesList, 4, 15);
+
 		citizenList = new CitizenList();
 		citizenList.createAll(1);
 		citizenList.addCitizensToMap(board);
@@ -606,18 +607,24 @@ public class graphicLauncher extends JFrame {
 	 */
 	public void initialize(int quantity) {
 		int height = 28;
-		int width = 50;
+		int width = 51;
 		board = new Board(height, width);
 		
 		resourcesList = new ResourcesList();
+		
+		biomeGenerator.createRiver(board, 2);
+		biomeGenerator.createForest(board, resourcesList, 4, 15);
+		
 		resourcesList.addGoldOreMineral(20);
 		resourcesList.addResourcesToMap(board);
 		
-		biomeGenerator.createForest(board, resourcesList, 12, 10);
 		
 		citizenList = new CitizenList();
 		citizenList.createMiner(quantity);
 		citizenList.createBlackmisth(quantity);
+		citizenList.createFisherman(quantity);
+		citizenList.createFishmonger(quantity);
+		citizenList.createFarmer(quantity);
 		citizenList.addCitizensToMap(board);
 	}
 }
