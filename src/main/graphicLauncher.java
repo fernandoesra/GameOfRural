@@ -12,6 +12,8 @@ import map.Board;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
@@ -40,7 +42,7 @@ import javax.swing.ImageIcon;
  * 
  */
 
-public class graphicLauncher extends JFrame {
+public class graphicLauncher extends JFrame implements KeyListener{
 
 	/**
 	 * 
@@ -57,12 +59,14 @@ public class graphicLauncher extends JFrame {
 	ActionsLog log;
 	BiomeGenerator biomeGenerator;
 	
-	private JPanel mainContentPane;
+	public JPanel mainContentPane;
+	public JTextArea textCentralArea;
+	public JTextArea actualCitizenInfoText;
+	public JTextArea logTextArea;
 	
 	// Main
 	public static void main(String[] args) {
 		// Methods to launch before the interface
-
 		/**
 		 * Create the interface
 		 */
@@ -86,7 +90,7 @@ public class graphicLauncher extends JFrame {
 	 * Empty constructor, launch from the main.
 	 */
 	public graphicLauncher() {
-
+				
 		// Initialize the biome generator
 		biomeGenerator = new BiomeGenerator();
 		
@@ -100,6 +104,7 @@ public class graphicLauncher extends JFrame {
 		/*
 		 * From here we create all the graphic objetcs of Java Swing
 		 */
+		
 		// JFrame Container
 		setTitle("Game of Rural");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -108,7 +113,7 @@ public class graphicLauncher extends JFrame {
 		mainContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		// Center text area and scroll
-		JTextArea textCentralArea = new JTextArea();
+		textCentralArea = new JTextArea();
 		textCentralArea.setEditable(false);
 		JScrollPane scrollPaneForCentralText = new JScrollPane();
 		scrollPaneForCentralText.setBounds(10, 10, 850, 580);
@@ -119,7 +124,6 @@ public class graphicLauncher extends JFrame {
 		textCentralArea.getHighlighter();/* At start always select the citizen with ID 1 */
 		
 		// Select Citizens Panel
-		
 		JPanel selectCitizensPanel = new JPanel();
 		selectCitizensPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		selectCitizensPanel.setBounds(883, 27, 213, 166);
@@ -155,7 +159,7 @@ public class graphicLauncher extends JFrame {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(10, 41, 483, 324);
 
-		JTextArea actualCitizenInfoText = new JTextArea();
+		actualCitizenInfoText = new JTextArea();
 		scrollPane_1.setViewportView(actualCitizenInfoText);
 		actualCitizenInfoText.setBackground(new Color(255, 255, 255));
 		actualCitizenInfoText.setFont(new Font("Consolas", Font.PLAIN, 11));
@@ -204,17 +208,6 @@ public class graphicLauncher extends JFrame {
 			}
 		});
 		
-		// Movement Panel
-		
-		JPanel movementButtonsPane = new JPanel();
-		movementButtonsPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		movementButtonsPane.setBounds(870, 204, 244, 199);
-		movementButtonsPane.setLayout(null);
-
-		// Interact button
-		JButton buttonInteract = new JButton("Interact");
-		buttonInteract.setBounds(70, 157, 100, 30);
-		
 		// Log panel
 
 		JPanel logPanel = new JPanel();
@@ -225,60 +218,12 @@ public class graphicLauncher extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 44, 737, 212);
 
-		JTextArea logTextArea = new JTextArea();
+		logTextArea = new JTextArea();
 		scrollPane.setViewportView(logTextArea);
 		logTextArea.setEditable(false);
 
 		JLabel logLabel = new JLabel("Log:");
 		logLabel.setBounds(10, 22, 157, 14);
-
-		// Movement buttons
-		
-		JButton buttonDown = new JButton("Down");
-		buttonDown.setBounds(70, 91, 100, 30);
-
-		JButton buttonLeft = new JButton("Left");
-		buttonLeft.setBounds(10, 51, 100, 30);
-
-		JButton buttonUp = new JButton("Up");
-		buttonUp.setBounds(70, 11, 100, 30);
-
-		JButton buttonRight = new JButton("Right");
-		buttonRight.setBounds(130, 51, 100, 30);
-
-		buttonRight.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				moveRightButton(textCentralArea,actualCitizenInfoText);
-			}
-		});
-
-		buttonUp.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				moveUpButton(textCentralArea,actualCitizenInfoText);
-			}
-		});
-
-		buttonLeft.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				moveLeftButton(textCentralArea,actualCitizenInfoText);
-			}
-		});
-
-		buttonDown.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				moveDownButton(textCentralArea,actualCitizenInfoText);
-			}
-		});
-
-		buttonInteract.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				interactButton(textCentralArea, logTextArea, actualCitizenInfoText);
-			}
-		});
 		
 		// Banner image
 		JLabel bannerLabel = new JLabel("");
@@ -291,7 +236,6 @@ public class graphicLauncher extends JFrame {
 		mainContentPane.add(scrollPaneForCentralText);
 		mainContentPane.add(selectCitizensPanel);
 		mainContentPane.add(buttonsPanel);
-		mainContentPane.add(movementButtonsPane);
 		mainContentPane.add(citizenInfoPanel);
 		mainContentPane.add(logPanel);
 		mainContentPane.add(bannerLabel);
@@ -305,12 +249,6 @@ public class graphicLauncher extends JFrame {
 		buttonsPanel.add(buttonShowAllCitizens);
 		buttonsPanel.add(showMapButton);
 		
-		movementButtonsPane.add(buttonInteract);
-		movementButtonsPane.add(buttonDown);
-		movementButtonsPane.add(buttonLeft);
-		movementButtonsPane.add(buttonUp);
-		movementButtonsPane.add(buttonRight);
-		
 		citizenInfoPanel.add(actualCitizenInfoLabel);
 		citizenInfoPanel.add(scrollPane_1);
 		logPanel.add(scrollPane);
@@ -321,7 +259,16 @@ public class graphicLauncher extends JFrame {
 		
 		// Select the first citizen to start the game
 		this.actualCitizen = (Man) citizenList.searchForCitizen(1);
-
+		
+		// Add KeyListeners
+		textCentralArea.addKeyListener(this);
+		actualCitizenInfoText.addKeyListener(this);
+		logTextArea.addKeyListener(this);
+		confirmIDbutton.addKeyListener(this);
+		buttonShowAllCitizens.addKeyListener(this);
+		showMapButton.addKeyListener(this);
+		
+		
 	}
 	
 	/**
@@ -498,7 +445,7 @@ public class graphicLauncher extends JFrame {
 	 * @param textArea JTextArea where draw the map
 	 * @param citizenInfo JTextArea where write the actual citizen info
 	 */
-	public void moveUpButton(JTextArea textArea, JTextArea citizenInfo) {
+	public void moveUp(JTextArea textArea, JTextArea citizenInfo) {
 		Man toMove = (Man) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenUp(board, toMove);
 		textArea.setText("\n" + board.toString());
@@ -510,7 +457,7 @@ public class graphicLauncher extends JFrame {
 	 * @param textArea JTextArea where draw the map
 	 * @param citizenInfo JTextArea where write the actual citizen info
 	 */
-	public void moveDownButton(JTextArea textArea, JTextArea citizenInfo) {
+	public void moveDown(JTextArea textArea, JTextArea citizenInfo) {
 		Man toMove = (Man) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenDown(board, toMove);
 		textArea.setText("\n" + board.toString());
@@ -522,7 +469,7 @@ public class graphicLauncher extends JFrame {
 	 * @param textArea JTextArea where draw the map
 	 * @param citizenInfo JTextArea where write the actual citizen info
 	 */
-	public void moveRightButton(JTextArea textArea, JTextArea citizenInfo) {
+	public void moveRight(JTextArea textArea, JTextArea citizenInfo) {
 		Man toMove = (Man) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenRight(board, toMove);
 		textArea.setText("\n" + board.toString());
@@ -534,7 +481,7 @@ public class graphicLauncher extends JFrame {
 	 * @param textArea JTextArea where draw the map
 	 * @param citizenInfo JTextArea where write the actual citizen info
 	 */
-	public void moveLeftButton(JTextArea textArea, JTextArea citizenInfo) {
+	public void moveLeft(JTextArea textArea, JTextArea citizenInfo) {
 		Man toMove = (Man) citizenList.searchForCitizen(actualCitizenID);
 		MoveController.moveOneCitizenLeft(board, toMove);
 		textArea.setText("\n" + board.toString());
@@ -543,7 +490,7 @@ public class graphicLauncher extends JFrame {
 	}
 
 	// Interact button
-	public void interactButton(JTextArea mapTextArea, JTextArea logTextArea, JTextArea citizenInfo) {
+	public void interactAction(JTextArea mapTextArea, JTextArea logTextArea, JTextArea citizenInfo) {
 		InteractController.interactSpecific(board, actualCitizen);
 		mapTextArea.setText("\n" + board.toString());
 		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
@@ -640,5 +587,37 @@ public class graphicLauncher extends JFrame {
 		citizenList.createFishmonger(quantity);
 		citizenList.createFarmer(quantity);
 		citizenList.addCitizensToMap(board);
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		switch (e.getKeyCode()) {
+		case 68:
+			this.moveRight(textCentralArea, actualCitizenInfoText);
+			break;
+		case 65:
+			this.moveLeft(textCentralArea, actualCitizenInfoText);
+			break;
+		case 87:
+			this.moveUp(textCentralArea, actualCitizenInfoText);
+			break;
+		case 83:
+			this.moveDown(textCentralArea, actualCitizenInfoText);
+			break;
+		case 69:
+			this.interactAction(textCentralArea, logTextArea, actualCitizenInfoText);
+			break;
+		default:
+			break;
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
 	}
 }

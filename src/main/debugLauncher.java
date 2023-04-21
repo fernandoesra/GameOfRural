@@ -8,7 +8,7 @@ import map.Board;
 public class debugLauncher {
 	
 	public static void main (String[] args) throws InterruptedException {
-		
+		new MyFrame();
 		Scanner sc1 = new Scanner(System.in);
 		
 		// Create a new map
