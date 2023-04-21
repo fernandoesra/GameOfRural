@@ -1,10 +1,17 @@
 package main;
 
 import base.Man;
+import base.Tree;
+import logs.ActionsLog;
 import map.Board;
+import resources.Chair;
 import resources.GoldOreMineral;
 import resources.MinedGold;
+import resources.Table;
+import resources.WoodPlanks;
 import works.Blackmisth;
+import works.Carpenter;
+import works.Lumberjack;
 import works.Miner;
 
 public class InteractController {
@@ -23,8 +30,174 @@ public class InteractController {
 			interactBlackmisth(board, genericCitizen);
 		}
 		
+		// Lumberjack
+		if (nameOfClass.indexOf("Lumberjack") >= 0) {
+			interactLumberjack(board, genericCitizen);
+		}
+		
+		// Carpenter
+		if (nameOfClass.indexOf("Carpenter") >= 0) {
+			interactCarpenter(board, genericCitizen);
+		}
+		
+		// Fisherman
+		
+		
+		// Fishmonger
+		
+		
+		// Farmer
+		
+		
+		// Baker
+		
+		
 		// Other
 		
+	}
+	
+	public static void interactCarpenter(Board board, Man genericMan) {
+		Carpenter actualCarpenter = (Carpenter) genericMan;
+		int actualX = actualCarpenter.getMapX();
+		int actualY = actualCarpenter.getMapY();
+		
+		// Search up position
+		if (!board.validPosition(actualX - 1, actualY) && board.inBounds(actualX - 1, actualY)) {
+			String nameOfItem = board.getNameOfItem(actualX - 1, actualY);
+			if (nameOfItem.indexOf("Lumberjack") >= 0) {
+				
+				Lumberjack adjacentLumberjack = (Lumberjack) board.getObjectAt(actualX - 1, actualY);
+				int totalOfWoodPlanks = 0;
+				
+				// Calculate the total of wooded planks on the actual Lumberjack
+				do {
+					if (adjacentLumberjack.inventory.searchForName("Wood planks")) {
+						WoodPlanks actualPlanks = (WoodPlanks) adjacentLumberjack.inventory.fetchForName("Wood planks");
+						totalOfWoodPlanks += actualPlanks.getAmount();
+						adjacentLumberjack.inventory.removeFromInventory(actualPlanks);
+					}
+				} while (adjacentLumberjack.inventory.searchForName("Wood planks"));
+				
+				// Create new furniture
+				do {
+					// Table(6), chair (4), bed(6) and chest (4)
+					int random = (int) ((Math.random() * (5 - 1)) + 1);
+
+					if (random == 1) {
+						if (totalOfWoodPlanks >= 6) {
+							
+							Table toAdd = actualCarpenter.createTable(adjacentLumberjack);
+							int randomX = 0;
+							int randomY = 0;
+							int totalX = board.getHeight();
+							int totalY = board.getWidth();
+							do {
+								randomX = (int) ((Math.random() * (totalX - 0)) + 0);
+								randomY = (int) ((Math.random() * (totalY - 0)) + 0);
+							} while (!board.validPosition(randomX, randomY));
+							
+							board.addSomething(toAdd, randomX, randomY);
+							ActionsLog.registerAction("The new table is at " + randomX + "." + randomY);
+							
+							totalOfWoodPlanks -= 6;
+							
+						}
+					}
+					
+					if (random == 2) {
+						if (totalOfWoodPlanks >= 4) {
+							
+							Chair toAdd = actualCarpenter.createChair(adjacentLumberjack);
+							int randomX = 0;
+							int randomY = 0;
+							int totalX = board.getHeight();
+							int totalY = board.getWidth();
+							do {
+								randomX = (int) ((Math.random() * (totalX - 0)) + 0);
+								randomY = (int) ((Math.random() * (totalY - 0)) + 0);
+							} while (!board.validPosition(randomX, randomY));
+							
+							board.addSomething(toAdd, randomX, randomY);
+							ActionsLog.registerAction("The new chair is at " + randomX + "." + randomY);
+							
+							totalOfWoodPlanks -= 4;
+							
+						}
+					}
+					
+					
+					
+				} while (totalOfWoodPlanks > 4);
+
+				if (totalOfWoodPlanks > 0) {
+					WoodPlanks planksReturn = new WoodPlanks(totalOfWoodPlanks);
+					adjacentLumberjack.inventory.addToInventory(planksReturn);
+				}
+			}
+		}
+		
+		// Search down position
+		if (!board.validPosition(actualX + 1, actualY) && board.inBounds(actualX + 1, actualY)) {
+
+		}
+
+		// Search left position
+		if (!board.validPosition(actualX, actualY + 1) && board.inBounds(actualX, actualY + 1)) {
+
+		}
+
+		// Search right position
+		if (!board.validPosition(actualX, actualY - 1) && board.inBounds(actualX, actualY - 1)) {
+
+		}
+
+	}
+	
+	public static void interactLumberjack(Board board, Man genericMan) {
+		Lumberjack actualLumberjack = (Lumberjack) genericMan;
+		int actualX = actualLumberjack.getMapX();
+		int actualY = actualLumberjack.getMapY();
+		
+		// Search up position
+		if (!board.validPosition(actualX - 1, actualY) && board.inBounds(actualX - 1, actualY)) {
+			String nameOfItem = board.getNameOfItem(actualX - 1, actualY);
+			if (nameOfItem.indexOf("Tree")>=0) {
+				Tree actualTree = (Tree) board.getObjectAt(actualX - 1, actualY);
+				actualLumberjack.cutTree(actualTree);
+				board.eraseObjectAt(actualX - 1 , actualY);
+			}
+		}
+		
+		// Search down position
+		if (!board.validPosition(actualX + 1, actualY) && board.inBounds(actualX + 1, actualY)) {
+			String nameOfItem = board.getNameOfItem(actualX + 1, actualY);
+			if (nameOfItem.indexOf("Tree")>=0) {
+				Tree actualTree = (Tree) board.getObjectAt(actualX + 1, actualY);
+				actualLumberjack.cutTree(actualTree);
+				board.eraseObjectAt(actualX + 1 , actualY);
+			}
+		}
+
+		// Search left position
+		if (!board.validPosition(actualX, actualY + 1) && board.inBounds(actualX, actualY + 1)) {
+			String nameOfItem = board.getNameOfItem(actualX, actualY + 1);
+			if (nameOfItem.indexOf("Tree")>=0) {
+				Tree actualTree = (Tree) board.getObjectAt(actualX, actualY + 1);
+				actualLumberjack.cutTree(actualTree);
+				board.eraseObjectAt(actualX, actualY + 1);
+			}
+		}
+
+		// Search right position
+		if (!board.validPosition(actualX, actualY - 1) && board.inBounds(actualX, actualY - 1)) {
+			String nameOfItem = board.getNameOfItem(actualX, actualY - 1);
+			if (nameOfItem.indexOf("Tree")>=0) {
+				Tree actualTree = (Tree) board.getObjectAt(actualX, actualY - 1);
+				actualLumberjack.cutTree(actualTree);
+				board.eraseObjectAt(actualX, actualY - 1);
+			}
+		}
+
 	}
 	
 	public static void interactMiner(Board board, Man genericMiner) {

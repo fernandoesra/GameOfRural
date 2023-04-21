@@ -1,7 +1,13 @@
 package works;
 
+import base.Furniture;
 import base.Man;
+import logs.ActionsLog;
+import resources.Bed;
+import resources.Chair;
+import resources.Chest;
 import resources.Money;
+import resources.Table;
 
 public class Carpenter extends Man{
 	
@@ -13,6 +19,35 @@ public class Carpenter extends Man{
 		super(ID, HP, money, mapX, mapY, speed, "I"
 				);
 	}
+	
+	public Table createTable(Lumberjack lumberjack) {
+		Table furnitureToReturn = new Table();
+		String lumberjackName = lumberjack.getName();
+		int lumberjackID = lumberjack.getID();
+		ActionsLog.registerAction(this.name + "(" + this.ID + ") has received 6 wooden planks from " + 
+		lumberjackName + "(" + lumberjackID + "), with which he has created a table.");
+		return furnitureToReturn;
+	}
+	
+	public Chair createChair(Lumberjack lumberjack) {
+		Chair furnitureToReturn = new Chair();
+		String lumberjackName = lumberjack.getName();
+		int lumberjackID = lumberjack.getID();
+		ActionsLog.registerAction(this.name + "(" + this.ID + ") has received 4 wooden planks from " + 
+				lumberjackName + "(" + lumberjackID + "), with which he has created a chair.");
+		return furnitureToReturn;
+	}
+	
+	public Bed createBed() {
+		Bed furnitureToReturn = new Bed();
+		return furnitureToReturn;
+	}
+	
+	public Chest createChest() {
+		Chest furnitureToReturn = new Chest();
+		return furnitureToReturn;
+	}
+	
 	
 	@Override
 	public String toString() {

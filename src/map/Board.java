@@ -1,5 +1,6 @@
 package map;
 
+import base.Furniture;
 import base.Man;
 import base.Resource;
 import base.Tree;
@@ -320,6 +321,7 @@ public class Board {
 					
 					String superClassName = board[i][j].getClass().getSuperclass().getName();
 					String className = board[i][j].getClass().getName();
+					
 					if (superClassName.indexOf("Man")>= 0) {
 						text += ((Man)board[i][j]).getIcon()+"|";
 					}
@@ -330,6 +332,10 @@ public class Board {
 					
 					if (superClassName.indexOf("Tree")>= 0) {
 						text += ((Tree)board[i][j]).getIcon()+"|";
+					}
+					
+					if (superClassName.indexOf("Furniture")>= 0) {
+						text += ((Furniture)board[i][j]).getIcon()+"|";
 					}
 					
 					if (className.indexOf("Water")>= 0) {
