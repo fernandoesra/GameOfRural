@@ -126,38 +126,38 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		// Select Citizens Panel
 		JPanel selectCitizensPanel = new JPanel();
 		selectCitizensPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		selectCitizensPanel.setBounds(883, 27, 213, 166);
+		selectCitizensPanel.setBounds(1208, 10, 419, 46);
 		selectCitizensPanel.setLayout(null);
 		
 		JButton confirmIDbutton = new JButton("Select");
-		confirmIDbutton.setBounds(64, 120, 77, 23);
+		confirmIDbutton.setBounds(332, 11, 77, 23);
 		
 		// Objects for show citizens info
 		JLabel actualCitizenLabel = new JLabel("Actual citizen:");
-		actualCitizenLabel.setBounds(35, 29, 100, 22);
+		actualCitizenLabel.setBounds(10, 11, 88, 22);
 		actualCitizenLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		// Objects for select the citizen to move
 		
 		JTextField actualCitizenTextArea = new JTextField();
-		actualCitizenTextArea.setBounds(141, 30, 46, 20);
+		actualCitizenTextArea.setBounds(108, 12, 46, 20);
 		actualCitizenTextArea.setHorizontalAlignment(SwingConstants.CENTER);
 		actualCitizenTextArea.setEditable(false);
 		actualCitizenTextArea.setColumns(10);
 		actualCitizenTextArea.setText(String.valueOf(actualCitizenID));
 		
 		JLabel selectCitizenLabel = new JLabel("Select citizen (ID):");
-		selectCitizenLabel.setBounds(35, 77, 112, 22);
+		selectCitizenLabel.setBounds(164, 11, 102, 22);
 		selectCitizenLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
 		JTextField selectIDtextField = new JTextField();
-		selectIDtextField.setBounds(141, 78, 46, 20);
+		selectIDtextField.setBounds(276, 12, 46, 20);
 		selectIDtextField.setColumns(10);
 
 		// Citizen info panel
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 41, 483, 324);
+		scrollPane_1.setBounds(10, 41, 483, 284);
 
 		actualCitizenInfoText = new JTextArea();
 		scrollPane_1.setViewportView(actualCitizenInfoText);
@@ -169,7 +169,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 
 		JPanel citizenInfoPanel = new JPanel();
 		citizenInfoPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		citizenInfoPanel.setBounds(1124, 27, 503, 376);
+		citizenInfoPanel.setBounds(1208, 67, 419, 336);
 		citizenInfoPanel.setLayout(null);
 
 		JLabel actualCitizenInfoLabel = new JLabel("Actual citizen info:");
@@ -622,9 +622,6 @@ public class graphicLauncher extends JFrame implements KeyListener{
 			break;
 		case 40:
 			this.moveDown(textCentralArea, actualCitizenInfoText);
-			break;
-		case 32:
-			this.interactAction(textCentralArea, logTextArea, actualCitizenInfoText);
 			break;
 		default:
 			break;

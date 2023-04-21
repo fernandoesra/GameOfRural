@@ -44,7 +44,7 @@ public class Miner extends Man {
 			jobName += jobChar[i];
 		}
 		
-		toReturn += "His job is to be a " + jobName;
+		toReturn += this.name + "'s job is to be a " + jobName;
 		
 		return toReturn;
 	}
