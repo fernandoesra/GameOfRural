@@ -267,6 +267,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		confirmIDbutton.addKeyListener(this);
 		buttonShowAllCitizens.addKeyListener(this);
 		showMapButton.addKeyListener(this);
+		actualCitizenTextArea.addKeyListener(this);
 		
 		
 	}
@@ -335,15 +336,15 @@ public class graphicLauncher extends JFrame implements KeyListener{
 					break;
 					
 				// Resources:
-				case '#':
+				case (char)9540:
 					// Tree
 					high.addHighlight(i+1, i+2, setColor(12));
 					break;
-				case '+':
+				case (char)8776:
 					// Water
 					high.addHighlight(i+1, i+2, setColor(11));
 					break;
-				case 'ø':
+				case (char)937:
 					// Gold Ore
 					high.addHighlight(i+1, i+2, setColor(13));
 					break;

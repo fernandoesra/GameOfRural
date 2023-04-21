@@ -5,7 +5,7 @@ public class Water {
 	String icon;
 	
 	public Water() {
-		icon = "+";
+		icon = ""+(char)8776;
 	}
 	
 	public String getIcon() {
