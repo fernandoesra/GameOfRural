@@ -2,8 +2,8 @@ package main;
 
 import base.Man;
 import map.Board;
-import minerals.GoldOreMineral;
-import minerals.MinedGold;
+import resources.GoldOreMineral;
+import resources.MinedGold;
 import works.Blackmisth;
 import works.Miner;
 

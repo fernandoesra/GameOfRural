@@ -2,7 +2,7 @@ package works;
 
 import base.Man;
 import logs.ActionsLog;
-import minerals.MinedGold;
+import resources.MinedGold;
 import resources.Money;
 
 /*

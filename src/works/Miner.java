@@ -2,8 +2,8 @@ package works;
 
 import base.Man;
 import logs.ActionsLog;
-import minerals.GoldOreMineral;
-import minerals.MinedGold;
+import resources.GoldOreMineral;
+import resources.MinedGold;
 import resources.Money;
 
 public class Miner extends Man {

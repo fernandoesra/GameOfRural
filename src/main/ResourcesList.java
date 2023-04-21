@@ -1,7 +1,7 @@
 package main;
 
 import map.Board;
-import minerals.GoldOreMineral;
+import resources.GoldOreMineral;
 import utils.ObjectsList;
 
 public class ResourcesList {

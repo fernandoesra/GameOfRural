@@ -1,4 +1,4 @@
-package minerals;
+package resources;
 
 import base.Resource;
 

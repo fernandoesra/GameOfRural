@@ -111,7 +111,7 @@ public class graphicLauncher extends JFrame {
 		JTextArea textCentralArea = new JTextArea();
 		textCentralArea.setEditable(false);
 		JScrollPane scrollPaneForCentralText = new JScrollPane();
-		scrollPaneForCentralText.setBounds(10, 10, 850, 570);
+		scrollPaneForCentralText.setBounds(10, 10, 850, 580);
 		scrollPaneForCentralText.setViewportView(textCentralArea);
 		textCentralArea.setForeground(new Color(0, 0, 0));
 		textCentralArea.setBackground(new Color(255, 255, 255));
@@ -151,19 +151,22 @@ public class graphicLauncher extends JFrame {
 		selectIDtextField.setColumns(10);
 
 		// Citizen info panel
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 41, 483, 324);
+
+		JTextArea actualCitizenInfoText = new JTextArea();
+		scrollPane_1.setViewportView(actualCitizenInfoText);
+		actualCitizenInfoText.setBackground(new Color(255, 255, 255));
+		actualCitizenInfoText.setFont(new Font("Consolas", Font.PLAIN, 11));
+		actualCitizenInfoText.setEditable(false);
+		actualCitizenInfoText.setColumns(10);
+		actualCitizenInfoText.setText("\n" + citizenList.getInfoID(actualCitizenID));
 
 		JPanel citizenInfoPanel = new JPanel();
 		citizenInfoPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		citizenInfoPanel.setBounds(1124, 27, 503, 376);
 		citizenInfoPanel.setLayout(null);
-
-		JTextArea actualCitizenInfoText = new JTextArea();
-		actualCitizenInfoText.setBackground(new Color(255, 255, 255));
-		actualCitizenInfoText.setFont(new Font("Consolas", Font.PLAIN, 11));
-		actualCitizenInfoText.setEditable(false);
-		actualCitizenInfoText.setBounds(10, 41, 483, 324);
-		actualCitizenInfoText.setColumns(10);
-		actualCitizenInfoText.setText("\n" + citizenList.getInfoID(actualCitizenID));
 
 		JLabel actualCitizenInfoLabel = new JLabel("Actual citizen info:");
 		actualCitizenInfoLabel.setBounds(10, 16, 158, 14);
@@ -279,7 +282,7 @@ public class graphicLauncher extends JFrame {
 		
 		// Banner image
 		JLabel bannerLabel = new JLabel("");
-		bannerLabel.setIcon(new ImageIcon("resources/bannerGoR.png"));
+		bannerLabel.setIcon(new ImageIcon("assets/bannerGoR.png"));
 		bannerLabel.setBounds(10, 693, 1664, 207);
 		
 		// Add all to the containers
@@ -308,9 +311,8 @@ public class graphicLauncher extends JFrame {
 		movementButtonsPane.add(buttonUp);
 		movementButtonsPane.add(buttonRight);
 		
-		citizenInfoPanel.add(actualCitizenInfoText);
 		citizenInfoPanel.add(actualCitizenInfoLabel);
-		
+		citizenInfoPanel.add(scrollPane_1);
 		logPanel.add(scrollPane);
 		logPanel.add(logLabel);
 		
@@ -394,6 +396,10 @@ public class graphicLauncher extends JFrame {
 					// Water
 					high.addHighlight(i+1, i+2, setColor(11));
 					break;
+				case 'ø':
+					// Gold Ore
+					high.addHighlight(i+1, i+2, setColor(13));
+					break;
 				}
 			}
 		} catch (Exception ex) {
@@ -434,7 +440,7 @@ public class graphicLauncher extends JFrame {
 		}
 
 		if (index == 4) {
-			final Color VERY_LIGHT_YELLOW = new Color(255, 204, 0);
+			final Color VERY_LIGHT_YELLOW = new Color(255, 240, 120);
 			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_YELLOW);
 		}
 
@@ -476,6 +482,11 @@ public class graphicLauncher extends JFrame {
 		if (index == 12) {
 			final Color TREE_GREEN = new Color(84, 168, 51);
 			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(TREE_GREEN);
+		}
+		
+		if (index == 13) {
+			final Color ORE_GOLD = new Color(255, 215, 0);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(ORE_GOLD);
 		}
 
 		return selectedColor;
@@ -588,13 +599,16 @@ public class graphicLauncher extends JFrame {
 	 */
 	public void initialize() {
 		int height = 28;
-		int width = 50;
+		int width = 52;
 		board = new Board(height, width);
 
 		resourcesList = new ResourcesList();
 
 		biomeGenerator.createRiver(board, 2);
 		biomeGenerator.createForest(board, resourcesList, 4, 15);
+		
+		resourcesList.addGoldOreMineral(10);
+		resourcesList.addResourcesToMap(board);
 
 		citizenList = new CitizenList();
 		citizenList.createAll(1);
@@ -607,7 +621,7 @@ public class graphicLauncher extends JFrame {
 	 */
 	public void initialize(int quantity) {
 		int height = 28;
-		int width = 51;
+		int width = 52;
 		board = new Board(height, width);
 		
 		resourcesList = new ResourcesList();
