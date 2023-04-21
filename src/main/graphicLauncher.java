@@ -611,6 +611,21 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		case 69:
 			this.interactAction(textCentralArea, logTextArea, actualCitizenInfoText);
 			break;
+		case 39:
+			this.moveRight(textCentralArea, actualCitizenInfoText);
+			break;
+		case 37:
+			this.moveLeft(textCentralArea, actualCitizenInfoText);
+			break;
+		case 38:
+			this.moveUp(textCentralArea, actualCitizenInfoText);
+			break;
+		case 40:
+			this.moveDown(textCentralArea, actualCitizenInfoText);
+			break;
+		case 32:
+			this.interactAction(textCentralArea, logTextArea, actualCitizenInfoText);
+			break;
 		default:
 			break;
 		}
