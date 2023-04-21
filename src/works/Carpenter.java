@@ -38,13 +38,21 @@ public class Carpenter extends Man{
 		return furnitureToReturn;
 	}
 	
-	public Bed createBed() {
+	public Bed createBed(Lumberjack lumberjack) {
 		Bed furnitureToReturn = new Bed();
+		String lumberjackName = lumberjack.getName();
+		int lumberjackID = lumberjack.getID();
+		ActionsLog.registerAction(this.name + "(" + this.ID + ") has received 4 wooden planks from " + 
+				lumberjackName + "(" + lumberjackID + "), with which he has created a bed.");
 		return furnitureToReturn;
 	}
 	
-	public Chest createChest() {
+	public Chest createChest(Lumberjack lumberjack) {
 		Chest furnitureToReturn = new Chest();
+		String lumberjackName = lumberjack.getName();
+		int lumberjackID = lumberjack.getID();
+		ActionsLog.registerAction(this.name + "(" + this.ID + ") has received 4 wooden planks from " + 
+				lumberjackName + "(" + lumberjackID + "), with which he has created a chest.");
 		return furnitureToReturn;
 	}
 	
