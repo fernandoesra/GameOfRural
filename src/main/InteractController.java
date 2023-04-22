@@ -34,7 +34,8 @@ public class InteractController {
 		
 		// Lumberjack
 		if (nameOfClass.indexOf("Lumberjack") >= 0) {
-			interactLumberjack(board, genericCitizen);
+			interactLumberjackTree(board, genericCitizen);
+			interactLumberjackFurniture(board, genericCitizen);
 		}
 		
 		// Carpenter
@@ -153,7 +154,83 @@ public class InteractController {
 
 	}
 	
-	public static void interactLumberjack(Board board, Man genericMan) {
+	public static void dismantleFurniture(Board board, int actualX, int actualY, Lumberjack actualLumberjack) {
+		
+		String nameOfItem = board.getNameOfItem(actualX, actualY);
+
+		if (nameOfItem.indexOf("Chair") >= 0) {
+			board.eraseObjectAt(actualX, actualY);
+			ActionsLog.registerAction(actualLumberjack.getName() + "(" + actualLumberjack.getID() + ")"
+					+ " dismantle a chair" + " and obtained 4 wood planks.");
+			WoodPlanks woodPlanks = new WoodPlanks(4);
+			actualLumberjack.inventory.addToInventory(woodPlanks);
+		}
+
+		if (nameOfItem.indexOf("Chest") >= 0) {
+			board.eraseObjectAt(actualX, actualY);
+			ActionsLog.registerAction(actualLumberjack.getName() + "(" + actualLumberjack.getID() + ")"
+					+ " dismantle a chest" + " and obtained 4 wood planks.");
+			WoodPlanks woodPlanks = new WoodPlanks(4);
+			actualLumberjack.inventory.addToInventory(woodPlanks);
+		}
+
+		if (nameOfItem.indexOf("Bed") >= 0) {
+			board.eraseObjectAt(actualX, actualY);
+			ActionsLog.registerAction(actualLumberjack.getName() + "(" + actualLumberjack.getID() + ")"
+					+ " dismantle a bed" + " and obtained 6 wood planks.");
+			WoodPlanks woodPlanks = new WoodPlanks(6);
+			actualLumberjack.inventory.addToInventory(woodPlanks);
+		}
+
+		if (nameOfItem.indexOf("Table") >= 0) {
+			board.eraseObjectAt(actualX, actualY);
+			ActionsLog.registerAction(actualLumberjack.getName() + "(" + actualLumberjack.getID() + ")"
+					+ " dismantle a table" + " and obtained 6 wood planks.");
+			WoodPlanks woodPlanks = new WoodPlanks(6);
+			actualLumberjack.inventory.addToInventory(woodPlanks);
+		}
+	}
+	
+	public static void interactLumberjackFurniture(Board board, Man genericMan) {
+		Lumberjack actualLumberjack = (Lumberjack) genericMan;
+		int actualX = actualLumberjack.getMapX();
+		int actualY = actualLumberjack.getMapY();
+		
+		// Search up position
+		if (!board.validPosition(actualX - 1, actualY) && board.inBounds(actualX - 1, actualY)) {
+			String nameOfSuperItem = board.getObjectAt(actualX - 1, actualY).getClass().getSuperclass().getName();
+			if (nameOfSuperItem.indexOf("Furniture") >= 0) {
+				dismantleFurniture(board, actualX-1,actualY,actualLumberjack);
+			}
+		}
+		
+		// Search down position
+		if (!board.validPosition(actualX + 1, actualY) && board.inBounds(actualX + 1, actualY)) {
+			String nameOfSuperItem = board.getObjectAt(actualX + 1, actualY).getClass().getSuperclass().getName();
+			if (nameOfSuperItem.indexOf("Furniture") >= 0) {
+				dismantleFurniture(board, actualX+1,actualY,actualLumberjack);
+			}
+		}
+
+		// Search left position
+		if (!board.validPosition(actualX, actualY + 1) && board.inBounds(actualX, actualY + 1)) {
+			String nameOfSuperItem = board.getObjectAt(actualX , actualY + 1).getClass().getSuperclass().getName();
+			if (nameOfSuperItem.indexOf("Furniture") >= 0) {
+				dismantleFurniture(board, actualX,actualY+1,actualLumberjack);
+			}
+		}
+
+		// Search right position
+		if (!board.validPosition(actualX, actualY - 1) && board.inBounds(actualX, actualY - 1)) {
+			String nameOfSuperItem = board.getObjectAt(actualX , actualY - 1).getClass().getSuperclass().getName();
+			if (nameOfSuperItem.indexOf("Furniture") >= 0) {
+				dismantleFurniture(board, actualX,actualY-1,actualLumberjack);
+			}
+		}
+
+	}
+	
+	public static void interactLumberjackTree(Board board, Man genericMan) {
 		Lumberjack actualLumberjack = (Lumberjack) genericMan;
 		int actualX = actualLumberjack.getMapX();
 		int actualY = actualLumberjack.getMapY();
@@ -456,4 +533,3 @@ public class InteractController {
 
 }
 
-	
