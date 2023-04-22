@@ -41,7 +41,7 @@ public class debugLauncher {
 		*/
 		
 		listaCiudadanos.createFarmer(1);
-		listaCiudadanos.addCitizensToMap(board);
+		listaCiudadanos.addAllCitizensToMap(board);
 		
 		String eleccion = "";
 		

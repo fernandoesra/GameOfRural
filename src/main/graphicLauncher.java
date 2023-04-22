@@ -615,7 +615,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 
 		citizenList = new CitizenList();
 		citizenList.createAll(1);
-		citizenList.addCitizensToMap(board);
+		citizenList.addAllCitizensToMap(board);
 	}
 
 	/**
@@ -644,7 +644,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		citizenList.createFisherman(quantity);
 		citizenList.createFishmonger(quantity);
 		citizenList.createFarmer(quantity);
-		citizenList.addCitizensToMap(board);
+		citizenList.addAllCitizensToMap(board);
 	}
 
 	@Override
