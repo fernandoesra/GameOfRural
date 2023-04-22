@@ -1,5 +1,14 @@
 package base;
 
+/**
+ * Base object to create different type of resources like minerals, animals...
+ * Each Resource have a different name and icon. If the resource needs it, its
+ * possible to use the <b>amount</b> attribute.
+ * 
+ * @author Fernando Tarriño del Pozo (FernandoEsra)
+ *
+ */
+
 public class Resource {
 	
 	// Attributes

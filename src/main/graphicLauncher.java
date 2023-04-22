@@ -30,6 +30,7 @@ import javax.swing.JTextField;
 
 import javax.swing.text.Highlighter;
 import javax.swing.text.Highlighter.HighlightPainter;
+import javax.swing.text.DefaultCaret;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.border.BevelBorder;
 import javax.swing.ImageIcon;
@@ -45,6 +46,9 @@ import javax.swing.ImageIcon;
  * @see map.Board
  * @see main.CitizenList
  * @see logs.ActionsLog
+ * @see main.ResourcesList
+ * @see base.Man
+ * @see main.BiomeGenerator
  * 
  */
 
@@ -94,7 +98,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	}
 
 	/**
-	 * Empty constructor, launch from the main.
+	 * Empty constructor. Initialize all the attributes for the class.
 	 */
 	public graphicLauncher() {
 				
@@ -128,6 +132,10 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		scrollPaneForCentralText.setViewportView(textCentralArea);
 		textCentralArea.setForeground(new Color(0, 0, 0));
 		textCentralArea.setBackground(new Color(255, 255, 255));
+		
+		// Create a Caret for the scrollPane, that prevents the auto-scroll
+		DefaultCaret caret = (DefaultCaret)textCentralArea.getCaret();
+	    caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
 		
 		try {
 			Font font = Font.createFont(Font.PLAIN, new FileInputStream(new File("./assets/CONSOLA.TTF")));
@@ -286,7 +294,8 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	
 	/**
 	 * This method search on the text on the JTextArea of the map for the characters
-	 * of the different jobs and then highlight every character on a different color
+	 * of the different jobs ands resources. Then highlight every character on a
+	 * different color
 	 * 
 	 * @param txtDisplay JTextArea where we want to change the color of the citizens
 	 */
@@ -368,12 +377,28 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	}
 	
 	/**
+	 * This method retunr a HighlightPainter object configured just to paint
+	 * something on the highlightMainMap method.<br>
+	 * The index of the colors are:<p>
+	 * <b>Invalid number: </b>White. R: 255, G: 255, B: 255<br>
+	 * <b>1 : </b>Very Light Red.    R: 255, G: 102, B: 102<br>
+	 * <b>2 : </b>Very light Blue.   R: 51, G: 190, B: 255<br>
+	 * <b>3 : </b>Very Light Green.  R: 102, G: 255, B: 102<br>
+	 * <b>4 : </b>Very Light Yellow. R: 255, G: 149, B: 120s<br>
+	 * <b>5 : </b>Very Light Grey.   R: 204, G: 204, B: 204<br>
+	 * <b>6 : </b>Very Light Brown.  R: 153, G: 102, B: 0<br>
+	 * <b>7 : </b>Purple.            R: 102, G: 80, B: 200<br>
+	 * <b>8 : </b>Light Black.       R: 90, G: 90, B: 90<br>
+	 * <b>9 : </b>Light Orange.      R: 155, G: 153, B: 0<br>
+	 * <b>10: </b>Light Blue.        R: 51, G: 130, B: 255<br>
+	 * <b>11: </b>Water Blue.        R: 30, G: 230, B: 255<br>
+	 * <b>12: </b>Tree Green.        R: 84, G: 168, B: 51<br>
+	 * <b>13: </b>Ore Gold.          R: 255, G: 215, B: 0<br>
 	 * 
-	 * @param index A number between 1 and 10
+	 * @param index A number between 1 and 13
 	 * @return A HighlightPainter objetc with one color asigned. If the number of
-	 *         the param its not between 1 and 10 return white
+	 *         the param its not on the list return white
 	 */
-	
 	public HighlightPainter setColor(int index) {
 		/*
 		 * Colors: 1 - light_red 2 - very_light_blue 3 - light_green 4 - light_yellow 5
@@ -455,6 +480,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	// Actions of the buttons
 	/**
 	 * If its possible move the selected citizen up
+	 * 
 	 * @param textArea JTextArea where draw the map
 	 * @param citizenInfo JTextArea where write the actual citizen info
 	 */
@@ -467,6 +493,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	}
 	/**
 	 * If its possible move the selected citizen down
+	 * 
 	 * @param textArea JTextArea where draw the map
 	 * @param citizenInfo JTextArea where write the actual citizen info
 	 */
@@ -479,6 +506,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	}
 	/**
 	 * If its possible move the selected citizen to the right
+	 * 
 	 * @param textArea JTextArea where draw the map
 	 * @param citizenInfo JTextArea where write the actual citizen info
 	 */
@@ -491,6 +519,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	}
 	/**
 	 * If its possible move the selected citizen to the left
+	 * 
 	 * @param textArea JTextArea where draw the map
 	 * @param citizenInfo JTextArea where write the actual citizen info
 	 */
@@ -523,6 +552,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	// Show map button
 	/**
 	 * Change the text of the param textArea for the board.toString
+	 * 
 	 * @param textArea JTextArea to draw the map
 	 */
 	public void showMapButton(JTextArea textArea) {
@@ -533,6 +563,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	// Show all citizens button
 	/**
 	 * Change the text of the param textArea for the citizenList.toString
+	 * 
 	 * @param textArea JTextArea to write all the info about the citizens
 	 */
 	public void showAllCitizensButton(JTextArea textArea) {
@@ -563,21 +594,21 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	}
 
 	/**
-	 * This method initialize the map with a length of 28x52. Then create a new
+	 * This method initialize the map with a length of 50x100. Then create a new
 	 * resourcesList and a new citizenList. Then, in order, create the rivers, the
 	 * forest, add the minerals, the animals and the citizens to the board.
 	 */
 	public void initialize() {
-		int height = 28;
-		int width = 52;
+		int height = 50;
+		int width = 100;
 		board = new Board(height, width);
 
 		resourcesList = new ResourcesList();
 
 		biomeGenerator.createRiver(board, 2);
-		// biomeGenerator.createCircularForest(board, 2, 10);
-		biomeGenerator.createNonCircularForest(board, 4, 15);
-		biomeGenerator.createRandomTrees(board, 90);
+		biomeGenerator.createCircularForest(board, 3, 10);
+		biomeGenerator.createNonCircularForest(board, 5, 15);
+		biomeGenerator.createRandomTrees(board, 110);
 		
 		resourcesList.addGoldOreMineral(10);
 		resourcesList.addResourcesToMap(board);

@@ -22,20 +22,37 @@ public class InteractController {
 		
 		String nameOfClass = genericCitizen.getClass().getName();
 		
+		/*
+		 * Harvesting works:
+		 */
+		
 		// Miner
 		if (nameOfClass.indexOf("Miner") >= 0) {
 			interactMiner(board, genericCitizen);
 		}
 
-		// Blackmisth
-		if (nameOfClass.indexOf("Blackmisth") >= 0) {
-			interactBlackmisth(board, genericCitizen);
-		}
-		
 		// Lumberjack
 		if (nameOfClass.indexOf("Lumberjack") >= 0) {
 			interactLumberjackTree(board, genericCitizen);
 			interactLumberjackFurniture(board, genericCitizen);
+		}
+
+		// Fisherman
+		
+				
+		// Farmer
+		
+				
+		// Butcher
+				
+				
+		/*
+		 * Crafting works:
+		 */
+		
+		// Blackmisth
+		if (nameOfClass.indexOf("Blackmisth") >= 0) {
+			interactBlackmisth(board, genericCitizen);
 		}
 		
 		// Carpenter
@@ -43,19 +60,15 @@ public class InteractController {
 			interactCarpenter(board, genericCitizen);
 		}
 		
-		// Fisherman
-		
-		
-		// Fishmonger
-		
-		
-		// Farmer
+		// Fishmonger		
 		
 		
 		// Baker
 		
 		
-		// Other
+		/*
+		 * Other works:
+		 */
 		
 	}
 	
