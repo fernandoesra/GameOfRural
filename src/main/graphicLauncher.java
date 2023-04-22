@@ -14,8 +14,12 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -123,7 +127,13 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		scrollPaneForCentralText.setViewportView(textCentralArea);
 		textCentralArea.setForeground(new Color(0, 0, 0));
 		textCentralArea.setBackground(new Color(255, 255, 255));
-		textCentralArea.setFont(new Font("Consolas", Font.PLAIN, 14));
+		try {
+			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("assets/CONSOLA.TTF")));
+			textCentralArea.setFont(font.deriveFont(14.0f));
+		} catch (FontFormatException | IOException e) {
+			System.err.println("La fuente no se ha encontrado");
+			e.printStackTrace();
+		}
 		textCentralArea.getHighlighter();/* At start always select the citizen with ID 1 */
 		
 		// Select Citizens Panel
