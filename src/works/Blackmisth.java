@@ -5,10 +5,6 @@ import logs.ActionsLog;
 import resources.MinedGold;
 import resources.Money;
 
-/*
- * FILL = ((Math.random() * (maxPercent - minPercent)) + minPercent);
- */
-
 public class Blackmisth extends Man{
 	
 	public Blackmisth() {
