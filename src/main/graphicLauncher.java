@@ -121,19 +121,22 @@ public class graphicLauncher extends JFrame implements KeyListener{
 
 		// Center text area and scroll
 		textCentralArea = new JTextArea();
+		// textCentralArea.setFont(new Font("Consolas", Font.PLAIN, 14));
 		textCentralArea.setEditable(false);
 		JScrollPane scrollPaneForCentralText = new JScrollPane();
 		scrollPaneForCentralText.setBounds(10, 10, 850, 580);
 		scrollPaneForCentralText.setViewportView(textCentralArea);
 		textCentralArea.setForeground(new Color(0, 0, 0));
 		textCentralArea.setBackground(new Color(255, 255, 255));
+		
 		try {
-			Font font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("assets/CONSOLA.TTF")));
-			textCentralArea.setFont(font.deriveFont(14.0f));
+			Font font = Font.createFont(Font.PLAIN, new FileInputStream(new File("./assets/CONSOLA.TTF")));
+			textCentralArea.setFont(font.deriveFont(Font.PLAIN, 14f));
 		} catch (FontFormatException | IOException e) {
 			System.err.println("La fuente no se ha encontrado");
 			e.printStackTrace();
 		}
+		
 		textCentralArea.getHighlighter();/* At start always select the citizen with ID 1 */
 		
 		// Select Citizens Panel
