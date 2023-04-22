@@ -226,7 +226,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		
 		// Banner image
 		JLabel bannerLabel = new JLabel("");
-		bannerLabel.setIcon(new ImageIcon("assets/bannerGoR.png"));
+		bannerLabel.setIcon(new ImageIcon("./assets/bannerGoR.png"));
 		bannerLabel.setBounds(10, 693, 1664, 207);
 		
 		// Add all to the containers
@@ -562,7 +562,8 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		resourcesList = new ResourcesList();
 
 		biomeGenerator.createRiver(board, 2);
-		biomeGenerator.createForest(board, resourcesList, 4, 15);
+		// biomeGenerator.createCircularForest(board, resourcesList, 2, 10);
+		biomeGenerator.createNonCircularForest(board, resourcesList, 4, 15);
 		
 		resourcesList.addGoldOreMineral(10);
 		resourcesList.addResourcesToMap(board);
@@ -586,7 +587,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		resourcesList = new ResourcesList();
 		
 		biomeGenerator.createRiver(board, 2);
-		biomeGenerator.createForest(board, resourcesList, 4, 15);
+		biomeGenerator.createNonCircularForest(board, resourcesList, 4, 15);
 		
 		resourcesList.addGoldOreMineral(20);
 		resourcesList.addResourcesToMap(board);

@@ -89,7 +89,56 @@ public class BiomeGenerator {
 		
 	}
 	
-	public void createForest(Board board, ResourcesList resourcesList, int forests, int density) {
+	public void createCircularForest(Board board, ResourcesList resourcesList, int forests, int density) {
+
+		for (int i = 0; i < forests; i++) {
+			int mapLengthX = board.getHeight();
+			int mapLengthY = board.getWidth();
+			int randomMapX = 0;
+			int randomMapY = 0;
+
+			do {
+				randomMapX = (int) ((Math.random() * (mapLengthX - 0)) + 0);
+				randomMapY = (int) ((Math.random() * (mapLengthY - 0)) + 0);
+			} while (!board.validPosition(randomMapX, randomMapY));
+
+			int finalMapX = randomMapX + (int)(density * 1.5);
+			int finalMapY = randomMapY + (int)(density * 1.5);
+
+			for (int x = randomMapX; x < finalMapX; x++) {
+				for (int y = randomMapY; y < finalMapY; y++) {
+
+					if (board.validPosition(x, y)) {
+						int random = (int) ((Math.random() * (101 - 0)) + 0);
+
+						if (x <= randomMapX + 1 || y <= randomMapY + 1) {
+							if (random <= 10) {
+								Tree toAdd = generateTree();
+								board.addSomething(toAdd, x, y);
+							}
+						} else if (x <= randomMapX + 3  || y <= randomMapY + 3) {
+							if (random <= 30) {
+								Tree toAdd = generateTree();
+								board.addSomething(toAdd, x, y);
+							}
+						} else {
+							
+							if (random <= 75) {
+								Tree toAdd = generateTree();
+								board.addSomething(toAdd, x, y);
+							}
+						}
+
+					}
+
+				}
+			}
+
+		}
+
+	}
+	
+	public void createNonCircularForest(Board board, ResourcesList resourcesList, int forests, int density) {
 		
 		for (int i = 0; i < forests; i++) {
 			
