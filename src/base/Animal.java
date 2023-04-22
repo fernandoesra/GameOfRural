@@ -1,5 +1,10 @@
 package base;
-
+/**
+ * Base object to create animals
+ * Each animal have a different name, type and icon
+ * @author Fernando Tarriño del Pozo (FernandoEsra)
+ *
+ */
 public class Animal implements Comparable{
 	
 	// Attributes
@@ -42,7 +47,7 @@ public class Animal implements Comparable{
 	// Methods
 	@Override
 	public String toString() {
-		return "El animal " + name + " es de tipo " + type + " su icono en el mapa es: " + icon;
+		return "The " + name + " is a " + type + " type animal and its icon is : " + icon;
 	}
 	
 	@Override
@@ -56,9 +61,10 @@ public class Animal implements Comparable{
 		
 		return equal;
 	}
-
+	
 	@Override
 	public int compareTo(Object obj) {
+		// Compare just the names
 		int compare = 0;
 		Animal other = (Animal) obj;
 		compare = this.name.compareTo(other.name);

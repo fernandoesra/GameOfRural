@@ -2,6 +2,13 @@ package utils;
 
 import map.Board;
 
+/**
+ * This interface forces implementers to write the methods of the different
+ * movement actions on a board. For an example, see the <b>base.Man</b> class.
+ * 
+ * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @see base.Man
+ */
 public interface Movement {
 	
 	public boolean up(Board board);

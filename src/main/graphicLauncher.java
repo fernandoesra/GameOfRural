@@ -17,6 +17,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -76,6 +78,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 				try {
 					graphicLauncher frame = new graphicLauncher();
 					frame.setVisible(true);
+					frame.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -94,12 +97,12 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		// Initialize the biome generator
 		biomeGenerator = new BiomeGenerator();
 		
-		// Initialize and fill the map
-		this.initialize();
-		actualCitizenID = 1;
-		
 		// Initialize the action log
 		log = new ActionsLog();
+		
+		// Initialize and fill the map, set the starting actual Citizen to 1
+		this.initialize();
+		actualCitizenID = 1;
 		
 		/*
 		 * From here we create all the graphic objetcs of Java Swing
@@ -138,7 +141,6 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		actualCitizenLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		// Objects for select the citizen to move
-		
 		JTextField actualCitizenTextArea = new JTextField();
 		actualCitizenTextArea.setBounds(108, 12, 46, 20);
 		actualCitizenTextArea.setHorizontalAlignment(SwingConstants.CENTER);
@@ -155,7 +157,6 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		selectIDtextField.setColumns(10);
 
 		// Citizen info panel
-		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(10, 41, 483, 284);
 
@@ -192,7 +193,6 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		showMapButton.setBounds(10, 22, 153, 36);
 
 		// Show all citizens button
-
 		JButton buttonShowAllCitizens = new JButton("Show all citizens");
 		buttonShowAllCitizens.setBounds(173, 22, 153, 36);
 
@@ -209,7 +209,6 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		});
 		
 		// Log panel
-
 		JPanel logPanel = new JPanel();
 		logPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		logPanel.setBounds(870, 414, 757, 267);
@@ -491,6 +490,15 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	}
 
 	// Interact button
+	/**
+	 * That method search for the actual citizen on the board, then scan up, down,
+	 * left and right and want for interactions. If a interaction exits, then
+	 * execute that interaction and update the differents text areas of the game.
+	 * 
+	 * @param mapTextArea The JTextArea of the map
+	 * @param logTextArea The JTextArea of the action log
+	 * @param citizenInfo The JTextArea of the actual citizen
+	 */
 	public void interactAction(JTextArea mapTextArea, JTextArea logTextArea, JTextArea citizenInfo) {
 		InteractController.interactSpecific(board, actualCitizen);
 		mapTextArea.setText("\n" + board.toString());
@@ -542,8 +550,9 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	}
 
 	/**
-	 * This method initialize the map with a length of 28x50 and create one citizen
-	 * of each job on the citizenList. Then add the citizens to the map.
+	 * This method initialize the map with a length of 28x52. Then create a new
+	 * resourcesList and a new citizenList. Then, in order, create the rivers, the
+	 * forest, add the minerals, the animals and the citizens to the board.
 	 */
 	public void initialize() {
 		int height = 28;
@@ -564,7 +573,9 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	}
 
 	/**
-	 * Test method to initialize the map with just X citizens of just one job type.
+	 * Test method to initialize the map with just X citizens of just a selected
+	 * jobs types.
+	 * 
 	 * @param quantity The amount of citizens to create and add to the map.
 	 */
 	public void initialize(int quantity) {
@@ -596,6 +607,10 @@ public class graphicLauncher extends JFrame implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		/**
+		 * Controll the movement with the arrow keys or W,A,S,D and the interact action
+		 * with the 'e' key
+		 */
 		switch (e.getKeyCode()) {
 		case 68:
 			this.moveRight(textCentralArea, actualCitizenInfoText);

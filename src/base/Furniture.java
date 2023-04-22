@@ -1,5 +1,11 @@
 package base;
 
+/**
+ * Base objet to create different types of furniture
+ * Each furniture have a name and a icon
+ * @author Fernando Tarriño del Pozo (FernandoEsra)
+ *
+ */
 public class Furniture implements Comparable {
 
 	// Attributes
@@ -32,7 +38,7 @@ public class Furniture implements Comparable {
 	// Methods
 	@Override
 	public String toString() {
-		return "El mueble " + name + " tiene el icono " + icon;
+		return "The " + name + " have the icon " + icon;
 	}
 
 	@Override
@@ -49,6 +55,7 @@ public class Furniture implements Comparable {
 
 	@Override
 	public int compareTo(Object obj) {
+		// Compare just the name
 		int compare = 0;
 		Furniture other = (Furniture) obj;
 		compare = this.name.compareTo(other.name);
