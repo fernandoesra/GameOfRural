@@ -47,8 +47,8 @@ public class Inventory {
 	 */
 	public boolean removeFromInventory(Object item) {
 		boolean removed = false;
-		if (inventory.search(item) >= 0) {
-			inventory.eraseFromIndex(inventory.search(item));
+		if (inventory.searchIndex(item) >= 0) {
+			inventory.eraseFromIndex(inventory.searchIndex(item));
 			removed = true;
 		}
 		return removed;

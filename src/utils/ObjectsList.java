@@ -1,119 +1,200 @@
 package utils;
 
-
 import java.util.Arrays;
+
+/**
+ * This class is used to create differents arrays of objects. Its a poor and
+ * limited copy of the Arrays.list that I make during my classes to learn how to
+ * manage objects.
+ * 
+ * <p>
+ * The class have methods to add and delete objects from the list, merge lists,
+ * search for objects or index and others.
+ * 
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
+ *
+ */
 
 public class ObjectsList {
 	
 	// Attributes
-	protected Object lista[];
+	protected Object list[];
 
 	// Constructor
+	/**
+	 * Create a new empty list.
+	 */
 	public ObjectsList() {
-		lista = new Object[0];
+		list = new Object[0];
 	}
 
 	// Get and Set
-	public Object[] getLista() {
-		return lista;
+	/**
+	 * 
+	 * @return The actual list.
+	 */
+	protected Object[] getList() {
+		return list;
+	}
+	
+	/**
+	 * 
+	 * @return The length of the list.
+	 */
+	public int getLength() {
+		int totalLenght = list.length;
+		return totalLenght;
 	}
 
 	// Methods
 	@Override
 	public String toString() {
-		String respuesta = "";
-		for (int i = 0; i < lista.length; i++) {
-			respuesta += "Object "+(i+1)+": "+lista[i].toString() + "\n";
+		String textToReturn = "";
+		for (int i = 0; i < list.length; i++) {
+			textToReturn += "Object "+(i+1)+": "+list[i].toString() + "\n";
 		}
-		return respuesta;
+		return textToReturn;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		boolean respuesta = false;
+		boolean isEqual = false;
 		ObjectsList l1 = (ObjectsList) obj;
-		int aciertos = lista.length;
-		for (int i = 0; i < lista.length && i < l1.lista.length; i++) {
-			if (lista[i].equals(obj)) {
-				aciertos--;
+		int successNumber = list.length;
+		for (int i = 0; i < list.length && i < l1.list.length; i++) {
+			if (list[i].equals(obj)) {
+				successNumber--;
 			}
 		}
-		if (aciertos == 0) {
-			respuesta = true;
+		if (successNumber == 0) {
+			isEqual = true;
 		}
-		return respuesta;
+		return isEqual;
 	}
-
-	public int getLength() {
-		int cantidad = lista.length;
-		return cantidad;
+	
+	/**
+	 * Increase in one the length of the list and add the item at the end.
+	 * 
+	 * @param toAddAtEnd A object to add at the end of the list.
+	 */
+	public void addEnd(Object toAddAtEnd) {
+		list = Arrays.copyOf(list, list.length + 1);
+		list[list.length - 1] = toAddAtEnd;
 	}
-
-	public void addEnd(Object numero) {
-		lista = Arrays.copyOf(lista, lista.length + 1);
-		lista[lista.length - 1] = numero;
-	}
-
-	private void addStart(Object numero) {
-		lista = Arrays.copyOf(lista, lista.length + 1);
-		for (int i = lista.length - 1; i > 0; i--) {
-			lista[i] = lista[i - 1];
+	
+	/**
+	 * Create a new array with one more length, add the new object to the 0 index
+	 * and copy the actual array as from the next index.
+	 * 
+	 * @param toAddAtBeginning A object to add at the beginning of the list.
+	 */
+	public void addBeginning(Object toAddAtBeginning) {
+		list = Arrays.copyOf(list, list.length + 1);
+		for (int i = list.length - 1; i > 0; i--) {
+			list[i] = list[i - 1];
 		}
-		lista[0] = numero;
+		list[0] = toAddAtBeginning;
 	}
-
-	private void addOnIndex(Object numero, int index) {
-		int longitud = lista.length - 1;
-		if (index <= longitud) {
-			lista = Arrays.copyOf(lista, lista.length + 1);
-			System.arraycopy(lista, index, lista, index + 1, lista.length - index - 1);
-			lista[index] = numero;
+	
+	/**
+	 * Create a new array with one more length that are a copy of the actual array.
+	 * Then using System.arraycopy() copy all from the index but one position ahead.
+	 * Finally add the new item tho the indicated index.
+	 * 
+	 * @param toAdd A object to add to the list.
+	 * @param index Where to add the new object.
+	 */
+	public void addOnIndex(Object toAdd, int index) {
+		int listLength = list.length - 1;
+		if (index <= listLength) {
+			list = Arrays.copyOf(list, list.length + 1);
+			System.arraycopy(list, index, list, index + 1, list.length - index - 1);
+			list[index] = toAdd;
 		} else {
-			System.out.println("El indice está fuera de rango");
+			System.out.println("Index out of range");
 		}
 	}
 
-	private void mergeLists(ObjectsList lista2) {
-		int longitud1 = lista.length;
-		int longitud2 = lista2.lista.length;
-		int longTotal = longitud1 + longitud2;
-		lista = Arrays.copyOf(lista, longTotal);
-		for (int i = longitud1, j = 0; i < longTotal; i++, j++) {
-			lista[i] = lista2.lista[j];
-		}
-	}
-
-	public void eraseFromIndex(int indice) {
-		int longitud = lista.length -1;
-		if (indice <= longitud) {
-			for (int i = indice; i < longitud; i++) {
-				lista[i] = lista[i + 1];
+	/**
+	 * Create a new array wich is a copy of the actual array but with length equal
+	 * to the length of the actual array and the array in the otherObjectList. Then
+	 * copy all the Objects of the otherObjectList starting from final index of the
+	 * original list.
+	 * <p>
+	 * 
+	 * <b>Important: </b>This method change the actual list, does not return
+	 * anything.
+	 * 
+	 * @param otherObjectList A ObjectsList object.
+	 */
+	public void mergeLists(ObjectsList otherObjectList) {
+		int originalLength = list.length;
+		int otherLength = otherObjectList.list.length;
+		int newLength = originalLength + otherLength;
+		if (originalLength > 0 && otherLength > 0) {
+			list = Arrays.copyOf(list, newLength);
+			for (int i = originalLength, j = 0; i < newLength; i++, j++) {
+				list[i] = otherObjectList.list[j];
 			}
-			lista = Arrays.copyOf(lista, longitud);
 		} else {
-			System.out.println("El indice está fuera de rango");
+			System.out.println("One of the lists is empty");
+		}
+
+	}
+
+	/**
+	 * Search if the index provided exists, if exists, delete the character by
+	 * overwrite all the index, starting in the provied index, from the object that
+	 * are one position ahead. Then create a copy of the array with one less length.
+	 * 
+	 * @param index A index to delete one object.
+	 */
+	public void eraseFromIndex(int index) {
+		int listLength = list.length -1;
+		if (index <= listLength) {
+			for (int i = index; i < listLength; i++) {
+				list[i] = list[i + 1];
+			}
+			list = Arrays.copyOf(list, listLength);
+		} else {
+			System.out.println("Index out of range");
 		}
 	}
 
-	public Object getObjectOnIndex(int indice) {
-		Object respuesta = null;
-		int longitud = lista.length - 1;
-		if (indice <= longitud) {
-			respuesta = lista[indice];
+	/**
+	 * Search on the array if the index exists, if exists return the object inside
+	 * the index.
+	 * 
+	 * @param index A index to search.
+	 * @return If the index exists return the object on that index. If not, return
+	 *         null.
+	 */
+	public Object getObjectOnIndex(int index) {
+		Object objectToReturn = null;
+		int listLenght = list.length - 1;
+		if (index <= listLenght) {
+			objectToReturn = list[index];
 		} else {
-			System.out.println("El indice está fuera de rango");
+			System.out.println("Index out of range");
 		}
-		return respuesta;
+		return objectToReturn;
 	}
 
-	public int search(Object busqueda) {
-		int respuesta = -1;
-		for (int i = 0; i < lista.length; i++) {
-			if (lista[i] == busqueda) {
-				respuesta = i;
+	/**
+	 * That method search if one object are inside the array.
+	 * 
+	 * @param toFind The object to find.
+	 * @return If the object are inside the list return the index of the object. If
+	 *         not, return -1.
+	 */
+	public int searchIndex(Object toFind) {
+		int foundAtIndex = -1;
+		for (int i = 0; i < list.length; i++) {
+			if (list[i] == toFind) {
+				foundAtIndex = i;
 			}
 		}
-		return respuesta;
+		return foundAtIndex;
 	}
 
 }
