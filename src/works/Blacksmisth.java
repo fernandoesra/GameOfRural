@@ -5,13 +5,13 @@ import logs.ActionsLog;
 import resources.MinedGold;
 import resources.Money;
 
-public class Blackmisth extends Man{
+public class Blacksmisth extends Man{
 	
-	public Blackmisth() {
+	public Blacksmisth() {
 		super();
 	}
 
-	public Blackmisth(int ID, int HP, Money money, int mapX, int mapY, int speed) {
+	public Blacksmisth(int ID, int HP, Money money, int mapX, int mapY, int speed) {
 		super(ID, HP, money, mapX, mapY, speed, "H"
 				);
 	}

@@ -7,6 +7,16 @@ import base.Tree;
 import base.Water;
 import utils.AleatoricName;
 
+/**
+ * This class store a 2 dimensional Objects array to simulate a map. Also
+ * generate a random name for the town and store the height and width.
+ * 
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
+ * @see utils.AleatoricName
+ * @see base.Water
+ * 
+ */
+
 public class Board {
 	
 	// Attributes
@@ -18,7 +28,7 @@ public class Board {
 	// Constructor
 	/**
 	 * The empty constructor are used to create a new board with correct dimensions
-	 * to display in the Eclipse console.
+	 * to display in the Eclipse console (28x50).
 	 */
 	public Board() {
 		AleatoricName newName = new AleatoricName();
@@ -35,6 +45,8 @@ public class Board {
 	};
 	
 	/**
+	 * This constructor create a empty map with a personalized dimensions and a new
+	 * aleatoric name.
 	 * 
 	 * @param Length for height
 	 * @param Length for width
@@ -55,46 +67,44 @@ public class Board {
 	
 	// Get y Set
 	
+	/**
+	 * @return The 2 dimensional map object array
+	 */
 	public Object[][] getBoard() {
 		return board;
 	}
-
-	public void setBoard(Object[][] board) {
-		this.board = board;
-	}
-
+	
+	/**
+	 * @return The name of the town
+	 */
 	public String getName() {
 		return name;
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
+	/**
+	 * @return The height lenght of the array.
+	 */
 	public int getHeight() {
 		return height;
 	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
+	
+	/**
+	 * @return The width lenght of the array.
+	 */
 	public int getWidth() {
 		return width;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
 	}
 	
 	// Methods
 	
 	/**
+	 * This method check if the provided coordinates are inside the bounds. This
+	 * method its really important to prevent OOB crash.
 	 * 
-	 * @param Length for board (height). First coordinate.
-	 * @param Length for board[] [width]. Second coordinate.
-	 * @return If the coordinates are inside the bounds return true. If the
-	 *         coordinates are OOB, return false.
+	 * @param newX Length for board (height). First coordinate.
+	 * @param newY Length for board[] [width]. Second coordinate.
+	 * @return If the coordinates are inside the bounds return <b><i>true</i></b>.
+	 *         If the coordinates are OOB, return <b><i>false</i></b>.
 	 */
 	public boolean inBounds(int newX, int newY) {
 		boolean valid = false;
@@ -104,6 +114,14 @@ public class Board {
 		return valid;
 	}
 	
+	/**
+	 * This method check if one position on the map have a Water object inside.
+	 * 
+	 * @param searchX Length for board (height). First coordinate.
+	 * @param searchY Length for board[] [width]. Second coordinate.
+	 * @return If the coordinates have a water object inside return
+	 *         <b><i>true</i></b>. If not, return <b><i>false</i></b>.
+	 */
 	public boolean isWater(int searchX, int searchY) {
 		boolean water = false;
 		if(inBounds(searchX, searchY) && board[searchX][searchY] != null) {
@@ -115,13 +133,15 @@ public class Board {
 		
 		return water;
 	}
-	
+
 	/**
+	 * This method check if one position on the map are inside the limites and has
+	 * nothing inside.
 	 * 
 	 * @param Length for board (height). First coordinate.
 	 * @param Length for board[] [width]. Second coordinate.
 	 * @return If the coordinates are inside the bounds and empty (null) return
-	 *         true. If not, return false;
+	 *         <b><i>true</i></b>. If not, return <b><i>false</i></b>;
 	 */
 	public boolean validPosition(int newX, int newY) {
 		boolean valid = false;
@@ -132,18 +152,20 @@ public class Board {
 	}
 
 	/**
+	 * This method search for the height position of one object inside the board.
 	 * 
-	 * @param Object to search in the board
-	 * @return If the object exists, return the heigth index. If not, return -1.
+	 * @param toSearch Object to search in the board
+	 * @return If the object exists inside the board, return the heigth index. If
+	 *         not, return -1.
 	 */
-	public int searchXobject(Object obj) {
+	public int searchXobject(Object toSearch) {
 		
 		int newX = -1;
 		
 		for (int x = 0; x < height; x++) {
 			for (int y = 0; y < width; y++) {
 				
-				if (board[x][y] == obj) {
+				if (board[x][y] == toSearch) {
 					newX = x;
 				}
 				
@@ -155,18 +177,20 @@ public class Board {
 	}
 	
 	/**
+	 * This method search for the width position of one object inside the board.
 	 * 
-	 * @param Object to search in the board
-	 * @return If the object exists, return the width index. If not, return -1. 
+	 * @param toSearch Object to search in the board
+	 * @return If the object exists inside the board, return the width index. If
+	 *         not, return -1.
 	 */
-	public int searchYobject(Object obj) {
+	public int searchYobject(Object toSearch) {
 
 		int newY = -1;
 
 		for (int x = 0; x < height; x++) {
 			for (int y = 0; y < width; y++) {
 
-				if (board[x][y] == obj) {
+				if (board[x][y] == toSearch) {
 					newY = y;
 				}
 
@@ -177,6 +201,12 @@ public class Board {
 		return newY;
 	}
 	
+	/**
+	 * 
+	 * @param searchX
+	 * @param searchY
+	 * @return
+	 */
 	public String getNameOfItem(int searchX, int searchY) {
 		String nameOfItem = "";
 		if (!this.validPosition(searchX, searchY)) {

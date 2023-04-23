@@ -11,7 +11,7 @@ import resources.GoldOreMineral;
 import resources.MinedGold;
 import resources.Table;
 import resources.WoodPlanks;
-import works.Blackmisth;
+import works.Blacksmisth;
 import works.Carpenter;
 import works.Lumberjack;
 import works.Miner;
@@ -32,7 +32,7 @@ import works.Miner;
  * @see resources.MinedGold
  * @see resources.Table
  * @see resources.WoodPlanks
- * @see works.Blackmisth
+ * @see works.Blacksmisth
  * @see works.Carpenter
  * @see works.Lumberjack
  * @see works.Miner
@@ -84,8 +84,8 @@ public class InteractController {
 		 */
 		
 		// Blackmisth
-		if (nameOfClass.indexOf("Blackmisth") >= 0) {
-			interactBlackmisth(board, genericCitizen);
+		if (nameOfClass.indexOf("Blacksmisth") >= 0) {
+			interactBlacksmisth(board, genericCitizen);
 		}
 		
 		// Carpenter
@@ -212,7 +212,16 @@ public class InteractController {
 		}
 
 	}
-
+	
+	/**
+	 * This metod scan the up, down, left and right coordinates of the Lumberjack
+	 * and if find a base.Furniture object inside call the method
+	 * dismantleFurniture().
+	 * 
+	 * @param board      The board with the map to search for furnitures in the
+	 *                   surroundings of the Lumberjack.
+	 * @param genericMan Must be a Lumberjack object and exists in the board.
+	 */
 	public static void interactLumberjackFurniture(Board board, Man genericMan) {
 		Lumberjack actualLumberjack = (Lumberjack) genericMan;
 		int actualX = actualLumberjack.getMapX();
@@ -251,7 +260,15 @@ public class InteractController {
 		}
 
 	}
-
+	
+	/**
+	 * This metod scan the up, down, left and right coordinates of the Lumberjack
+	 * and if find a base.Tree object inside call the Lumberjack.cutTree() method.
+	 * 
+	 * @param board      The board with the map to search for trees in the
+	 *                   surroundings of the Lumberjack.
+	 * @param genericMan Must be a Lumberjack object and exists in the board.
+	 */
 	public static void interactLumberjackTree(Board board, Man genericMan) {
 		Lumberjack actualLumberjack = (Lumberjack) genericMan;
 		int actualX = actualLumberjack.getMapX();
@@ -298,7 +315,15 @@ public class InteractController {
 		}
 
 	}
-
+	
+	/**
+	 * This metod scan the up, down, left and right coordinates of the Miner and if
+	 * find a mineral inside call the Miner.crushingMineral() method.
+	 * 
+	 * @param board        The board with the map to search for minerals in the
+	 *                     surroundings of the Miner.
+	 * @param genericMiner Must be a Miner object and exists in the board.
+	 */
 	public static void interactMiner(Board board, Man genericMiner) {
 		Miner actualMiner = (Miner) genericMiner;
 		int actualX = actualMiner.getMapX();
@@ -348,11 +373,21 @@ public class InteractController {
 
 		}
 	}
-
-	public static void interactBlackmisth(Board board, Man genericBlackmisth) {
-		Blackmisth actualBlackmisth = (Blackmisth) genericBlackmisth;
-		int actualX = actualBlackmisth.getMapX();
-		int actualY = actualBlackmisth.getMapY();
+	
+	/**
+	 * This metod scan the up, down, left and right coordinates of the Blacksmith
+	 * and if find a Miner inside search for Mined gold in the miner inventory. If
+	 * the miner have mined gold then the Blacksmith took that mined gold and melts
+	 * them using the Blacksmith.melt() method.
+	 * 
+	 * @param board        The board with the map to search for Miners in the
+	 *                     surroundings of the Blacksmith.
+	 * @param genericMiner Must be a Blacksmith object and exists in the board.
+	 */
+	public static void interactBlacksmisth(Board board, Man genericBlacksmith) {
+		Blacksmisth actualBlacksmith = (Blacksmisth) genericBlacksmith;
+		int actualX = actualBlacksmith.getMapX();
+		int actualY = actualBlacksmith.getMapY();
 
 		// Search up position
 		if (!board.validPosition(actualX - 1, actualY) && board.inBounds(actualX - 1, actualY)) {
@@ -363,7 +398,7 @@ public class InteractController {
 				do {
 					if (adjacentMiner.inventory.searchForName("Mined gold")) {
 						MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
-						actualBlackmisth.melt(actualMine);
+						actualBlacksmith.melt(actualMine);
 						adjacentMiner.inventory.removeFromInventory(actualMine);
 					}
 				} while (adjacentMiner.inventory.searchForName("Mined gold"));
@@ -380,7 +415,7 @@ public class InteractController {
 				do {
 					if (adjacentMiner.inventory.searchForName("Mined gold")) {
 						MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
-						actualBlackmisth.melt(actualMine);
+						actualBlacksmith.melt(actualMine);
 						adjacentMiner.inventory.removeFromInventory(actualMine);
 					}
 				} while (adjacentMiner.inventory.searchForName("Mined gold"));
@@ -397,7 +432,7 @@ public class InteractController {
 				do {
 					if (adjacentMiner.inventory.searchForName("Mined gold")) {
 						MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
-						actualBlackmisth.melt(actualMine);
+						actualBlacksmith.melt(actualMine);
 						adjacentMiner.inventory.removeFromInventory(actualMine);
 					}
 				} while (adjacentMiner.inventory.searchForName("Mined gold"));
@@ -413,7 +448,7 @@ public class InteractController {
 				do {
 					if (adjacentMiner.inventory.searchForName("Mined gold")) {
 						MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
-						actualBlackmisth.melt(actualMine);
+						actualBlacksmith.melt(actualMine);
 						adjacentMiner.inventory.removeFromInventory(actualMine);
 					}
 				} while (adjacentMiner.inventory.searchForName("Mined gold"));
