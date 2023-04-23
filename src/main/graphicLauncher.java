@@ -42,7 +42,8 @@ import javax.swing.ImageIcon;
  * Also here we instance the attributes like the board or
  * the list of citizens and register the action log.
  * 
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
+ * @author Miguel Angel Croche Munoz (MichValwin)
  * @see map.Board
  * @see main.CitizenList
  * @see logs.ActionsLog

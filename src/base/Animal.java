@@ -2,7 +2,7 @@ package base;
 /**
  * Base object to create animals
  * Each animal have a different name, type and icon
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
  *
  */
 public class Animal implements Comparable{

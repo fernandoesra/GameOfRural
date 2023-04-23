@@ -7,7 +7,7 @@ package base;
  * the x.y position to determine if its valid or not.<br>
  * The icon for the water is '≈', unicode equivalent of the icon is 8776 
  * 
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
  * @see map.Board
  */
 

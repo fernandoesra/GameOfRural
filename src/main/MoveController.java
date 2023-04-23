@@ -7,7 +7,7 @@ import map.Board;
 /**
  * This class is used to move different Man objects inside the matrix of the Board.
  * 
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
  * @see base.Man
  * @see map.Board
  * @see logs.ActionsLog

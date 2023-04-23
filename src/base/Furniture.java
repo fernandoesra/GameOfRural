@@ -1,9 +1,10 @@
 package base;
 
 /**
- * Base objet to create different types of furniture
- * Each furniture have a name and a icon
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * Base objet to create different types of furniture Each furniture have a name
+ * and a icon
+ * 
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
  *
  */
 public class Furniture implements Comparable {

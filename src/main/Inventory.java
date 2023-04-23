@@ -8,7 +8,7 @@ import utils.ObjectsList;
  * inventory of a character. The main methods are addToInventory(item) and
  * removeFromInventory(item).
  * 
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
  * @see utils.ObjectsList
  * @see base.Man
  * @see base.Resource

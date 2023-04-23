@@ -5,7 +5,7 @@ package base;
  * Each Resource have a different name and icon. If the resource needs it, its
  * possible to use the <b>amount</b> attribute.
  * 
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
  *
  */
 

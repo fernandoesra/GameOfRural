@@ -19,7 +19,7 @@ import works.Fisherman;
  * This class store a ObjectsList for the citizens that populate the map. Only
  * work with Man objects.
  * 
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
  * @see base.Man
  * @see resources.Money
  *

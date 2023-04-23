@@ -15,7 +15,7 @@ import resources.CedarTree;
  * This object controlls the behavior of the algorithms used to generate the
  * different biomes.
  * 
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
  * @see map.Board
  * @see base.Tree
  * @see base.Water

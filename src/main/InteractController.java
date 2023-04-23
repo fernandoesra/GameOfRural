@@ -20,7 +20,7 @@ import works.Miner;
  * That class controll the interactions between the map and the different Man
  * objects.
  * 
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
  * @see base.Man
  * @see base.Tree
  * @see logs.ActionsLog
@@ -423,12 +423,18 @@ public class InteractController {
 	}
 	
 	/**
-	 * HERE
+	 * This method fill the map with random furniture. Only create furniture if have
+	 * enough wood planks to create the next items:<br>
+	 * <b>4 wooden planks: </b>1 chair or 1 chest<br>
+	 * <b>6 wooden planks: </b>1 table or 1 bed<br>
 	 * 
-	 * @param board
-	 * @param totalOfWoodPlanks
-	 * @param actualCarpenter
-	 * @param adjacentLumberjack
+	 * 
+	 * @param board              The map to fill with furniture.
+	 * @param totalOfWoodPlanks  The total of wooden planks the adjacentLumberjack
+	 *                           have.
+	 * @param actualCarpenter    The carpenter doing the action.
+	 * @param adjacentLumberjack Its necessary to register the adjacentLumberjack in
+	 *                           case of leftover wood planks to return.
 	 * @return
 	 */
 	public static int createFurniture(Board board, int totalOfWoodPlanks, Carpenter actualCarpenter,
@@ -531,7 +537,16 @@ public class InteractController {
 
 		return totalOfWoodPlanks;
 	}
-
+	
+	/**
+	 * This item took a Lumberjack and a adjacent Furniture object then dismantle
+	 * the object and return wooden planks to the Lumberjack.
+	 * 
+	 * @param board            The board used to call the eraseObjectAt() method.
+	 * @param actualX          The X position of the furniture on the board.
+	 * @param actualY          The Y position of the furniture on the board.
+	 * @param actualLumberjack The Lumberjack doing the action.
+	 */
 	public static void dismantleFurniture(Board board, int actualX, int actualY, Lumberjack actualLumberjack) {
 
 		String nameOfItem = board.getNameOfItem(actualX, actualY);
@@ -569,8 +584,13 @@ public class InteractController {
 		}
 	}
 
-	// Template method
-
+	/**
+	 * This method is a template. <b>It does nothing, do not use it.</b>
+	 * 
+	 * @param board      The map to search for different things, such as the
+	 *                   surroundings of the Man.
+	 * @param genericMan Must be a base.Man object.
+	 */
 	public static void template(Board board, Man genericMan) {
 		Man actualMan = (Man) genericMan;
 		int actualX = actualMan.getMapX();

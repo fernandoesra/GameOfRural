@@ -5,7 +5,7 @@ package base;
  * amount of "wood" randomly generate between 2 and 10.<br>
  * The icon for the tree is '╄', unicode equivalent of the icon is 9540 
  * 
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
  * @see base.Resource
  *
  */

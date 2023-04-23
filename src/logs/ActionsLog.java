@@ -7,7 +7,7 @@ package logs;
  * method registerAction(text) concatenate more text.<br>
  * Whit method toString() we read the log.
  * 
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
  *
  */
 

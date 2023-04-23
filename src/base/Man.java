@@ -30,7 +30,7 @@ import utils.Movement;
  * <p>
  * Also implements the <b>Movement interface</b> to allow the man move on the board.
  * 
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
  * @see utils.AleatoricName
  * @see resources.Money
  * @see map.Board
