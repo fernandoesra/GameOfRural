@@ -267,7 +267,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		
 		JLabel mapLegendImage = new JLabel("");
 		mapLegendImage.setBounds(10, 45, 355, 337);
-		mapLegendImage.setIcon(new ImageIcon("./assets/bannerGoR.png"));
+		mapLegendImage.setIcon(new ImageIcon("./assets/legendImage.png"));
 		
 		// Add all to the containers
 		setContentPane(mainContentPane);

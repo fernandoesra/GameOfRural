@@ -6,7 +6,7 @@ package utils;
  * The generated names are 'alien' or 'esoteric' like. Not real names.<br>
  * Using the toString() method its possible to obtain the generated name.
  * 
- * @author Fernando Tarriño del Pozo (FernandoEsra)
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
  *
  */
 
