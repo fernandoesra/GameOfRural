@@ -138,19 +138,20 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	    caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
 		
 		try {
-			Font font = Font.createFont(Font.PLAIN, new FileInputStream(new File("./assets/CONSOLA.TTF")));
+			Font font = Font.createFont(Font.PLAIN, new FileInputStream(new File("./assets/FiraCode-Regular.ttf")));
 			textCentralArea.setFont(font.deriveFont(Font.PLAIN, 14f));
 		} catch (FontFormatException | IOException e) {
-			System.err.println("La fuente no se ha encontrado");
+			System.err.println("Font not found");
 			e.printStackTrace();
 		}
 		
-		textCentralArea.getHighlighter();/* At start always select the citizen with ID 1 */
+		// Create Font:
+		Font FiraFont = new Font("./assets/FiraCode-Regular.ttf", Font.PLAIN, 11);
 		
 		// Select Citizens Panel
 		JPanel selectCitizensPanel = new JPanel();
 		selectCitizensPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		selectCitizensPanel.setBounds(1208, 10, 419, 46);
+		selectCitizensPanel.setBounds(1255, 10, 419, 46);
 		selectCitizensPanel.setLayout(null);
 		
 		JButton confirmIDbutton = new JButton("Select");
@@ -163,6 +164,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		
 		// Objects for select the citizen to move
 		JTextField actualCitizenTextArea = new JTextField();
+		actualCitizenTextArea.setFont(FiraFont);
 		actualCitizenTextArea.setBounds(108, 12, 46, 20);
 		actualCitizenTextArea.setHorizontalAlignment(SwingConstants.CENTER);
 		actualCitizenTextArea.setEditable(false);
@@ -178,20 +180,20 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		selectIDtextField.setColumns(10);
 
 		// Citizen info panel
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 41, 483, 284);
+		JScrollPane scrollPaneActualCitizen = new JScrollPane();
+		scrollPaneActualCitizen.setBounds(10, 41, 399, 284);
 
 		actualCitizenInfoText = new JTextArea();
-		scrollPane_1.setViewportView(actualCitizenInfoText);
+		scrollPaneActualCitizen.setViewportView(actualCitizenInfoText);
 		actualCitizenInfoText.setBackground(new Color(255, 255, 255));
-		actualCitizenInfoText.setFont(new Font("Consolas", Font.PLAIN, 11));
+		actualCitizenInfoText.setFont(new Font("Fira Code", Font.PLAIN, 11));
 		actualCitizenInfoText.setEditable(false);
 		actualCitizenInfoText.setColumns(10);
-		actualCitizenInfoText.setText("\n" + citizenList.getInfoID(actualCitizenID));
+		actualCitizenInfoText.setText(citizenList.getInfoID(actualCitizenID));
 
 		JPanel citizenInfoPanel = new JPanel();
 		citizenInfoPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		citizenInfoPanel.setBounds(1208, 67, 419, 336);
+		citizenInfoPanel.setBounds(1255, 67, 419, 336);
 		citizenInfoPanel.setLayout(null);
 
 		JLabel actualCitizenInfoLabel = new JLabel("Actual citizen info:");
@@ -232,14 +234,15 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		// Log panel
 		JPanel logPanel = new JPanel();
 		logPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		logPanel.setBounds(870, 414, 757, 267);
+		logPanel.setBounds(870, 414, 804, 267);
 		logPanel.setLayout(null);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 44, 737, 212);
+		JScrollPane scrollPaneLogArea = new JScrollPane();
+		scrollPaneLogArea.setBounds(10, 44, 784, 212);
 
 		logTextArea = new JTextArea();
-		scrollPane.setViewportView(logTextArea);
+		logTextArea.setFont(new Font("Fira Code", Font.PLAIN, 13));
+		scrollPaneLogArea.setViewportView(logTextArea);
 		logTextArea.setEditable(false);
 
 		JLabel logLabel = new JLabel("Log:");
@@ -250,6 +253,21 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		bannerLabel.setIcon(new ImageIcon("./assets/bannerGoR.png"));
 		bannerLabel.setBounds(10, 693, 1664, 207);
 		
+		// Map Legend panel:
+		JPanel mapLegendPanel = new JPanel();
+		mapLegendPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		mapLegendPanel.setBounds(870, 10, 375, 393);
+		mapLegendPanel.setLayout(null);
+
+		JLabel mapLegendLabel = new JLabel("Map Legend");
+		mapLegendLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		mapLegendLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		mapLegendLabel.setBounds(10, 11, 355, 23);
+		
+		JLabel mapLegendImage = new JLabel("");
+		mapLegendImage.setBounds(10, 45, 355, 337);
+		mapLegendImage.setIcon(new ImageIcon("./assets/bannerGoR.png"));
+		
 		// Add all to the containers
 		setContentPane(mainContentPane);
 		mainContentPane.setLayout(null);
@@ -259,6 +277,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		mainContentPane.add(citizenInfoPanel);
 		mainContentPane.add(logPanel);
 		mainContentPane.add(bannerLabel);
+		mainContentPane.add(mapLegendPanel);
 
 		selectCitizensPanel.add(actualCitizenLabel);
 		selectCitizensPanel.add(actualCitizenTextArea);
@@ -270,15 +289,19 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		buttonsPanel.add(showMapButton);
 		
 		citizenInfoPanel.add(actualCitizenInfoLabel);
-		citizenInfoPanel.add(scrollPane_1);
-		logPanel.add(scrollPane);
+		citizenInfoPanel.add(scrollPaneActualCitizen);
+		logPanel.add(scrollPaneLogArea);
 		logPanel.add(logLabel);
+		
+		mapLegendPanel.add(mapLegendLabel);
+		mapLegendPanel.add(mapLegendImage);
 		
 		// Show the map when the game start
 		showMapButton(textCentralArea);
 		
 		// Select the first citizen to start the game
 		this.actualCitizen = (Man) citizenList.searchForCitizen(1);
+		textCentralArea.getHighlighter();	/* At start always select the citizen with ID 1 */
 		
 		// Add KeyListeners
 		textCentralArea.addKeyListener(this);
@@ -489,7 +512,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		MoveController.moveOneCitizenUp(board, toMove);
 		textArea.setText("\n" + board.toString());
 		highlightMainMap(textArea);
-		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
+		citizenInfo.setText(citizenList.getInfoID(actualCitizenID));
 	}
 	/**
 	 * If its possible move the selected citizen down
@@ -502,7 +525,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		MoveController.moveOneCitizenDown(board, toMove);
 		textArea.setText("\n" + board.toString());
 		highlightMainMap(textArea);
-		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
+		citizenInfo.setText(citizenList.getInfoID(actualCitizenID));
 	}
 	/**
 	 * If its possible move the selected citizen to the right
@@ -515,7 +538,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		MoveController.moveOneCitizenRight(board, toMove);
 		textArea.setText("\n" + board.toString());
 		highlightMainMap(textArea);
-		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
+		citizenInfo.setText(citizenList.getInfoID(actualCitizenID));
 	}
 	/**
 	 * If its possible move the selected citizen to the left
@@ -528,7 +551,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		MoveController.moveOneCitizenLeft(board, toMove);
 		textArea.setText("\n" + board.toString());
 		highlightMainMap(textArea);
-		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
+		citizenInfo.setText(citizenList.getInfoID(actualCitizenID));
 	}
 
 	// Interact button
@@ -544,7 +567,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	public void interactAction(JTextArea mapTextArea, JTextArea logTextArea, JTextArea citizenInfo) {
 		InteractController.interactSpecific(board, actualCitizen);
 		mapTextArea.setText("\n" + board.toString());
-		citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
+		citizenInfo.setText(citizenList.getInfoID(actualCitizenID));
 		highlightMainMap(mapTextArea);
 		logTextArea.setText(log.toString());
 	}
@@ -589,7 +612,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 			this.actualCitizenID = this.actualCitizen.getID();
 			selectedID.setText("");
 			textArea.setText(String.valueOf(actualCitizenID));
-			citizenInfo.setText("\n" + citizenList.getInfoID(actualCitizenID));
+			citizenInfo.setText(citizenList.getInfoID(actualCitizenID));
 		}
 	}
 

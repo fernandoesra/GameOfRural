@@ -161,11 +161,11 @@ public class AleatoricName {
 			random = (int) ((Math.random() * (100 - 0)) + 0);
 			
 			if (random >= 0 && random <= 5) {
-				vowel = (char)132;
+				vowel = (char)225;
 			}
 			
 			if (random >= 10 && random <= 15) {
-				vowel = (char)160;
+				vowel = (char)228;
 			}
 		}
 		
@@ -173,11 +173,11 @@ public class AleatoricName {
 			random = (int) ((Math.random() * (100 - 0)) + 0);
 			
 			if (random >= 0 && random <= 5) {
-				vowel = (char)137;
+				vowel = (char)233;
 			}
 			
 			if (random >= 10 && random <= 15) {
-				vowel = (char)130;
+				vowel = (char)235;
 			}
 		}
 		
@@ -185,11 +185,11 @@ public class AleatoricName {
 			random = (int) ((Math.random() * (100 - 0)) + 0);
 			
 			if (random >= 0 && random <= 5) {
-				vowel = (char)139;
+				vowel = (char)237;
 			}
 			
 			if (random >= 10 && random <= 15) {
-				vowel = (char)161;
+				vowel = (char)239;
 			}
 		}
 		
@@ -197,11 +197,11 @@ public class AleatoricName {
 			random = (int) ((Math.random() * (100 - 0)) + 0);
 			
 			if (random >= 0 && random <= 5) {
-				vowel = (char)148;
+				vowel = (char)243;
 			}
 			
 			if (random >= 10 && random <= 15) {
-				vowel = (char)162;
+				vowel = (char)256;
 			}
 		}
 		
@@ -209,11 +209,11 @@ public class AleatoricName {
 			random = (int) ((Math.random() * (100 - 0)) + 0);
 			
 			if (random >= 0 && random <= 5) {
-				vowel = (char)129;
+				vowel = (char)250;
 			}
 			
 			if (random >= 10 && random <= 15) {
-				vowel = (char)163;
+				vowel = (char)252;
 			}
 		}
 		
@@ -247,11 +247,11 @@ public class AleatoricName {
 			random = (int) ((Math.random() * (100 - 0)) + 0);
 			
 			if (random >= 0 && random <= 5) {
-				vowel = (char)142;
+				vowel = (char)193;
 			}
 			
 			if (random >= 10 && random <= 15) {
-				vowel = (char)181;
+				vowel = (char)196;
 			}
 		}
 		
@@ -259,11 +259,11 @@ public class AleatoricName {
 			random = (int) ((Math.random() * (100 - 0)) + 0);
 			
 			if (random >= 0 && random <= 5) {
-				vowel = (char)211;
+				vowel = (char)201;
 			}
 			
 			if (random >= 10 && random <= 15) {
-				vowel = (char)144;
+				vowel = (char)203;
 			}
 		}
 		
@@ -271,11 +271,11 @@ public class AleatoricName {
 			random = (int) ((Math.random() * (100 - 0)) + 0);
 			
 			if (random >= 0 && random <= 5) {
-				vowel = (char)139;
+				vowel = (char)205;
 			}
 			
 			if (random >= 10 && random <= 15) {
-				vowel = (char)214;
+				vowel = (char)207;
 			}
 		}
 		
@@ -283,11 +283,11 @@ public class AleatoricName {
 			random = (int) ((Math.random() * (100 - 0)) + 0);
 			
 			if (random >= 0 && random <= 5) {
-				vowel = (char)153;
+				vowel = (char)211;
 			}
 			
 			if (random >= 10 && random <= 15) {
-				vowel = (char)224;
+				vowel = (char)214;
 			}
 		}
 		
@@ -295,11 +295,11 @@ public class AleatoricName {
 			random = (int) ((Math.random() * (100 - 0)) + 0);
 			
 			if (random >= 0 && random <= 5) {
-				vowel = (char)154;
+				vowel = (char)218;
 			}
 			
 			if (random >= 10 && random <= 15) {
-				vowel = (char)233;
+				vowel = (char)220;
 			}
 		}
 		

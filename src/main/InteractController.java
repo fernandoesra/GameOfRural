@@ -423,7 +423,7 @@ public class InteractController {
 	}
 	
 	/**
-	 * 
+	 * HERE
 	 * 
 	 * @param board
 	 * @param totalOfWoodPlanks

@@ -42,8 +42,8 @@ public interface Movement {
 	 * Check if its possible to move the object to the left.
 	 * 
 	 * @param board A Board object for the map
-	 * @return <b><i>true</b></i> If its possible to move the object,
-	 *         <b><i>false</b></i> if not
+	 * @return <b><i>true</i></b> If its possible to move the object,
+	 *         <b><i>false</i></b> if not
 	 */
 	public boolean left(Board board);
 	
@@ -53,8 +53,8 @@ public interface Movement {
 	 * @param board A Board object for the map
 	 * @param posX A coordinate value for the X of the bidimensional array
 	 * @param posY A coordinate value for the Y of the bidimensional array
-	 * @return <b><i>true</b></i> If its possible to move the object,
-	 *         <b><i>false</b></i> if not
+	 * @return <b><i>true</i></b> If its possible to move the object,
+	 *         <b><i>false</i></b> if not
 	 */
 	public boolean toPosition(Board board, int posX, int posY);
 
