@@ -7,7 +7,7 @@ import utils.ObjectsList;
 import works.Farmer;
 import works.Butcher;
 import works.Carpenter;
-import works.Blacksmisth;
+import works.Blacksmith;
 import works.Lumberjack;
 import works.Miner;
 import works.Baker;
@@ -263,7 +263,7 @@ public class CitizenList {
 	public void createBlackmisth(int amount) {
 
 		for (int i = 0; i < amount; i++) {
-			Blacksmisth newCitizen = new Blacksmisth(IDs, 30, actualMoney(), 0, 0, 1);
+			Blacksmith newCitizen = new Blacksmith(IDs, 30, actualMoney(), 0, 0, 1);
 			citizenList.addEnd(newCitizen);
 			IDs++;
 		}

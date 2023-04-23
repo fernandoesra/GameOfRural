@@ -15,10 +15,17 @@ public class Water {
 	
 	String icon;
 	
+	/**
+	 * Create a new water object. This constructor set the icon to '≈'.
+	 */
 	public Water() {
 		icon = ""+(char)8776;
 	}
 	
+	/**
+	 * 
+	 * @return The icon of the water.
+	 */
 	public String getIcon() {
 		return icon;
 	}

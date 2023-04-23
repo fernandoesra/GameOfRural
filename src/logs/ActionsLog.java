@@ -15,6 +15,9 @@ public class ActionsLog {
 	
 	static String log;
 	
+	/**
+	 * Create a new empty action log.
+	 */
 	public ActionsLog() {
 		log = "";
 	}

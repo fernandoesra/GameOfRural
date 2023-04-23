@@ -5,13 +5,43 @@ import logs.ActionsLog;
 import resources.MinedGold;
 import resources.Money;
 
-public class Blacksmisth extends Man{
+/**
+ * A specialization of Man. The Blacksmith walks through the map in search of
+ * Miners with MinedGold to melt into Money.<br>
+ * The icon for the Blacksmiths are 'H'.
+ * 
+ * @author Fernando Tarrino del Pozo (FernandoEsra)
+ * @see base.Man
+ * @see map.Board
+ * @see main.InteractController
+ * @see main.MoveController
+ * @see works.Miner
+ * @see resources.MinedGold
+ * @see resources.Money
+ * 
+ */
+
+public class Blacksmith extends Man{
 	
-	public Blacksmisth() {
+	/**
+	 * Do not use
+	 */
+	protected Blacksmith() {
 		super();
 	}
-
-	public Blacksmisth(int ID, int HP, Money money, int mapX, int mapY, int speed) {
+	
+	/**
+	 * Create a new Blacksmith and set the icon to 'H'.<br>
+	 * The Man object create a random name automatically.
+	 * 
+	 * @param ID    The ID for the Blacksmith.
+	 * @param HP    Starting life points (HP) of the Blacksmith.
+	 * @param money Starting Money of the Blacksmith.
+	 * @param mapX  Starting height position on the Board.
+	 * @param mapY  Starting width position on the Board.
+	 * @param speed Starting speed of the Blacksmith.
+	 */
+	public Blacksmith(int ID, int HP, Money money, int mapX, int mapY, int speed) {
 		super(ID, HP, money, mapX, mapY, speed, "H"
 				);
 	}
@@ -22,7 +52,7 @@ public class Blacksmisth extends Man{
 	 * 
 	 * @param gold A MinedGold object to take the amount value
 	 * @return A Money object with the amount value of coins generated between the
-	 *         amount of gold and the amount of gold*2.5
+	 *         original amount of gold and the original amount of gold*2.5
 	 */
 	public Money melt(MinedGold gold) {
 		int minedGold = gold.getAmount();

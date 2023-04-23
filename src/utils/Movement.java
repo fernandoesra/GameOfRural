@@ -15,8 +15,8 @@ public interface Movement {
 	 * Check if its possible to move the object up.
 	 * 
 	 * @param board A Board object for the map
-	 * @return <b><i>true</b></i> If its possible to move the object,
-	 *         <b><i>false</b></i> if not
+	 * @return <b><i>true</i></b> If its possible to move the object,
+	 *         <b><i>false</i></b> if not
 	 */
 	public boolean up(Board board);
 	
@@ -24,8 +24,8 @@ public interface Movement {
 	 * Check if its possible to move the object down.
 	 * 
 	 * @param board A Board object for the map
-	 * @return <b><i>true</b></i> If its possible to move the object,
-	 *         <b><i>false</b></i> if not
+	 * @return <b><i>true</i></b> If its possible to move the object,
+	 *         <b><i>false</i></b> if not
 	 */
 	public boolean down(Board board);
 	
@@ -33,8 +33,8 @@ public interface Movement {
 	 * Check if its possible to move the object to the right.
 	 * 
 	 * @param board A Board object for the map
-	 * @return <b><i>true</b></i> If its possible to move the object,
-	 *         <b><i>false</b></i> if not
+	 * @return <b><i>true</i></b> If its possible to move the object,
+	 *         <b><i>false</i></b> if not
 	 */
 	public boolean right(Board board);
 	

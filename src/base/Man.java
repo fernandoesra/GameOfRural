@@ -84,67 +84,88 @@ public class Man implements Comparable, Movement{
 	}
 	
 	// Get and Set
+	/**
+	 * 
+	 * @return The name of the man.
+	 */
 	public String getName() {
 		return this.name;
 	}
 	
+	/**
+	 * 
+	 * @return The ID of the man.
+	 */
 	public int getID() {
 		return ID;
 	}
 	
-	public void setID(int iD) {
-		ID = iD;
-	}
-	
+	/**
+	 * 
+	 * @return The actual Life Points(HP) of the man.
+	 */
 	public int getHP() {
 		return HP;
 	}
-
-	public void setHP(int hP) {
-		HP = hP;
-	}
-
+	
+	/**
+	 * 
+	 * @return The actual Money object of the man. Not the amount of money.
+	 */
 	public Money getMoney() {
 		return money;
 	}
-
-	public void setMoney(Money money) {
-		this.money = money;
-	}
-
+	
+	/**
+	 * 
+	 * @return The X coordinates when the man are.
+	 */
 	public int getMapX() {
 		return mapX;
 	}
-
+	
+	/**
+	 * 
+	 * @param mapX Change the X coordinates for the man.
+	 */
 	public void setMapX(int mapX) {
 		this.mapX = mapX;
 	}
-
+	
+	/**
+	 * 
+	 * @return The Y coordinates when the man are.
+	 */
 	public int getMapY() {
 		return mapY;
 	}
 
+	/**
+	 * 
+	 * @param mapY Change the y coordinates for the man.
+	 */
 	public void setMapY(int mapY) {
 		this.mapY = mapY;
 	}
 
+	/**
+	 * 
+	 * @return The actual speed of the map.
+	 */
 	public int getSpeed() {
 		return speed;
 	}
-
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	};
 	
+	/**
+	 * 
+	 * @return The icon of the man.
+	 */
 	public String getIcon() {
 		return icon;
 	}
 	
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
-	
 	// Methods
+	@Override
 	public String toString() {
 		return name + ", with ID (" + ID + ") have " + HP + " life points.\n" + "Have " + money
 				+ " ruralcoins, Moves " + speed + " square per turn.\n"
@@ -154,7 +175,7 @@ public class Man implements Comparable, Movement{
 	
 	@Override
 	public boolean equals(Object obj) {
-		// Do not compare the money, the position on the map an the actual life.
+		// Do not compare the money, the position on the map and the actual life.
 		boolean equals = false;
 		Man other = (Man) obj;
 		if(

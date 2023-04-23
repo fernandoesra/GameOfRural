@@ -12,6 +12,13 @@ package base;
 
 public class Tree extends Resource{
 	
+	/**
+	 * Create a new tree. The only difference between one tree and another is the
+	 * name and the amount of 'wood'.<br>
+	 * The amount of wood are randomly generate between 2 and 10.
+	 * 
+	 * @param name A name for the tree. By default: <b>Tree</b>
+	 */
 	public Tree(String name) {
 		super("Tree", "" + (char)9540 ,0);
 		int random = (int)((Math.random() * (11 - 2)) + 2);;

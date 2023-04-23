@@ -14,26 +14,32 @@ public class Furniture implements Comparable {
 	String icon;
 
 	// Constructor
+	/**
+	 * Create a new Furniture object.
+	 * 
+	 * @param name The name of the furniture
+	 * @param icon The icon for the furniture
+	 */
 	public Furniture(String name, String icon) {
 		this.name = name;
 		this.icon = icon;
 	}
 
 	// Get and Set
+	/**
+	 * 
+	 * @return The name of the furniture.
+	 */
 	public String getName() {
 		return name;
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
+	/**
+	 * 
+	 * @return The icon of the furniture.
+	 */
 	public String getIcon() {
 		return icon;
-	}
-
-	public void setIcon(String icon) {
-		this.icon = icon;
 	}
 
 	// Methods

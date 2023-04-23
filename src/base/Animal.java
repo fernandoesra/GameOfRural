@@ -12,7 +12,13 @@ public class Animal implements Comparable{
 	String type;
 	String icon;
 	
-	// Constructor
+	/**
+	 * Create a new Animal object.
+	 * 
+	 * @param name Name of the animal
+	 * @param type Type of the animal
+	 * @param icon Icon for the animal
+	 */
 	public Animal(String name, String type, String icon) {
 		this.name = name;
 		this.type = type;
@@ -20,28 +26,28 @@ public class Animal implements Comparable{
 	}
 	
 	// Get and Set
+	/**
+	 * 
+	 * @return The name of the animal.
+	 */
 	public String getName() {
 		return name;
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
+	/**
+	 * 
+	 * @return The type of the animal.
+	 */
 	public String getType() {
 		return type;
 	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 	
+	/**
+	 * 
+	 * @return The icon of the animal.
+	 */
 	public String getIcon() {
 		return icon;
-	}
-	
-	public void setIcon(String icon) {
-		this.icon = icon;
 	}
 	
 	// Methods

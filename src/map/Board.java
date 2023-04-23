@@ -48,8 +48,8 @@ public class Board {
 	 * This constructor create a empty map with a personalized dimensions and a new
 	 * aleatoric name.
 	 * 
-	 * @param Length for height
-	 * @param Length for width
+	 * @param height Length for height
+	 * @param width  Length for width
 	 */
 	public Board(int height, int width) {
 		AleatoricName newName = new AleatoricName();
@@ -138,8 +138,8 @@ public class Board {
 	 * This method check if one position on the map are inside the limites and has
 	 * nothing inside.
 	 * 
-	 * @param Length for board (height). First coordinate.
-	 * @param Length for board[] [width]. Second coordinate.
+	 * @param newX Length for board (height). First coordinate.
+	 * @param newY Length for board[] [width]. Second coordinate.
 	 * @return If the coordinates are inside the bounds and empty (null) return
 	 *         <b><i>true</i></b>. If not, return <b><i>false</i></b>;
 	 */
@@ -215,6 +215,14 @@ public class Board {
 		return nameOfItem;
 	}
 	
+	/**
+	 * This method return one object at (searchX.searchY) position.
+	 * 
+	 * @param searchX Height position to search on the map.
+	 * @param searchY Width position to search on the map.
+	 * @return The object at (searchX.searchY) position. If the possition is empty,
+	 *         return null.
+	 */
 	public Object getObjectAt(int searchX, int searchY) {
 		Object searched = null;
 		if (!this.validPosition(searchX, searchY)) {
@@ -223,6 +231,14 @@ public class Board {
 		return searched;
 	}
 	
+	/**
+	 * Set the (searchX.searchY) position to null;
+	 * 
+	 * @param searchX Height position of the map.
+	 * @param searchY Width position of the map.
+	 * @return If something is deleted at the indicated position, return
+	 *         <b><i>true</i></b>, if not, return <b><i>false</i></b>.
+	 */
 	public boolean eraseObjectAt(int searchX, int searchY) {
 		boolean erased = false;
 		if (!this.validPosition(searchX, searchY)) {
@@ -231,6 +247,16 @@ public class Board {
 		return erased;
 	}
 	
+	/**
+	 * Add one object to the indicated position. Only work if the possition is
+	 * valid.
+	 * 
+	 * @param obj  The object to add.
+	 * @param mapX Height position of the map.
+	 * @param mapY Width position of the map.
+	 * @return If something is added at the indicated position, return
+	 *         <b><i>true</i></b>, if not, return <b><i>false</i></b>.
+	 */
 	public boolean addSomething(Object obj, int mapX, int mapY) {
 		boolean added = false;
 		if (validPosition(mapX,mapY)) {
@@ -240,31 +266,51 @@ public class Board {
 		return added;
 	}
 	
-	public void moveSomethingUp(Object obj) {
-		for (int x = 0; x < height; x++) {
-			for (int y = 0; y < width; y++) {
-				
-				if (board[x][y] == obj) {
-					board[x-1][y] = obj;
-					board[x][y] = null;
-				}
-				
-			}
-			
-		}
-	}
-	
-	public void moveSomethingDown(Object obj) {
+	/**
+	 * This method run over the array till found the indicated object. Then check if
+	 * the upper position is valid, if it is, asign the object to that position and
+	 * erase the object of the original position.
+	 * 
+	 * @param obj The object to move up.
+	 * @return If something is moved return <b><i>true</i></b>, if not, return
+	 *         <b><i>false</i></b>.
+	 */
+	public boolean moveSomethingUp(Object obj) {
 		boolean movement = false;
 		for (int x = 0; x < height; x++) {
 			for (int y = 0; y < width; y++) {
-				
 				if (board[x][y] == obj) {
-					board[x+1][y] = obj;
-					board[x][y] = null;
-					movement = true;
+					if (validPosition(x - 1, y)) {
+						board[x - 1][y] = obj;
+						board[x][y] = null;
+						movement = true;
+					}
 				}
-				
+			}
+		}
+		return movement;
+	}
+	
+	/**
+	 * This method run over the array till found the indicated object. Then check if
+	 * the lower position is valid, if it is, asign the object to that position and
+	 * erase the object of the original position.
+	 * 
+	 * @param obj The object to move down.
+	 * @return If something is moved return <b><i>true</i></b>, if not, return
+	 *         <b><i>false</i></b>.
+	 */
+	public boolean moveSomethingDown(Object obj) {
+		boolean movement = false;
+		for (int x = 0; x < height; x++) {
+			for (int y = 0; y < width; y++) {
+				if (board[x][y] == obj) {
+					if (validPosition(x + 1, y)) {
+						board[x + 1][y] = obj;
+						board[x][y] = null;
+						movement = true;
+					}
+				}
 				if (movement) {
 					break;
 				}
@@ -272,20 +318,29 @@ public class Board {
 			if (movement) {
 				break;
 			}
-			
 		}
+		return movement;
 	}
 	
-	public void moveSomethingRight(Object obj) {
+	/**
+	 * This method run over the array till found the indicated object. Then check if
+	 * the right position is valid, if it is, asign the object to that position and
+	 * erase the object of the original position.
+	 * 
+	 * @param obj The object to move to the right.
+	 * @return If something is moved return <b><i>true</i></b>, if not, return
+	 *         <b><i>false</i></b>.
+	 */
+	public boolean moveSomethingRight(Object obj) {
 		boolean movement = false;
-		
 		for (int x = 0; x < height; x++) {
 			for (int y = 0; y < width; y++) {
-				
 				if (board[x][y] == obj) {
-					board[x][y+1] = obj;
-					board[x][y] = null;
-					movement = true;
+					if (validPosition(x,y + 1)) {
+						board[x][y+1] = obj;
+						board[x][y] = null;
+						movement = true;
+					}
 				}
 				if (movement) {
 					break;
@@ -294,22 +349,33 @@ public class Board {
 			if (movement) {
 				break;
 			}
-			
 		}
+		return movement;
 	}
 	
-	public void moveSomethingLeft(Object obj) {
+	/**
+	 * This method run over the array till found the indicated object. Then check if
+	 * the left position is valid, if it is, asign the object to that position and
+	 * erase the object of the original position.
+	 * 
+	 * @param obj The object to move to the left.
+	 * @return If something is moved return <b><i>true</i></b>, if not, return
+	 *         <b><i>false</i></b>.
+	 */
+	public boolean moveSomethingLeft(Object obj) {
+		boolean movement = false;
 		for (int x = 0; x < height; x++) {
 			for (int y = 0; y < width; y++) {
-				
 				if (board[x][y] == obj) {
-					board[x][y-1] = obj;
-					board[x][y] = null;
+					if(validPosition(x,y - 1)) {
+						board[x][y-1] = obj;
+						board[x][y] = null;
+						movement = true;
+					}
 				}
-				
 			}
-			
 		}
+		return movement;
 	}
 	
 	@Override

@@ -24,23 +24,37 @@ public class Resource {
 	}
 
 	// Get and Set
-	
+	/**
+	 * 
+	 * @return The name of the resource.
+	 */
 	public String getName() {
 		return this.name;
 	}
 	
+	/**
+	 * 
+	 * @return The icon of the resource.
+	 */
 	public String getIcon() {
 		return icon;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
-	
+	/**
+	 * 
+	 * @return The ammount attribute of the resource.
+	 */
 	public int getAmount() {
 		return amount;
 	}
 
+	/**
+	 * 
+	 * @param amount Change the actual amount of the attribute.<br>
+	 *               <b>Important: </b> This method does not add the amount on the
+	 *               parameter to the current amount. Change the attribute to a new
+	 *               value.
+	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}

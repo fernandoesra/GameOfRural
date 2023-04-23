@@ -11,7 +11,7 @@ import resources.GoldOreMineral;
 import resources.MinedGold;
 import resources.Table;
 import resources.WoodPlanks;
-import works.Blacksmisth;
+import works.Blacksmith;
 import works.Carpenter;
 import works.Lumberjack;
 import works.Miner;
@@ -32,7 +32,7 @@ import works.Miner;
  * @see resources.MinedGold
  * @see resources.Table
  * @see resources.WoodPlanks
- * @see works.Blacksmisth
+ * @see works.Blacksmith
  * @see works.Carpenter
  * @see works.Lumberjack
  * @see works.Miner
@@ -84,7 +84,7 @@ public class InteractController {
 		 */
 		
 		// Blackmisth
-		if (nameOfClass.indexOf("Blacksmisth") >= 0) {
+		if (nameOfClass.indexOf("Blacksmith") >= 0) {
 			interactBlacksmisth(board, genericCitizen);
 		}
 		
@@ -380,12 +380,12 @@ public class InteractController {
 	 * the miner have mined gold then the Blacksmith took that mined gold and melts
 	 * them using the Blacksmith.melt() method.
 	 * 
-	 * @param board        The board with the map to search for Miners in the
-	 *                     surroundings of the Blacksmith.
-	 * @param genericMiner Must be a Blacksmith object and exists in the board.
+	 * @param board             The board with the map to search for Miners in the
+	 *                          surroundings of the Blacksmith.
+	 * @param genericBlacksmith Must be a Blacksmith object and exists in the board.
 	 */
 	public static void interactBlacksmisth(Board board, Man genericBlacksmith) {
-		Blacksmisth actualBlacksmith = (Blacksmisth) genericBlacksmith;
+		Blacksmith actualBlacksmith = (Blacksmith) genericBlacksmith;
 		int actualX = actualBlacksmith.getMapX();
 		int actualY = actualBlacksmith.getMapY();
 
