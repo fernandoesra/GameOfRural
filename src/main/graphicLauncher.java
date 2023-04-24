@@ -21,11 +21,11 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 import javax.swing.JTextField;
 
 import javax.swing.text.Highlighter;
@@ -667,20 +667,57 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	}
 	
 	/**
-	 * This method calls 'x' times the generateOneTurn() method with a half second
-	 * of waiting in between.
+	 * A SwingWorker object used to control multiple random turns.
 	 * 
-	 * @param quantity The amount of turns to generate.
+	 * @author Miguel Angel Croche Munoz (MichValwin)
+	 * @see javax.swing.SwingConstants;
+	 * @see javax.swing.SwingWorker;
+	 *
 	 */
-	public void generateXturns(int quantity) {
-		for (int i = 0; i < quantity; i++) {
-			generateOneTurn();
+	private class SwingWorkerRercursive extends SwingWorker<Void, Void> {
+		
+		// Attribute
+		private int quantityExecute;
+		
+		// Constructor, set quantity
+		public SwingWorkerRercursive(int quantityExecute) {
+			this.quantityExecute = quantityExecute;
+		}
+		
+		// Method for Background operations
+		protected Void doInBackground() {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			return null;
 		}
+		
+		// Recursive method
+		protected void done() {
+			// Actions
+			generateOneTurn();
+			
+			// Recursive control
+			quantityExecute--;
+			if (quantityExecute > 0) {
+				SwingWorkerRercursive worker = new SwingWorkerRercursive(quantityExecute);
+				worker.execute();
+			}
+
+		}
+	}
+
+	/**
+	 * This method calls 'x' times the generateOneTurn() method with a half second
+	 * of waiting in between using a SwingWorker object.
+	 * 
+	 * @param quantity The amount of turns to generate.
+	 */
+	public void generateXturns(int quantity) {
+		SwingWorkerRercursive worker = new SwingWorkerRercursive(quantity);
+		worker.execute();
 	}
 
 	/**
@@ -689,8 +726,8 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 * forest, add the minerals, the animals and the citizens to the board.
 	 */
 	public void initialize() {
-		int height = 50;
-		int width = 100;
+		int height = 24;
+		int width = 46;
 		board = new Board(height, width);
 
 		resourcesList = new ResourcesList();
