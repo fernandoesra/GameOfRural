@@ -689,8 +689,8 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 * forest, add the minerals, the animals and the citizens to the board.
 	 */
 	public void initialize() {
-		int height = 50;
-		int width = 100;
+		int height = 25;
+		int width = 46;
 		board = new Board(height, width);
 
 		resourcesList = new ResourcesList();
