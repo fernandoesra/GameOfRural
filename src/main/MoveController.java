@@ -135,7 +135,7 @@ public class MoveController {
 	 * This method read a CitizenList and, for each citizen in the list, generate
 	 * one random direction (up, down, left, right) and move the citizen in that
 	 * direction. If is also possible that it will not move. The percentage of
-	 * each direction it of the 20%.
+	 * each direction it of the 25%.
 	 * 
 	 * @param board    The map where the citizens will move.
 	 * @param citizens The citizenList whit all the citizens in the map.

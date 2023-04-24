@@ -667,8 +667,8 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	}
 	
 	/**
-	 * This method calls 'x' times the generateOneTurn() method with one second of
-	 * waiting in between.
+	 * This method calls 'x' times the generateOneTurn() method with a half second
+	 * of waiting in between.
 	 * 
 	 * @param quantity The amount of turns to generate.
 	 */
@@ -676,7 +676,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		for (int i = 0; i < quantity; i++) {
 			generateOneTurn();
 			try {
-				Thread.sleep(100);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
