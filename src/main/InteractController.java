@@ -42,6 +42,21 @@ import works.Miner;
 public class InteractController {
 	
 	/**
+	 * This method runs over a CitizenList object and performs a interaction for
+	 * each of the citizens inside using the interactSpecific() method.
+	 * 
+	 * @param board       The map where the citizens move and interact.
+	 * @param citizenList A list with all the citizens on the map.
+	 */
+	public static void interactAll(Board board, CitizenList citizenList) {
+		int totalCitizens = citizenList.getLength();
+		for (int i = 0; i < totalCitizens; i++) {
+			Man actualCitizen = (Man) citizenList.searchForCitizen(i+1);
+			interactSpecific(board, actualCitizen);
+		}
+	}
+	
+	/**
 	 * This method took one 'genericCitizen' and search for his className. It then
 	 * moves to the specific methods of that citizen.<br>
 	 * There are two types of jobs. Harvesting and Crafting.<br>

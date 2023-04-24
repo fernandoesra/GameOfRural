@@ -74,6 +74,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	public JTextArea textCentralArea;
 	public JTextArea actualCitizenInfoText;
 	public JTextArea logTextArea;
+	private JTextField turnsValueTextField;
 	
 	// Main
 	public static void main(String[] args) {
@@ -206,32 +207,6 @@ public class graphicLauncher extends JFrame implements KeyListener{
 			}
 		});
 		
-		// Button panel
-		JPanel buttonsPanel = new JPanel();
-		buttonsPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		buttonsPanel.setBounds(10, 601, 850, 81);
-		buttonsPanel.setLayout(null);
-		
-		// Show actual map button
-		JButton showMapButton = new JButton("Show actual map");
-		showMapButton.setBounds(10, 22, 153, 36);
-
-		// Show all citizens button
-		JButton buttonShowAllCitizens = new JButton("Show all citizens");
-		buttonShowAllCitizens.setBounds(173, 22, 153, 36);
-
-		buttonShowAllCitizens.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				showAllCitizensButton(textCentralArea);
-			}
-		});
-		showMapButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				showMapButton(textCentralArea);
-			}
-		});
-		
 		// Log panel
 		JPanel logPanel = new JPanel();
 		logPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -269,6 +244,62 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		mapLegendImage.setBounds(10, 45, 355, 337);
 		mapLegendImage.setIcon(new ImageIcon("./assets/legendImage.png"));
 		
+		// Button panel
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		buttonsPanel.setBounds(10, 601, 850, 81);
+		buttonsPanel.setLayout(null);
+
+		// Show actual map button
+		JButton showMapButton = new JButton("Show actual map");
+		showMapButton.setBounds(10, 22, 153, 36);
+		
+		showMapButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showMapButton(textCentralArea);
+			}
+		});
+
+		// Show all citizens button
+		JButton buttonShowAllCitizens = new JButton("Show all citizens");
+		buttonShowAllCitizens.setBounds(173, 22, 153, 36);
+
+		buttonShowAllCitizens.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showAllCitizensButton(textCentralArea);
+			}
+		});
+		
+		// Generate one random turn button
+		JButton turnOneRandom = new JButton("1 turn");
+		turnOneRandom.setBounds(336, 22, 153, 36);
+		
+		turnOneRandom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				generateOneTurn();
+			}
+		});
+		
+		// JTextFild for turns value
+		turnsValueTextField = new JTextField();
+		turnsValueTextField.setHorizontalAlignment(SwingConstants.CENTER);
+		turnsValueTextField.setFont(new Font("Tahoma", Font.BOLD, 18));
+		turnsValueTextField.setText("2");
+		turnsValueTextField.setBounds(788, 22, 52, 36);
+		turnsValueTextField.setColumns(10);
+		
+		//Generate X random turns button
+		JButton turnIndicatedRandom = new JButton("Generate turns:");
+		turnIndicatedRandom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String amount = turnsValueTextField.getText();
+				int quantity = Integer.parseInt(amount);
+				
+				generateXturns(quantity);
+			}
+		});
+		turnIndicatedRandom.setBounds(625, 22, 153, 36);
+		
 		// Add all to the containers
 		setContentPane(mainContentPane);
 		mainContentPane.setLayout(null);
@@ -288,6 +319,9 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		
 		buttonsPanel.add(buttonShowAllCitizens);
 		buttonsPanel.add(showMapButton);
+		buttonsPanel.add(turnOneRandom);
+		buttonsPanel.add(turnIndicatedRandom);
+		buttonsPanel.add(turnsValueTextField);
 		
 		citizenInfoPanel.add(actualCitizenInfoLabel);
 		citizenInfoPanel.add(scrollPaneActualCitizen);
@@ -312,7 +346,8 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		buttonShowAllCitizens.addKeyListener(this);
 		showMapButton.addKeyListener(this);
 		actualCitizenTextArea.addKeyListener(this);
-		
+		turnOneRandom.addKeyListener(this);
+		turnsValueTextField.addKeyListener(this);
 		
 	}
 	
@@ -614,6 +649,37 @@ public class graphicLauncher extends JFrame implements KeyListener{
 			selectedID.setText("");
 			textArea.setText(String.valueOf(actualCitizenID));
 			citizenInfo.setText(citizenList.getInfoID(actualCitizenID));
+		}
+	}
+	
+	/**
+	 * This method move all the citizens on the citizenList and then performs a
+	 * action for each citizen.
+	 */
+	public void generateOneTurn() {
+		MoveController.moveAllCitizens(board, citizenList);
+		InteractController.interactAll(board, citizenList);
+		textCentralArea.setText("\n" + board.toString());
+		highlightMainMap(textCentralArea);
+		logTextArea.setText(log.toString());
+		actualCitizenInfoText.setText(citizenList.getInfoID(actualCitizenID));
+		
+	}
+	
+	/**
+	 * This method calls 'x' times the generateOneTurn() method with one second of
+	 * waiting in between.
+	 * 
+	 * @param quantity The amount of turns to generate.
+	 */
+	public void generateXturns(int quantity) {
+		for (int i = 0; i < quantity; i++) {
+			generateOneTurn();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
