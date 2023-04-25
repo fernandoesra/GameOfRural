@@ -821,8 +821,8 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 */
 	public void initialize() {
 		// Map dimensions
-		this.height = 50;
-		this.width = 100;
+		this.height = 27;		/* 27 to fully fill the map area witouth scroll bar */
+		this.width = 46;		/* 46 to fully fill the map area witouth scroll bar */
 		board = new Board(height, width);
 		
 		// Initialize the lists
