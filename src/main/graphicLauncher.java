@@ -76,6 +76,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 */
 	AtomicBoolean programInUse;
 	QuantityTurns turnX;
+	QuantityTurns actualTurn;
 	
 	public JPanel mainContentPane;
 	public JTextArea textCentralArea;
@@ -110,6 +111,9 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 * Empty constructor. Initialize all the attributes for the class.
 	 */
 	public graphicLauncher() {
+		//Set the actual turn to 1
+		actualTurn = new QuantityTurns(1);
+		
 		// Initialize the programInUse
 		programInUse = new AtomicBoolean();
 		programInUse.lazySet(false);
@@ -678,13 +682,14 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 * action for each citizen.
 	 */
 	public void generateOneTurn() {
+		ActionsLog.registerAction("Actual turn: " + actualTurn);
+		actualTurn.oneTurn();
 		MoveController.moveAllCitizens(board, citizenList);
 		InteractController.interactAll(board, citizenList);
 		textCentralArea.setText("\n" + board.toString());
 		highlightMainMap(textCentralArea);
 		logTextArea.setText(log.toString());
 		actualCitizenInfoText.setText(citizenList.getInfoID(actualCitizenID));
-		
 	}
 	
 	/**
@@ -718,7 +723,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		// Recursive method
 		protected void done() {
 			// Actions
-			ActionsLog.registerAction("Actual turn: " + actualExecute + "/" + turnX.getQuantity());
+			ActionsLog.registerAction("Remaining turns: " + actualExecute + "/" + turnX.getQuantity());
 			generateOneTurn();
 			
 			// Recursive control
@@ -752,6 +757,8 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	/**
 	 * This object is used to store the total turns to generate on generateXturns()
 	 * and show a message like "Actual turn: 3/100" on the SwingWorker object.
+	 * <p>
+	 * It is also used by the variable <b<actualTurn</b>.
 	 * 
 	 * @author Fernando Tarrino del Pozo (FernandoEsra)
 	 *
@@ -760,12 +767,35 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		
 		int quantity;
 		
+		/**
+		 * 
+		 * @param quantity Amount of turns.
+		 */
 		public QuantityTurns(int quantity) {
 			this.quantity = quantity;
 		}
 		
+		/**
+		 * 
+		 * @return The quantity value.
+		 */
 		protected int getQuantity() {
 			return this.quantity;
+		}
+		
+		/**
+		 * Add 1 to the quantity original value.
+		 * 
+		 * @return The quantity value plus 1.
+		 */
+		protected int oneTurn() {
+			this.quantity++;
+			return this.quantity;
+		}
+		
+		@Override
+		public String toString() {
+			return "" + this.getQuantity();
 		}
 		
 	}
