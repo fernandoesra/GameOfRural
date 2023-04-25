@@ -2,6 +2,7 @@ package main;
 
 import map.Board;
 import resources.GoldOreMineral;
+import resources.Grain;
 import utils.ObjectsList;
 
 /**
@@ -68,12 +69,25 @@ public class ResourcesList {
 	 * This method created 'x' GoldOreMineral objects and adds them to the end of
 	 * the resourceList.
 	 * 
-	 * @param amount How much Gold Ore Mineral create.
+	 * @param amount How much Gold Ore Mineral to create.
 	 */
 	public void addGoldOreMineral(int amount) {
 		for (int i = 0; i < amount; i++) {
 			GoldOreMineral oreMineral = new GoldOreMineral();
 			resourceList.addEnd(oreMineral);
+		}
+	}
+	
+	/**
+	 * This method created 'x' Grain objects and adds them to the end of the
+	 * resourceList.
+	 * 
+	 * @param amount How much Grain to create.
+	 */
+	public void addGrain(int amount) {
+		for (int i = 0; i < amount; i++) {
+			Grain grain = new Grain();
+			resourceList.addEnd(grain);
 		}
 	}
 }

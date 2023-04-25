@@ -445,6 +445,10 @@ public class graphicLauncher extends JFrame implements KeyListener{
 					// Gold Ore
 					high.addHighlight(i+1, i+2, setColor(13));
 					break;
+				case (char)968:
+					// Grain
+					high.addHighlight(i+1, i+2, setColor(14));
+					break;
 				}
 			}
 		} catch (Exception ex) {
@@ -470,18 +474,13 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 * <b>11: </b>Water Blue.        R: 30, G: 230, B: 255<br>
 	 * <b>12: </b>Tree Green.        R: 84, G: 168, B: 51<br>
 	 * <b>13: </b>Ore Gold.          R: 255, G: 215, B: 0<br>
+	 * <b>14: </b>Chartreuse.        R: 223, G: 254, B: 0<br>
 	 * 
 	 * @param index A number between 1 and 13
 	 * @return A HighlightPainter objetc with one color asigned. If the number of
 	 *         the param its not on the list return white
 	 */
 	public HighlightPainter setColor(int index) {
-		/*
-		 * Colors: 1 - light_red 2 - very_light_blue 3 - light_green 4 - light_yellow 5
-		 * - light_grey 6 - light_brown 7 - purple 8 - light_black 9 - light_orange 10 -
-		 * light_blue
-		 * 
-		 */
 
 		final Color white = new Color(255, 255, 255);
 		HighlightPainter selectedColor = new DefaultHighlighter.DefaultHighlightPainter(white);
@@ -548,6 +547,11 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		if (index == 13) {
 			final Color ORE_GOLD = new Color(255, 215, 0);
 			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(ORE_GOLD);
+		}
+		
+		if (index == 14) {
+			final Color CHARTREUSE = new Color(223, 254, 0);
+			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(CHARTREUSE);
 		}
 
 		return selectedColor;
@@ -794,7 +798,8 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		biomeGenerator.createRandomTrees(board, ((int)(totalMap*0.04)));
 		
 		// Generate minerals and animals
-		resourcesList.addGoldOreMineral((int)(totalMap*0.02));
+		resourcesList.addGoldOreMineral((int)(totalMap*0.03));
+		resourcesList.addGrain((int)(totalMap*0.02));
 		resourcesList.addResourcesToMap(board);
 		
 		// Generate citizens

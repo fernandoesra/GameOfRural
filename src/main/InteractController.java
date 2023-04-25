@@ -8,9 +8,11 @@ import resources.Bed;
 import resources.Chair;
 import resources.Chest;
 import resources.GoldOreMineral;
+import resources.Grain;
 import resources.MinedGold;
 import resources.Table;
 import resources.WoodPlanks;
+import works.Baker;
 import works.Blacksmith;
 import works.Carpenter;
 import works.Lumberjack;
@@ -32,10 +34,13 @@ import works.Miner;
  * @see resources.MinedGold
  * @see resources.Table
  * @see resources.WoodPlanks
+ * @see resources.Grain
+ * @see resources.Bread
  * @see works.Blacksmith
  * @see works.Carpenter
  * @see works.Lumberjack
  * @see works.Miner
+ * @see works.Baker
  *
  */
 
@@ -108,16 +113,75 @@ public class InteractController {
 			interactCarpenter(board, genericCitizen);
 		}
 		
-		// Fishmonger		
-		
-		
 		// Baker
-		
+		if (nameOfClass.indexOf("Baker") >= 0) {
+			interactBaker(board, genericCitizen);
+		}
+
+		// Fishmonger		
+	
 		
 		/*
 		 * Other works:
 		 */
 		
+	}
+	
+	/**
+	 * This method cast the genericMan to a Baker. Then search the up, down, left
+	 * and rigth coordinates for Grain. If a Grain is found continue the method
+	 * calling the makeBread() method from the Baker.
+	 * 
+	 * @param board      The map to search for different things, such as the
+	 *                   surroundings of the Man.
+	 * @param genericMan Must be a Baker object and exists in the board.
+	 * 
+	 */
+	public static void interactBaker(Board board, Man genericMan) {
+		Baker actualBaker = (Baker) genericMan;
+		int actualX = actualBaker.getMapX();
+		int actualY = actualBaker.getMapY();
+
+		// Search up position
+		if (!board.validPosition(actualX - 1, actualY) && board.inBounds(actualX - 1, actualY)) {
+			String nameOfItem = board.getNameOfItem(actualX - 1, actualY);
+			if (nameOfItem.indexOf("Grain") >= 0) {
+				Grain actualGrain = (Grain) board.getObjectAt(actualX - 1, actualY);
+				actualBaker.makeBread(actualGrain);
+				board.eraseObjectAt(actualX - 1, actualY);
+			}
+		}
+
+		// Search down position
+		if (!board.validPosition(actualX + 1, actualY) && board.inBounds(actualX + 1, actualY)) {
+			String nameOfItem = board.getNameOfItem(actualX + 1, actualY);
+			if (nameOfItem.indexOf("Grain") >= 0) {
+				Grain actualGrain = (Grain) board.getObjectAt(actualX + 1, actualY);
+				actualBaker.makeBread(actualGrain);
+				board.eraseObjectAt(actualX + 1, actualY);
+			}
+		}
+
+		// Search left position
+		if (!board.validPosition(actualX, actualY + 1) && board.inBounds(actualX, actualY + 1)) {
+			String nameOfItem = board.getNameOfItem(actualX, actualY + 1);
+			if (nameOfItem.indexOf("Grain") >= 0) {
+				Grain actualGrain = (Grain) board.getObjectAt(actualX, actualY + 1);
+				actualBaker.makeBread(actualGrain);
+				board.eraseObjectAt(actualX, actualY + 1);
+			}
+		}
+
+		// Search right position
+		if (!board.validPosition(actualX, actualY - 1) && board.inBounds(actualX, actualY - 1)) {
+			String nameOfItem = board.getNameOfItem(actualX, actualY - 1);
+			if (nameOfItem.indexOf("Grain") >= 0) {
+				Grain actualGrain = (Grain) board.getObjectAt(actualX, actualY - 1);
+				actualBaker.makeBread(actualGrain);
+				board.eraseObjectAt(actualX, actualY - 1);
+			}
+		}
+
 	}
 	
 	/**
