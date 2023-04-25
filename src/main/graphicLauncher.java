@@ -772,31 +772,43 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 * forest, add the minerals, the animals and the citizens to the board.
 	 */
 	public void initialize() {
+		// Map dimensions
 		int height = 24;
 		int width = 46;
 		board = new Board(height, width);
-
+		
+		// Initialize the lists
 		resourcesList = new ResourcesList();
-
+		citizenList = new CitizenList();
+		
+		// Create biomes in order. First rivers, then forests
 		biomeGenerator.createRiver(board, 2);
 		biomeGenerator.createCircularForest(board, 3, 10);
 		biomeGenerator.createNonCircularForest(board, 5, 15);
-		biomeGenerator.createRandomTrees(board, 110);
 		
+		// Fill the 6% of the map with trees
+		int totalMap = this.height * this.width;
+		biomeGenerator.createRandomTrees(board, ((int)(totalMap*0.06)));
+		
+		// Generate minerals and animals
 		resourcesList.addGoldOreMineral(10);
 		resourcesList.addResourcesToMap(board);
-
-		citizenList = new CitizenList();
+		
+		// Generate citizens
 		citizenList.createAll(1);
 		citizenList.addAllCitizensToMap(board);
 	}
 
 	/**
 	 * Test method to initialize the map with just X citizens of just a selected
-	 * jobs types.
+	 * jobs types.<p>
+	 * 
+	 * <b>DO NOT USE. JUST FOR TESTING</b>
 	 * 
 	 * @param quantity The amount of citizens to create and add to the map.
 	 */
+	@SuppressWarnings("unused")
+	@Deprecated
 	public void initialize(int quantity) {
 		int height = 28;
 		int width = 52;
