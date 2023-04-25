@@ -284,7 +284,7 @@ public class InteractController {
 	 * 
 	 * @param board        The board with the map to search for minerals in the
 	 *                     surroundings of the Miner.
-	 * @param genericMiner Must be a Miner object and exists in the board.
+	 * @param genericMan Must be a Miner object and exists in the board.
 	 */
 	public static void interactMiner(Board board, Man genericMan) {
 		Miner actualMan = (Miner) genericMan;
@@ -312,7 +312,7 @@ public class InteractController {
 	 * 
 	 * @param board             The board with the map to search for Miners in the
 	 *                          surroundings of the Blacksmith.
-	 * @param genericBlacksmith Must be a Blacksmith object and exists in the board.
+	 * @param genericMan Must be a Blacksmith object and exists in the board.
 	 */
 	public static void interactBlacksmisth(Board board, Man genericMan) {
 		Blacksmith actualMan = (Blacksmith) genericMan;

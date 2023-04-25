@@ -1,11 +1,11 @@
 package map;
 
+import base.FishWater;
 import base.Furniture;
 import base.Man;
 import base.Resource;
 import base.Tree;
 import base.Water;
-import resources.FishWater;
 import resources.GrassCarpFish;
 import utils.AleatoricName;
 
@@ -152,7 +152,24 @@ public class Board {
 		}
 		return valid;
 	}
-
+	
+	/**
+	 * This method read all the map and count the water objects inside.
+	 * 
+	 * @return The amount of water on the map
+	 */
+	public int totalWater() {
+		int totalWater = 0;
+		for (int i = 0; i < this.height; i++) {
+			for (int j = 0; j < this.width; j++) {
+				if (this.isWater(i, j)) {
+					totalWater++;
+				}
+			}
+		}
+		return totalWater;
+	}
+	
 	/**
 	 * This method search for the height position of one object inside the board.
 	 * 

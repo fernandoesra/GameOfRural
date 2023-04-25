@@ -841,11 +841,14 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		int totalMap = height * width;
 		biomeGenerator.createRandomTrees(board, ((int)(totalMap*0.04)));
 		
-		// Generate minerals and animals
-		resourcesList.addGoldOreMineral((int)(totalMap*0.03));
+		// Generate basic resources (minerals and animals)
+		resourcesList.addGoldOreMineral((int)(totalMap*0.025));
 		resourcesList.addGrain((int)(totalMap*0.02));
 		
-		resourcesList.addFish(5);
+		int totalFishes = (board.totalWater() / 10);
+		resourcesList.addFish(totalFishes);
+		
+		// Add basic resources to the map
 		resourcesList.addResourcesToMap(board);
 		
 		// Generate citizens

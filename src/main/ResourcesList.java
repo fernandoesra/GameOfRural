@@ -1,10 +1,13 @@
 package main;
 
+import base.FishWater;
 import base.Water;
 import map.Board;
 import resources.GoldOreMineral;
 import resources.Grain;
 import resources.GrassCarpFish;
+import resources.SilverCarpFish;
+import resources.TilapiaFish;
 import utils.ObjectsList;
 
 /**
@@ -78,12 +81,40 @@ public class ResourcesList {
 		}
 	}
 	
-	// FALTA TEXTO
+	/**
+	 * This method created 'x' differents fishes objects and adds them to the end of
+	 * the resourceList.
+	 * 
+	 * @param amount How much fishes to create.
+	 */
 	public void addFish(int amount) {
 		for (int i = 0; i < amount; i++) {
-			GrassCarpFish fish = new GrassCarpFish(5);
-			resourceList.addEnd(fish);
+			FishWater fishToAdd = randomFish();
+			resourceList.addEnd(fishToAdd);
 		}
+	}
+	
+	/**
+	 * This method generate a new random fish between the different existing types
+	 * of fish.
+	 * 
+	 * @return Return a new fish object.
+	 */
+	public FishWater randomFish() {
+		FishWater fishToReturn = new FishWater("test",1);
+		int random = (int)((Math.random() * (4 - 1)) + 1);
+		switch (random) {
+		case 1:
+			fishToReturn = new GrassCarpFish();
+			break;
+		case 2:
+			fishToReturn = new SilverCarpFish();
+			break;
+		case 3:
+			fishToReturn = new TilapiaFish();
+			break;
+		}
+		return fishToReturn;
 	}
 	
 	/**
