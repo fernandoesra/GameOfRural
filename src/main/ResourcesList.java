@@ -5,9 +5,9 @@ import base.Water;
 import map.Board;
 import resources.GoldOreMineral;
 import resources.Grain;
-import resources.GrassCarpFish;
-import resources.SilverCarpFish;
-import resources.TilapiaFish;
+import resources.GrassCarpFishWater;
+import resources.SilverCarpFishWater;
+import resources.TilapiaFishWater;
 import utils.ObjectsList;
 
 /**
@@ -105,13 +105,13 @@ public class ResourcesList {
 		int random = (int)((Math.random() * (4 - 1)) + 1);
 		switch (random) {
 		case 1:
-			fishToReturn = new GrassCarpFish();
+			fishToReturn = new GrassCarpFishWater();
 			break;
 		case 2:
-			fishToReturn = new SilverCarpFish();
+			fishToReturn = new SilverCarpFishWater();
 			break;
 		case 3:
-			fishToReturn = new TilapiaFish();
+			fishToReturn = new TilapiaFishWater();
 			break;
 		}
 		return fishToReturn;

@@ -1,5 +1,6 @@
 package main;
 
+import base.FishWater;
 import base.Man;
 import base.Tree;
 import logs.ActionsLog;
@@ -15,6 +16,7 @@ import resources.WoodPlanks;
 import works.Baker;
 import works.Blacksmith;
 import works.Carpenter;
+import works.Fisherman;
 import works.Lumberjack;
 import works.Miner;
 
@@ -41,6 +43,7 @@ import works.Miner;
  * @see works.Lumberjack
  * @see works.Miner
  * @see works.Baker
+ * @see works.Fisherman
  *
  */
 
@@ -94,7 +97,9 @@ public class InteractController {
 		}
 
 		// Fisherman
-		
+		if (nameOfClass.indexOf("Fisherman") >= 0) {
+			interactFisherman(board, genericCitizen);
+		}
 				
 		// Farmer
 		
@@ -130,6 +135,23 @@ public class InteractController {
 		
 	}
 	
+	public static void interactFisherman(Board board, Man genericMan) {
+		Fisherman actualMan = (Fisherman) genericMan;
+		int actualX = actualMan.getMapX();
+		int actualY = actualMan.getMapY();
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
+
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName("FishWater", board, xToLook, yToLook)) {
+					FishWater toFish = (FishWater) board.getObjectAt(xToLook, yToLook);
+					actualMan.fishing(board, toFish);
+				}
+			}
+		}
+	}
+
 	/**
 	 * This method cast the genericMan to a Baker. Then search the up, down, left
 	 * and rigth coordinates for Grain. If a Grain is found continue the method

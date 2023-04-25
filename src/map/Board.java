@@ -6,7 +6,7 @@ import base.Man;
 import base.Resource;
 import base.Tree;
 import base.Water;
-import resources.GrassCarpFish;
+import resources.GrassCarpFishWater;
 import utils.AleatoricName;
 
 /**
@@ -267,6 +267,25 @@ public class Board {
 	}
 	
 	/**
+	 * This method search for a possible existence of X and Y axis of one object. If
+	 * both axis exists then delete the object.
+	 * 
+	 * @param obj A object to search and delete from the map.
+	 * @return <b><i>True</i></b> if something is deleted, if not, return
+	 *         <b><i>false</i></b>.
+	 */
+	public boolean eraseObject(Object obj) {
+		boolean erased = false;
+		int existingX = this.searchXobject(obj);
+		int existingY = this.searchYobject(obj);
+		if (existingX >= 0 && existingY >= 0) {
+			this.eraseObjectAt(existingX, existingY);
+			erased = true;
+		}
+		return erased;
+	}
+	
+	/**
 	 * Add one object to the indicated position. Only work if the possition is
 	 * valid.
 	 * 
@@ -453,7 +472,7 @@ public class Board {
 						text += ((Furniture)board[i][j]).getIcon()+"|";
 					}
 					
-					if (className.indexOf("Water")>= 0) {
+					if (className.indexOf(".Water")>= 0) {
 						text += ((Water)board[i][j]).getIcon()+"|";
 					}
 					

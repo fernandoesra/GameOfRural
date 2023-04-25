@@ -13,14 +13,14 @@ import base.FishWater;
  *
  */
 
-public class GrassCarpFish extends FishWater{
+public class GrassCarpFishWater extends FishWater{
 	
 	/**
 	 * Create a new fish with the name "Frass carp".<br>
 	 * The fress carp have a random value of meet between 2 and 6.
 	 * 
 	 */
-	public GrassCarpFish() {
+	public GrassCarpFishWater() {
 		super("Grass carp", 0);
 		int random = (int)((Math.random() * (7 - 2)) + 2);;
 		this.setAmount(random);

@@ -821,8 +821,8 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 */
 	public void initialize() {
 		// Map dimensions
-		this.height = 27;
-		this.width = 46;
+		this.height = 50;
+		this.width = 100;
 		board = new Board(height, width);
 		
 		// Initialize the lists
@@ -845,16 +845,18 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		resourcesList.addGoldOreMineral((int)(totalMap*0.025));
 		resourcesList.addGrain((int)(totalMap*0.02));
 		
-		int totalFishes = (board.totalWater() / 10);
+		int totalFishes = (int)(board.totalWater() * 0.2);
 		resourcesList.addFish(totalFishes);
 		
 		// Add basic resources to the map
 		resourcesList.addResourcesToMap(board);
 		
 		// Generate citizens
-		citizenList.createAll(1);
+		int citizenAmount = 1;
+		for (int i = 0; i < citizenAmount; i++) {
+			citizenList.createAll(1);
+		}
 		citizenList.addAllCitizensToMap(board);
-		
 		
 	}
 
