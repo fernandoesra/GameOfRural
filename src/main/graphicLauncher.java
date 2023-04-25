@@ -61,16 +61,21 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	int height;
-	int width;
+	int height; 					/* Height of the board */
+	int width; 						/* Width of the board */
 	Board board;
 	CitizenList citizenList;
 	ResourcesList resourcesList;
-	int actualCitizenID;
+	int actualCitizenID;			/* 1 at the program start */
 	Man actualCitizen;
 	ActionsLog log;
 	BiomeGenerator biomeGenerator;
-	AtomicBoolean programInUse; 
+	/**
+	 * This variable programInUse is used on generateXturns() to prevent the player
+	 * use other buttons during the performance of the method.
+	 */
+	AtomicBoolean programInUse;
+	QuantityTurns turnX;
 	
 	public JPanel mainContentPane;
 	public JTextArea textCentralArea;
@@ -295,7 +300,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		turnsValueTextField = new JTextField();
 		turnsValueTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		turnsValueTextField.setFont(new Font("Tahoma", Font.BOLD, 18));
-		turnsValueTextField.setText("2");
+		turnsValueTextField.setText("5");
 		turnsValueTextField.setBounds(788, 22, 52, 36);
 		turnsValueTextField.setColumns(10);
 		
@@ -689,11 +694,11 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	private class SwingWorkerRercursive extends SwingWorker<Void, Void> {
 		
 		// Attribute
-		private int quantityExecute;
+		private int actualExecute;
 		
 		// Constructor, set quantity
 		public SwingWorkerRercursive(int quantityExecute) {
-			this.quantityExecute = quantityExecute;
+			this.actualExecute = quantityExecute;
 		}
 		
 		// Method for Background operations
@@ -709,14 +714,18 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		// Recursive method
 		protected void done() {
 			// Actions
+			ActionsLog.registerAction("Actual turn: " + actualExecute + "/" + turnX.getQuantity());
 			generateOneTurn();
 			
 			// Recursive control
-			quantityExecute--;
-			if (quantityExecute > 0) {
-				SwingWorkerRercursive worker = new SwingWorkerRercursive(quantityExecute);
-				worker.execute();
+			actualExecute--;
+			if (actualExecute > 0) {
+				SwingWorkerRercursive worker = new SwingWorkerRercursive(actualExecute);
+				worker.execute(); 	/* Recursive */
 			} else {
+				// Final action
+				ActionsLog.registerAction("ALL TURNS HAVE BEEN COMPLETED");
+				logTextArea.setText(log.toString());
 				programInUse.set(false);
 			}
 
@@ -731,8 +740,30 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 */
 	public void generateXturns(int quantity) {
 		programInUse.set(true);
+		turnX = new QuantityTurns(quantity);
 		SwingWorkerRercursive worker = new SwingWorkerRercursive(quantity);
 		worker.execute();
+	}
+
+	/**
+	 * This object is used to store the total turns to generate on generateXturns()
+	 * and show a message like "Actual turn: 3/100" on the SwingWorker object.
+	 * 
+	 * @author Fernando Tarrino del Pozo (FernandoEsra)
+	 *
+	 */
+	private class QuantityTurns {
+		
+		int quantity;
+		
+		public QuantityTurns(int quantity) {
+			this.quantity = quantity;
+		}
+		
+		protected int getQuantity() {
+			return this.quantity;
+		}
+		
 	}
 
 	/**
