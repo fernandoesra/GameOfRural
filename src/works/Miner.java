@@ -59,7 +59,7 @@ public class Miner extends Man {
 		int amountOfPureGold = mineral.getAmount();
 		int random = (int) ((Math.random() * ((amountOfPureGold * 3) - (amountOfPureGold*0.50)))
 				+ (amountOfPureGold * 0.50));
-		MinedGold groundMineral = new MinedGold(random);
+		MinedGold groundMineral = new MinedGold(random + 1);
 		ActionsLog.registerAction(this.name +"(" + this.ID + ") has mined a gold ore and has manage to "
 				+ "refine a total of " + random + " gold mined.");
 		this.inventory.addToInventory(groundMineral);
