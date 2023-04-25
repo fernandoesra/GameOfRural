@@ -111,8 +111,6 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 * Empty constructor. Initialize all the attributes for the class.
 	 */
 	public graphicLauncher() {
-		//Set the actual turn to 1
-		actualTurn = new QuantityTurns(1);
 		
 		// Initialize the programInUse
 		programInUse = new AtomicBoolean();
@@ -123,6 +121,10 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		
 		// Initialize the action log
 		log = new ActionsLog();
+		
+		// Set the actual turn to 1
+		actualTurn = new QuantityTurns(1);
+		ActionsLog.registerAction("Actual turn: " + actualTurn);
 		
 		// Initialize and fill the map, set the starting actual Citizen to 1
 		this.initialize();
@@ -355,6 +357,9 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		// Show the map when the game start
 		showMapButton(textCentralArea);
 		
+		// Show the log when the game start
+		logTextArea.setText(log.toString());
+		
 		// Select the first citizen to start the game
 		this.actualCitizen = (Man) citizenList.searchForCitizen(1);
 		textCentralArea.getHighlighter();	/* At start always select the citizen with ID 1 */
@@ -574,6 +579,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		textArea.setText("\n" + board.toString());
 		highlightMainMap(textArea);
 		citizenInfo.setText(citizenList.getInfoID(actualCitizenID));
+		logTextArea.setText(log.toString());
 	}
 	/**
 	 * If its possible move the selected citizen down
@@ -587,6 +593,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		textArea.setText("\n" + board.toString());
 		highlightMainMap(textArea);
 		citizenInfo.setText(citizenList.getInfoID(actualCitizenID));
+		logTextArea.setText(log.toString());
 	}
 	/**
 	 * If its possible move the selected citizen to the right
@@ -600,6 +607,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		textArea.setText("\n" + board.toString());
 		highlightMainMap(textArea);
 		citizenInfo.setText(citizenList.getInfoID(actualCitizenID));
+		logTextArea.setText(log.toString());
 	}
 	/**
 	 * If its possible move the selected citizen to the left
@@ -613,6 +621,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		textArea.setText("\n" + board.toString());
 		highlightMainMap(textArea);
 		citizenInfo.setText(citizenList.getInfoID(actualCitizenID));
+		logTextArea.setText(log.toString());
 	}
 
 	// Interact button
@@ -682,8 +691,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 * action for each citizen.
 	 */
 	public void generateOneTurn() {
-		ActionsLog.registerAction("Actual turn: " + actualTurn);
-		actualTurn.oneTurn();
+		this.passOneTurn();
 		MoveController.moveAllCitizens(board, citizenList);
 		InteractController.interactAll(board, citizenList);
 		textCentralArea.setText("\n" + board.toString());
@@ -871,9 +879,17 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		citizenList.createFarmer(quantity);
 		citizenList.addAllCitizensToMap(board);
 	}
+	
+	public void passOneTurn() {
+		if (actualTurn.getQuantity() != 1) {
+			ActionsLog.registerAction("Actual turn: " + actualTurn);
+		}
+		actualTurn.oneTurn();
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		// Unused
 	}
 
 	@Override
@@ -906,7 +922,11 @@ public class graphicLauncher extends JFrame implements KeyListener{
 				this.moveLeft(textCentralArea, actualCitizenInfoText);
 				break;
 			case 38:
-				this.moveUp(textCentralArea, actualCitizenInfoText);
+				if(actualCitizen.up(board)) {
+					actualTurn.oneTurn();
+					ActionsLog.registerAction("Actual turn: " + actualTurn);
+					this.moveUp(textCentralArea, actualCitizenInfoText);
+				}
 				break;
 			case 40:
 				this.moveDown(textCentralArea, actualCitizenInfoText);
@@ -919,5 +939,6 @@ public class graphicLauncher extends JFrame implements KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		// Unused
 	}
 }
