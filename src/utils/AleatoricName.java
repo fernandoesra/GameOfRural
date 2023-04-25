@@ -144,6 +144,7 @@ public class AleatoricName {
 	 */
 	public String generateAleatoricName(int min, int max) {
 		String newName = "";
+		max++;
 		int random = (int) ((Math.random() * (max - min)) + min);
 		int vowels = 0;
 		
