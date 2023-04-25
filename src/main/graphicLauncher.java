@@ -17,6 +17,7 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -69,6 +70,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	Man actualCitizen;
 	ActionsLog log;
 	BiomeGenerator biomeGenerator;
+	AtomicBoolean programInUse; 
 	
 	public JPanel mainContentPane;
 	public JTextArea textCentralArea;
@@ -103,7 +105,10 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 * Empty constructor. Initialize all the attributes for the class.
 	 */
 	public graphicLauncher() {
-				
+		// Initialize the programInUse
+		programInUse = new AtomicBoolean();
+		programInUse.lazySet(false);
+		
 		// Initialize the biome generator
 		biomeGenerator = new BiomeGenerator();
 		
@@ -203,7 +208,9 @@ public class graphicLauncher extends JFrame implements KeyListener{
 
 		confirmIDbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectCitizenButton(actualCitizenTextArea, selectIDtextField, actualCitizenInfoText);
+				if (!programInUse.get()) {
+					selectCitizenButton(actualCitizenTextArea, selectIDtextField, actualCitizenInfoText);
+				}
 			}
 		});
 		
@@ -256,7 +263,9 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		
 		showMapButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showMapButton(textCentralArea);
+				if (!programInUse.get()) {
+					showMapButton(textCentralArea);
+				}
 			}
 		});
 
@@ -266,7 +275,9 @@ public class graphicLauncher extends JFrame implements KeyListener{
 
 		buttonShowAllCitizens.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				showAllCitizensButton(textCentralArea);
+				if (!programInUse.get()) {
+					showAllCitizensButton(textCentralArea);
+				}
 			}
 		});
 		
@@ -276,7 +287,9 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		
 		turnOneRandom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				generateOneTurn();
+				if (!programInUse.get()) {
+					generateOneTurn();
+				}
 			}
 		});
 		
@@ -292,10 +305,11 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		JButton turnIndicatedRandom = new JButton("Generate turns:");
 		turnIndicatedRandom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String amount = turnsValueTextField.getText();
-				int quantity = Integer.parseInt(amount);
-				
-				generateXturns(quantity);
+				if (!programInUse.get()) {
+					String amount = turnsValueTextField.getText();
+					int quantity = Integer.parseInt(amount);
+					generateXturns(quantity);
+				}
 			}
 		});
 		turnIndicatedRandom.setBounds(625, 22, 153, 36);
@@ -716,8 +730,10 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 * @param quantity The amount of turns to generate.
 	 */
 	public void generateXturns(int quantity) {
+		programInUse.set(true);
 		SwingWorkerRercursive worker = new SwingWorkerRercursive(quantity);
 		worker.execute();
+		programInUse.set(false);
 	}
 
 	/**
@@ -784,38 +800,39 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		 * Controll the movement with the arrow keys or W,A,S,D and the interact action
 		 * with the 'e' key
 		 */
-		switch (e.getKeyCode()) {
-		case 68:
-			this.moveRight(textCentralArea, actualCitizenInfoText);
-			break;
-		case 65:
-			this.moveLeft(textCentralArea, actualCitizenInfoText);
-			break;
-		case 87:
-			this.moveUp(textCentralArea, actualCitizenInfoText);
-			break;
-		case 83:
-			this.moveDown(textCentralArea, actualCitizenInfoText);
-			break;
-		case 69:
-			this.interactAction(textCentralArea, logTextArea, actualCitizenInfoText);
-			break;
-		case 39:
-			this.moveRight(textCentralArea, actualCitizenInfoText);
-			break;
-		case 37:
-			this.moveLeft(textCentralArea, actualCitizenInfoText);
-			break;
-		case 38:
-			this.moveUp(textCentralArea, actualCitizenInfoText);
-			break;
-		case 40:
-			this.moveDown(textCentralArea, actualCitizenInfoText);
-			break;
-		default:
-			break;
+		if (!programInUse.get()) {
+			switch (e.getKeyCode()) {
+			case 68:
+				this.moveRight(textCentralArea, actualCitizenInfoText);
+				break;
+			case 65:
+				this.moveLeft(textCentralArea, actualCitizenInfoText);
+				break;
+			case 87:
+				this.moveUp(textCentralArea, actualCitizenInfoText);
+				break;
+			case 83:
+				this.moveDown(textCentralArea, actualCitizenInfoText);
+				break;
+			case 69:
+				this.interactAction(textCentralArea, logTextArea, actualCitizenInfoText);
+				break;
+			case 39:
+				this.moveRight(textCentralArea, actualCitizenInfoText);
+				break;
+			case 37:
+				this.moveLeft(textCentralArea, actualCitizenInfoText);
+				break;
+			case 38:
+				this.moveUp(textCentralArea, actualCitizenInfoText);
+				break;
+			case 40:
+				this.moveDown(textCentralArea, actualCitizenInfoText);
+				break;
+			default:
+				break;
+			}
 		}
-		
 	}
 
 	@Override
