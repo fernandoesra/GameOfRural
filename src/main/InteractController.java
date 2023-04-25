@@ -46,6 +46,9 @@ import works.Miner;
 
 public class InteractController {
 	
+	
+	private static final int posToSearch[][] = {{0,1}, {1,0}, {0,-1}, {-1,0}};
+	
 	/**
 	 * This method runs over a CitizenList object and performs a interaction for
 	 * each of the citizens inside using the interactSpecific() method.
@@ -138,50 +141,22 @@ public class InteractController {
 	 * 
 	 */
 	public static void interactBaker(Board board, Man genericMan) {
+		
 		Baker actualBaker = (Baker) genericMan;
 		int actualX = actualBaker.getMapX();
 		int actualY = actualBaker.getMapY();
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
 
-		// Search up position
-		if (!board.validPosition(actualX - 1, actualY) && board.inBounds(actualX - 1, actualY)) {
-			String nameOfItem = board.getNameOfItem(actualX - 1, actualY);
-			if (nameOfItem.indexOf("Grain") >= 0) {
-				Grain actualGrain = (Grain) board.getObjectAt(actualX - 1, actualY);
-				actualBaker.makeBread(actualGrain);
-				board.eraseObjectAt(actualX - 1, actualY);
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName("Grain", board, xToLook, yToLook)) {
+					Grain actualGrain = (Grain) board.getObjectAt(xToLook, yToLook);
+					actualBaker.makeBread(actualGrain, board);
+					board.eraseObjectAt(xToLook, yToLook);
+				}
 			}
 		}
-
-		// Search down position
-		if (!board.validPosition(actualX + 1, actualY) && board.inBounds(actualX + 1, actualY)) {
-			String nameOfItem = board.getNameOfItem(actualX + 1, actualY);
-			if (nameOfItem.indexOf("Grain") >= 0) {
-				Grain actualGrain = (Grain) board.getObjectAt(actualX + 1, actualY);
-				actualBaker.makeBread(actualGrain);
-				board.eraseObjectAt(actualX + 1, actualY);
-			}
-		}
-
-		// Search left position
-		if (!board.validPosition(actualX, actualY + 1) && board.inBounds(actualX, actualY + 1)) {
-			String nameOfItem = board.getNameOfItem(actualX, actualY + 1);
-			if (nameOfItem.indexOf("Grain") >= 0) {
-				Grain actualGrain = (Grain) board.getObjectAt(actualX, actualY + 1);
-				actualBaker.makeBread(actualGrain);
-				board.eraseObjectAt(actualX, actualY + 1);
-			}
-		}
-
-		// Search right position
-		if (!board.validPosition(actualX, actualY - 1) && board.inBounds(actualX, actualY - 1)) {
-			String nameOfItem = board.getNameOfItem(actualX, actualY - 1);
-			if (nameOfItem.indexOf("Grain") >= 0) {
-				Grain actualGrain = (Grain) board.getObjectAt(actualX, actualY - 1);
-				actualBaker.makeBread(actualGrain);
-				board.eraseObjectAt(actualX, actualY - 1);
-			}
-		}
-
 	}
 	
 	/**
@@ -198,98 +173,35 @@ public class InteractController {
 	 * @param genericMan Must be a Carpenter object and exists in the board.
 	 */
 	public static void interactCarpenter(Board board, Man genericMan) {
-		Carpenter actualCarpenter = (Carpenter) genericMan;
-		int actualX = actualCarpenter.getMapX();
-		int actualY = actualCarpenter.getMapY();
 		
-		// Search up position
-		if (!board.validPosition(actualX - 1, actualY) && board.inBounds(actualX - 1, actualY)) {
-			String nameOfItem = board.getNameOfItem(actualX - 1, actualY);
-			if (nameOfItem.indexOf("Lumberjack") >= 0) {
-				
-				Lumberjack adjacentLumberjack = (Lumberjack) board.getObjectAt(actualX - 1, actualY);
-				int totalOfWoodPlanks = 0;
-				
-				// Calculate the total of wooded planks on the actual Lumberjack
-				do {
-					if (adjacentLumberjack.inventory.searchForName("Wood planks")) {
-						WoodPlanks actualPlanks = (WoodPlanks) adjacentLumberjack.inventory.fetchForName("Wood planks");
-						totalOfWoodPlanks += actualPlanks.getAmount();
-						adjacentLumberjack.inventory.removeFromInventory(actualPlanks);
-					}
-				} while (adjacentLumberjack.inventory.searchForName("Wood planks"));
-				
-				// Create new furniture
-				totalOfWoodPlanks = createFurniture(board, totalOfWoodPlanks, actualCarpenter, adjacentLumberjack);
-			}
-		}
-		
-		// Search down position
-		if (!board.validPosition(actualX + 1, actualY) && board.inBounds(actualX + 1, actualY)) {
-			String nameOfItem = board.getNameOfItem(actualX + 1, actualY);
-			if (nameOfItem.indexOf("Lumberjack") >= 0) {
-				
-				Lumberjack adjacentLumberjack = (Lumberjack) board.getObjectAt(actualX + 1, actualY);
-				int totalOfWoodPlanks = 0;
-				
-				// Calculate the total of wooded planks on the actual Lumberjack
-				do {
-					if (adjacentLumberjack.inventory.searchForName("Wood planks")) {
-						WoodPlanks actualPlanks = (WoodPlanks) adjacentLumberjack.inventory.fetchForName("Wood planks");
-						totalOfWoodPlanks += actualPlanks.getAmount();
-						adjacentLumberjack.inventory.removeFromInventory(actualPlanks);
-					}
-				} while (adjacentLumberjack.inventory.searchForName("Wood planks"));
-				
-				// Create new furniture
-				totalOfWoodPlanks = createFurniture(board, totalOfWoodPlanks, actualCarpenter, adjacentLumberjack);
-			}
-		}
+		Carpenter actualMan = (Carpenter) genericMan;
+		int actualX = actualMan.getMapX();
+		int actualY = actualMan.getMapY();
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
 
-		// Search left position
-		if (!board.validPosition(actualX, actualY + 1) && board.inBounds(actualX, actualY + 1)) {
-			String nameOfItem = board.getNameOfItem(actualX, actualY + 1);
-			if (nameOfItem.indexOf("Lumberjack") >= 0) {
-				
-				Lumberjack adjacentLumberjack = (Lumberjack) board.getObjectAt(actualX, actualY + 1);
-				int totalOfWoodPlanks = 0;
-				
-				// Calculate the total of wooded planks on the actual Lumberjack
-				do {
-					if (adjacentLumberjack.inventory.searchForName("Wood planks")) {
-						WoodPlanks actualPlanks = (WoodPlanks) adjacentLumberjack.inventory.fetchForName("Wood planks");
-						totalOfWoodPlanks += actualPlanks.getAmount();
-						adjacentLumberjack.inventory.removeFromInventory(actualPlanks);
-					}
-				} while (adjacentLumberjack.inventory.searchForName("Wood planks"));
-				
-				// Create new furniture
-				totalOfWoodPlanks = createFurniture(board, totalOfWoodPlanks, actualCarpenter, adjacentLumberjack);
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName("Lumberjack", board, xToLook, yToLook)) {
+					
+					Lumberjack adjacentLumberjack = (Lumberjack) board.getObjectAt(xToLook, yToLook);
+					int totalOfWoodPlanks = 0;
+
+					// Calculate the total of wooded planks on the actual Lumberjack
+					do {
+						if (adjacentLumberjack.inventory.searchForName("Wood planks")) {
+							WoodPlanks actualPlanks = (WoodPlanks) adjacentLumberjack.inventory
+									.fetchForName("Wood planks");
+							totalOfWoodPlanks += actualPlanks.getAmount();
+							adjacentLumberjack.inventory.removeFromInventory(actualPlanks);
+						}
+					} while (adjacentLumberjack.inventory.searchForName("Wood planks"));
+
+					// Create new furniture
+					totalOfWoodPlanks = createFurniture(board, totalOfWoodPlanks, actualMan, adjacentLumberjack);
+				}
 			}
 		}
-
-		// Search right position
-		if (!board.validPosition(actualX, actualY - 1) && board.inBounds(actualX, actualY - 1)) {
-			String nameOfItem = board.getNameOfItem(actualX, actualY - 1);
-			if (nameOfItem.indexOf("Lumberjack") >= 0) {
-				
-				Lumberjack adjacentLumberjack = (Lumberjack) board.getObjectAt(actualX, actualY - 1);
-				int totalOfWoodPlanks = 0;
-				
-				// Calculate the total of wooded planks on the actual Lumberjack
-				do {
-					if (adjacentLumberjack.inventory.searchForName("Wood planks")) {
-						WoodPlanks actualPlanks = (WoodPlanks) adjacentLumberjack.inventory.fetchForName("Wood planks");
-						totalOfWoodPlanks += actualPlanks.getAmount();
-						adjacentLumberjack.inventory.removeFromInventory(actualPlanks);
-					}
-				} while (adjacentLumberjack.inventory.searchForName("Wood planks"));
-				
-				// Create new furniture
-				totalOfWoodPlanks = createFurniture(board, totalOfWoodPlanks, actualCarpenter, adjacentLumberjack);
-			}
-		}
-
 	}
 	
 	/**
@@ -349,50 +261,21 @@ public class InteractController {
 	 * @param genericMan Must be a Lumberjack object and exists in the board.
 	 */
 	public static void interactLumberjackTree(Board board, Man genericMan) {
-		Lumberjack actualLumberjack = (Lumberjack) genericMan;
-		int actualX = actualLumberjack.getMapX();
-		int actualY = actualLumberjack.getMapY();
+		Lumberjack actualMan = (Lumberjack) genericMan;
+		int actualX = actualMan.getMapX();
+		int actualY = actualMan.getMapY();
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
 
-		// Search up position
-		if (!board.validPosition(actualX - 1, actualY) && board.inBounds(actualX - 1, actualY)) {
-			String nameOfItem = board.getNameOfItem(actualX - 1, actualY);
-			if (nameOfItem.indexOf("Tree") >= 0) {
-				Tree actualTree = (Tree) board.getObjectAt(actualX - 1, actualY);
-				actualLumberjack.cutTree(actualTree);
-				board.eraseObjectAt(actualX - 1, actualY);
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName("Tree", board, xToLook, yToLook)) {
+					Tree actualTree = (Tree) board.getObjectAt(xToLook, yToLook);
+					actualMan.cutTree(actualTree);
+					board.eraseObjectAt(xToLook, yToLook);
+				}
 			}
 		}
-
-		// Search down position
-		if (!board.validPosition(actualX + 1, actualY) && board.inBounds(actualX + 1, actualY)) {
-			String nameOfItem = board.getNameOfItem(actualX + 1, actualY);
-			if (nameOfItem.indexOf("Tree") >= 0) {
-				Tree actualTree = (Tree) board.getObjectAt(actualX + 1, actualY);
-				actualLumberjack.cutTree(actualTree);
-				board.eraseObjectAt(actualX + 1, actualY);
-			}
-		}
-
-		// Search left position
-		if (!board.validPosition(actualX, actualY + 1) && board.inBounds(actualX, actualY + 1)) {
-			String nameOfItem = board.getNameOfItem(actualX, actualY + 1);
-			if (nameOfItem.indexOf("Tree") >= 0) {
-				Tree actualTree = (Tree) board.getObjectAt(actualX, actualY + 1);
-				actualLumberjack.cutTree(actualTree);
-				board.eraseObjectAt(actualX, actualY + 1);
-			}
-		}
-
-		// Search right position
-		if (!board.validPosition(actualX, actualY - 1) && board.inBounds(actualX, actualY - 1)) {
-			String nameOfItem = board.getNameOfItem(actualX, actualY - 1);
-			if (nameOfItem.indexOf("Tree") >= 0) {
-				Tree actualTree = (Tree) board.getObjectAt(actualX, actualY - 1);
-				actualLumberjack.cutTree(actualTree);
-				board.eraseObjectAt(actualX, actualY - 1);
-			}
-		}
-
 	}
 	
 	/**
@@ -403,53 +286,21 @@ public class InteractController {
 	 *                     surroundings of the Miner.
 	 * @param genericMiner Must be a Miner object and exists in the board.
 	 */
-	public static void interactMiner(Board board, Man genericMiner) {
-		Miner actualMiner = (Miner) genericMiner;
-		int actualX = actualMiner.getMapX();
-		int actualY = actualMiner.getMapY();
+	public static void interactMiner(Board board, Man genericMan) {
+		Miner actualMan = (Miner) genericMan;
+		int actualX = actualMan.getMapX();
+		int actualY = actualMan.getMapY();
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
 
-		// Search for mineral at up position
-		if (!board.validPosition(actualX - 1, actualY) && board.inBounds(actualX - 1, actualY)) {
-			String nameOfItem = board.getNameOfItem(actualX - 1, actualY);
-			if (nameOfItem.indexOf("GoldOreMineral") >= 0) {
-				GoldOreMineral mineral = (GoldOreMineral) board.getObjectAt(actualX - 1, actualY);
-				actualMiner.crushingGoldOre(mineral);
-				board.eraseObjectAt(actualX - 1, actualY);
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName("GoldOreMineral", board, xToLook, yToLook)) {
+					GoldOreMineral mineral = (GoldOreMineral) board.getObjectAt(xToLook, yToLook);
+					actualMan.crushingGoldOre(mineral);
+					board.eraseObjectAt(xToLook, yToLook);
+				}
 			}
-
-		}
-
-		// Search for mineral at down position
-		if (!board.validPosition(actualX + 1, actualY) && board.inBounds(actualX + 1, actualY)) {
-			String nameOfItem = board.getNameOfItem(actualX + 1, actualY);
-			if (nameOfItem.indexOf("GoldOreMineral") >= 0) {
-				GoldOreMineral mineral = (GoldOreMineral) board.getObjectAt(actualX + 1, actualY);
-				actualMiner.crushingGoldOre(mineral);
-				board.eraseObjectAt(actualX + 1, actualY);
-			}
-
-		}
-
-		// Search for mineral at left position
-		if (!board.validPosition(actualX, actualY - 1) && board.inBounds(actualX, actualY - 1)) {
-			String nameOfItem = board.getNameOfItem(actualX, actualY - 1);
-			if (nameOfItem.indexOf("GoldOreMineral") >= 0) {
-				GoldOreMineral mineral = (GoldOreMineral) board.getObjectAt(actualX, actualY - 1);
-				actualMiner.crushingGoldOre(mineral);
-				board.eraseObjectAt(actualX, actualY - 1);
-			}
-
-		}
-
-		// Search for mineral at right position
-		if (!board.validPosition(actualX, actualY + 1) && board.inBounds(actualX, actualY + 1)) {
-			String nameOfItem = board.getNameOfItem(actualX, actualY + 1);
-			if (nameOfItem.indexOf("GoldOreMineral") >= 0) {
-				GoldOreMineral mineral = (GoldOreMineral) board.getObjectAt(actualX, actualY + 1);
-				actualMiner.crushingGoldOre(mineral);
-				board.eraseObjectAt(actualX, actualY + 1);
-			}
-
 		}
 	}
 	
@@ -463,77 +314,27 @@ public class InteractController {
 	 *                          surroundings of the Blacksmith.
 	 * @param genericBlacksmith Must be a Blacksmith object and exists in the board.
 	 */
-	public static void interactBlacksmisth(Board board, Man genericBlacksmith) {
-		Blacksmith actualBlacksmith = (Blacksmith) genericBlacksmith;
-		int actualX = actualBlacksmith.getMapX();
-		int actualY = actualBlacksmith.getMapY();
+	public static void interactBlacksmisth(Board board, Man genericMan) {
+		Blacksmith actualMan = (Blacksmith) genericMan;
+		int actualX = actualMan.getMapX();
+		int actualY = actualMan.getMapY();
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
 
-		// Search up position
-		if (!board.validPosition(actualX - 1, actualY) && board.inBounds(actualX - 1, actualY)) {
-			String nameOfItem = board.getNameOfItem(actualX - 1, actualY);
-			if (nameOfItem.indexOf(".Miner") >= 0) {
-				Miner adjacentMiner = (Miner) board.getObjectAt(actualX - 1, actualY);
-
-				do {
-					if (adjacentMiner.inventory.searchForName("Mined gold")) {
-						MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
-						actualBlacksmith.melt(actualMine);
-						adjacentMiner.inventory.removeFromInventory(actualMine);
-					}
-				} while (adjacentMiner.inventory.searchForName("Mined gold"));
-
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName(".Miner", board, xToLook, yToLook)) {
+					Miner adjacentMiner = (Miner) board.getObjectAt(xToLook, yToLook);
+					do {
+						if (adjacentMiner.inventory.searchForName("Mined gold")) {
+							MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
+							actualMan.melt(actualMine);
+							adjacentMiner.inventory.removeFromInventory(actualMine);
+						}
+					} while (adjacentMiner.inventory.searchForName("Mined gold"));
+				}
 			}
 		}
-
-		// Search down position
-		if (!board.validPosition(actualX + 1, actualY) && board.inBounds(actualX + 1, actualY)) {
-			String nameOfItem = board.getNameOfItem(actualX + 1, actualY);
-			if (nameOfItem.indexOf(".Miner") >= 0) {
-				Miner adjacentMiner = (Miner) board.getObjectAt(actualX + 1, actualY);
-
-				do {
-					if (adjacentMiner.inventory.searchForName("Mined gold")) {
-						MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
-						actualBlacksmith.melt(actualMine);
-						adjacentMiner.inventory.removeFromInventory(actualMine);
-					}
-				} while (adjacentMiner.inventory.searchForName("Mined gold"));
-
-			}
-		}
-
-		// Search left position
-		if (!board.validPosition(actualX, actualY + 1) && board.inBounds(actualX, actualY + 1)) {
-			String nameOfItem = board.getNameOfItem(actualX, actualY + 1);
-			if (nameOfItem.indexOf(".Miner") >= 0) {
-				Miner adjacentMiner = (Miner) board.getObjectAt(actualX, actualY + 1);
-
-				do {
-					if (adjacentMiner.inventory.searchForName("Mined gold")) {
-						MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
-						actualBlacksmith.melt(actualMine);
-						adjacentMiner.inventory.removeFromInventory(actualMine);
-					}
-				} while (adjacentMiner.inventory.searchForName("Mined gold"));
-			}
-		}
-
-		// Search right position
-		if (!board.validPosition(actualX, actualY - 1) && board.inBounds(actualX, actualY - 1)) {
-			String nameOfItem = board.getNameOfItem(actualX, actualY - 1);
-			if (nameOfItem.indexOf(".Miner") >= 0) {
-				Miner adjacentMiner = (Miner) board.getObjectAt(actualX, actualY - 1);
-
-				do {
-					if (adjacentMiner.inventory.searchForName("Mined gold")) {
-						MinedGold actualMine = (MinedGold) adjacentMiner.inventory.fetchForName("Mined gold");
-						actualBlacksmith.melt(actualMine);
-						adjacentMiner.inventory.removeFromInventory(actualMine);
-					}
-				} while (adjacentMiner.inventory.searchForName("Mined gold"));
-			}
-		}
-
 	}
 	
 	/**
@@ -697,6 +498,50 @@ public class InteractController {
 			actualLumberjack.inventory.addToInventory(woodPlanks);
 		}
 	}
+	
+	/**
+	 * Search if on object have the specific name.
+	 * 
+	 * @param name  A name to search on the className
+	 * @param board A map to fetch the name
+	 * @param mapX  X position of the object
+	 * @param mapY  Y position of the object
+	 * @return <b>True</b> if the object have the name, <b>false</b> if not.
+	 */
+	public static boolean isName(String name, Board board, int mapX, int mapY) {
+		boolean find = false;
+		String nameOfItem = board.getNameOfItem(mapX, mapY);
+		if (nameOfItem.indexOf(name) >= 0) {
+			find = true;
+		}
+		return find;
+	}
+
+	/**
+	 * This method is a template. <b>It does nothing, do not use it.</b>
+	 * <p>
+	 * Array used to fetch different positions:<br>
+	 * <b>posToSearch[][]</b> = {{0,1}, {1,0}, {0,-1}, {-1,0}};
+	 * 
+	 * @param board      The map to search for different things, such as the
+	 *                   surroundings of the Man.
+	 * @param genericMan Must be a base.Man object.
+	 */
+	public static void template(Board board, Man genericMan) {
+		Man actualMan = (Man) genericMan;
+		int actualX = actualMan.getMapX();
+		int actualY = actualMan.getMapY();
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
+
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName("SEARCH", board, xToLook, yToLook)) {
+					
+				}
+			}
+		}
+	}
 
 	/**
 	 * This method is a template. <b>It does nothing, do not use it.</b>
@@ -705,7 +550,8 @@ public class InteractController {
 	 *                   surroundings of the Man.
 	 * @param genericMan Must be a base.Man object.
 	 */
-	public static void template(Board board, Man genericMan) {
+	@Deprecated
+	public static void templateOLD(Board board, Man genericMan) {
 		Man actualMan = (Man) genericMan;
 		int actualX = actualMan.getMapX();
 		int actualY = actualMan.getMapY();
@@ -731,5 +577,5 @@ public class InteractController {
 		}
 
 	}
-
+	
 }

@@ -458,6 +458,10 @@ public class graphicLauncher extends JFrame implements KeyListener{
 					// Grain
 					high.addHighlight(i+1, i+2, setColor(14));
 					break;
+				case (char)8670:
+					// Grass carp Fish
+					high.addHighlight(i+1, i+2, setColor(2));
+					break;
 				}
 			}
 		} catch (Exception ex) {
@@ -756,10 +760,12 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 * @param quantity The amount of turns to generate.
 	 */
 	public void generateXturns(int quantity) {
-		programInUse.set(true);
-		turnX = new QuantityTurns(quantity);
-		SwingWorkerRercursive worker = new SwingWorkerRercursive(quantity);
-		worker.execute();
+		if (!programInUse.get()) {
+			programInUse.set(true);
+			turnX = new QuantityTurns(quantity);
+			SwingWorkerRercursive worker = new SwingWorkerRercursive(quantity);
+			worker.execute();
+		}
 	}
 
 	/**
@@ -838,6 +844,8 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		// Generate minerals and animals
 		resourcesList.addGoldOreMineral((int)(totalMap*0.03));
 		resourcesList.addGrain((int)(totalMap*0.02));
+		
+		resourcesList.addFish(5);
 		resourcesList.addResourcesToMap(board);
 		
 		// Generate citizens
@@ -922,11 +930,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 				this.moveLeft(textCentralArea, actualCitizenInfoText);
 				break;
 			case 38:
-				if(actualCitizen.up(board)) {
-					actualTurn.oneTurn();
-					ActionsLog.registerAction("Actual turn: " + actualTurn);
-					this.moveUp(textCentralArea, actualCitizenInfoText);
-				}
+				this.moveUp(textCentralArea, actualCitizenInfoText);
 				break;
 			case 40:
 				this.moveDown(textCentralArea, actualCitizenInfoText);

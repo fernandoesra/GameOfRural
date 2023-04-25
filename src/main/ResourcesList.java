@@ -1,8 +1,10 @@
 package main;
 
+import base.Water;
 import map.Board;
 import resources.GoldOreMineral;
 import resources.Grain;
+import resources.GrassCarpFish;
 import utils.ObjectsList;
 
 /**
@@ -49,19 +51,38 @@ public class ResourcesList {
 	public void addResourcesToMap(Board board) {
 		int mapX = board.getHeight();
 		int mapY = board.getWidth();
-		
+
 		for (int i = 0; i < resourceList.getLength(); i++) {
-			
+
 			int tryMapX = 0;
 			int tryMapY = 0;
-			
-			do {
-				tryMapX = (int)((Math.random() * (mapX - 0)) + 0);
-				tryMapY = (int)((Math.random() * (mapY - 0)) + 0);
-			} while (board.validPosition(tryMapX, tryMapY) == false);
-			
-			board.addSomething(resourceList.getObjectOnIndex(i), tryMapX, tryMapY);
-			
+
+			String nameOfresource = resourceList.getObjectOnIndex(i).getClass().getSuperclass().getName();
+
+			if (nameOfresource.indexOf("FishWater") >= 0) {
+				do {
+					tryMapX = (int) ((Math.random() * (mapX - 0)) + 0);
+					tryMapY = (int) ((Math.random() * (mapY - 0)) + 0);
+				} while (!board.isWater(tryMapX, tryMapY));
+				board.eraseObjectAt(tryMapX, tryMapY);
+				board.addSomething(resourceList.getObjectOnIndex(i), tryMapX, tryMapY);
+				
+			} else {
+				
+				do {
+					tryMapX = (int) ((Math.random() * (mapX - 0)) + 0);
+					tryMapY = (int) ((Math.random() * (mapY - 0)) + 0);
+				} while (!board.validPosition(tryMapX, tryMapY));
+				board.addSomething(resourceList.getObjectOnIndex(i), tryMapX, tryMapY);
+			}
+		}
+	}
+	
+	// FALTA TEXTO
+	public void addFish(int amount) {
+		for (int i = 0; i < amount; i++) {
+			GrassCarpFish fish = new GrassCarpFish(5);
+			resourceList.addEnd(fish);
 		}
 	}
 	

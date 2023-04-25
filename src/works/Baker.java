@@ -2,6 +2,7 @@ package works;
 
 import base.Man;
 import logs.ActionsLog;
+import map.Board;
 import resources.Bread;
 import resources.Grain;
 import resources.Money;
@@ -51,13 +52,21 @@ public class Baker extends Man{
 	 * bew Bread object with the amount value equals to (grain amount / 2 +1).
 	 * 
 	 * @param grain A Grain object to read the amount value.
+	 * @param board A board object to get the position of the grain for the
+	 *              ActionsLog event.
 	 * @return A new Bread object.
 	 */
-	public Bread makeBread(Grain grain) {
+	public Bread makeBread(Grain grain, Board board) {
+		int grainX = board.searchXobject(grain);
+		int grainY = board.searchYobject(grain);
+		
 		int grainQuantity = grain.getAmount();
 		Bread newBread = new Bread((grainQuantity/2) + 1);
 		this.inventory.addToInventory(newBread);
-		ActionsLog.registerAction(this.name + "(" + this.getID() +") made " + newBread.getAmount() + " breads.");
+		
+		ActionsLog.registerAction(this.name + "(" + this.getID() +") made " + newBread.getAmount() + " breads "
+				+ "whit the grain at (" + grainX + "." + grainY + ")");
+		
 		return newBread;
 	}
 	

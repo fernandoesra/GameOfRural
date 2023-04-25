@@ -5,6 +5,8 @@ import base.Man;
 import base.Resource;
 import base.Tree;
 import base.Water;
+import resources.FishWater;
+import resources.GrassCarpFish;
 import utils.AleatoricName;
 
 /**
@@ -126,7 +128,7 @@ public class Board {
 		boolean water = false;
 		if(inBounds(searchX, searchY) && board[searchX][searchY] != null) {
 			String className = board[searchX][searchY].getClass().getName();
-			if (className.indexOf("Water")>=0) {
+			if (className.indexOf(".Water")>=0) {
 				water = true;
 			}
 		}
@@ -436,6 +438,10 @@ public class Board {
 					
 					if (className.indexOf("Water")>= 0) {
 						text += ((Water)board[i][j]).getIcon()+"|";
+					}
+					
+					if (superClassName.indexOf("FishWater")>= 0) {
+						text += ((FishWater)board[i][j]).getIcon()+"|";
 					}
 					
 					// text += board[i][j].toString() + "|";
