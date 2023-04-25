@@ -208,9 +208,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 
 		confirmIDbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!programInUse.get()) {
-					selectCitizenButton(actualCitizenTextArea, selectIDtextField, actualCitizenInfoText);
-				}
+				selectCitizenButton(actualCitizenTextArea, selectIDtextField, actualCitizenInfoText);
 			}
 		});
 		
@@ -718,6 +716,8 @@ public class graphicLauncher extends JFrame implements KeyListener{
 			if (quantityExecute > 0) {
 				SwingWorkerRercursive worker = new SwingWorkerRercursive(quantityExecute);
 				worker.execute();
+			} else {
+				programInUse.set(false);
 			}
 
 		}
@@ -733,7 +733,6 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		programInUse.set(true);
 		SwingWorkerRercursive worker = new SwingWorkerRercursive(quantity);
 		worker.execute();
-		programInUse.set(false);
 	}
 
 	/**
