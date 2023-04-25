@@ -773,8 +773,8 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 */
 	public void initialize() {
 		// Map dimensions
-		int height = 24;
-		int width = 46;
+		this.height = 27;
+		this.width = 46;
 		board = new Board(height, width);
 		
 		// Initialize the lists
@@ -782,21 +782,26 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		citizenList = new CitizenList();
 		
 		// Create biomes in order. First rivers, then forests
-		biomeGenerator.createRiver(board, 2);
-		biomeGenerator.createCircularForest(board, 3, 10);
-		biomeGenerator.createNonCircularForest(board, 5, 15);
+		int totalRivers = ((int) ((height) / 10) / 2);
+		biomeGenerator.createRiver(board, totalRivers);
 		
-		// Fill the 6% of the map with trees
-		int totalMap = this.height * this.width;
-		biomeGenerator.createRandomTrees(board, ((int)(totalMap*0.06)));
+		int totalForest = (int) ((height * width) / 100) / 6;
+		biomeGenerator.createCircularForest(board, totalForest, 10);
+		biomeGenerator.createNonCircularForest(board, totalForest, 15);
+		
+		// Fill the 4% of the remaining map with trees
+		int totalMap = height * width;
+		biomeGenerator.createRandomTrees(board, ((int)(totalMap*0.04)));
 		
 		// Generate minerals and animals
-		resourcesList.addGoldOreMineral(10);
+		resourcesList.addGoldOreMineral((int)(totalMap*0.02));
 		resourcesList.addResourcesToMap(board);
 		
 		// Generate citizens
 		citizenList.createAll(1);
 		citizenList.addAllCitizensToMap(board);
+		
+		
 	}
 
 	/**
