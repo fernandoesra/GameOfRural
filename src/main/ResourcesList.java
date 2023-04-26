@@ -56,67 +56,16 @@ public class ResourcesList {
 		int mapY = board.getWidth();
 
 		for (int i = 0; i < resourceList.getLength(); i++) {
-
 			int tryMapX = 0;
 			int tryMapY = 0;
+			do {
+				tryMapX = (int) ((Math.random() * (mapX - 0)) + 0);
+				tryMapY = (int) ((Math.random() * (mapY - 0)) + 0);
+			} while (!board.validPosition(tryMapX, tryMapY));
+			board.addSomething(resourceList.getObjectOnIndex(i), tryMapX, tryMapY);
+		}
+	}
 
-			String nameOfresource = resourceList.getObjectOnIndex(i).getClass().getSuperclass().getName();
-
-			if (nameOfresource.indexOf("FishWater") >= 0) {
-				do {
-					tryMapX = (int) ((Math.random() * (mapX - 0)) + 0);
-					tryMapY = (int) ((Math.random() * (mapY - 0)) + 0);
-				} while (!board.isWater(tryMapX, tryMapY));
-				board.eraseObjectAt(tryMapX, tryMapY);
-				board.addSomething(resourceList.getObjectOnIndex(i), tryMapX, tryMapY);
-				
-			} else {
-				
-				do {
-					tryMapX = (int) ((Math.random() * (mapX - 0)) + 0);
-					tryMapY = (int) ((Math.random() * (mapY - 0)) + 0);
-				} while (!board.validPosition(tryMapX, tryMapY));
-				board.addSomething(resourceList.getObjectOnIndex(i), tryMapX, tryMapY);
-			}
-		}
-	}
-	
-	/**
-	 * This method created 'x' differents fishes objects and adds them to the end of
-	 * the resourceList.
-	 * 
-	 * @param amount How much fishes to create.
-	 */
-	public void addFish(int amount) {
-		for (int i = 0; i < amount; i++) {
-			FishWater fishToAdd = randomFish();
-			resourceList.addEnd(fishToAdd);
-		}
-	}
-	
-	/**
-	 * This method generate a new random fish between the different existing types
-	 * of fish.
-	 * 
-	 * @return Return a new fish object.
-	 */
-	public FishWater randomFish() {
-		FishWater fishToReturn = new FishWater("test",1);
-		int random = (int)((Math.random() * (4 - 1)) + 1);
-		switch (random) {
-		case 1:
-			fishToReturn = new GrassCarpFishWater();
-			break;
-		case 2:
-			fishToReturn = new SilverCarpFishWater();
-			break;
-		case 3:
-			fishToReturn = new TilapiaFishWater();
-			break;
-		}
-		return fishToReturn;
-	}
-	
 	/**
 	 * This method created 'x' GoldOreMineral objects and adds them to the end of
 	 * the resourceList.

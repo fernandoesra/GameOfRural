@@ -848,13 +848,13 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		
 		int totalAnimals = (int)((height * width)*0.04);
 		animalList.createAnimals(totalAnimals);
-		animalList.addAnimalsToBoard(board);
 		
 		int totalFishes = (int)(board.totalWater() * 0.2);
-		resourcesList.addFish(totalFishes);
+		animalList.addFish(totalFishes);
 		
 		// Add basic resources to the map
 		resourcesList.addResourcesToMap(board);
+		animalList.addAnimalsToBoard(board);
 		
 		// Generate citizens
 		int citizenAmount = 1;
