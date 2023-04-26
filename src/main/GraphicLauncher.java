@@ -689,6 +689,9 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	 */
 	public void generateOneTurn() {
 		this.passOneTurn();
+		if (this.actualTurn.getQuantity() % 5 == 0) {
+			this.animalList.moveAllAnimals(board);
+		}
 		MoveController.moveAllCitizens(board, citizenList);
 		InteractController.interactAll(board, citizenList);
 		textCentralArea.setText("\n" + board.toString());
