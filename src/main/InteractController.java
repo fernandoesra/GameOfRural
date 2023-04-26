@@ -21,6 +21,7 @@ import works.Carpenter;
 import works.Fisherman;
 import works.Lumberjack;
 import works.Miner;
+import works.Shepherd;
 
 /**
  * That class controll the interactions between the map and the different Man
@@ -48,6 +49,7 @@ import works.Miner;
  * @see works.Baker
  * @see works.Fisherman
  * @see works.Butcher
+ * @see works.Shepherd
  *
  */
 
@@ -111,7 +113,9 @@ public class InteractController {
 		}
 		
 		// Shepherd
-		
+		if (nameOfClass.indexOf("Shepherd") >= 0) {
+			interactShepherd(board, genericCitizen);
+		}
 				
 				
 		/*
@@ -148,7 +152,17 @@ public class InteractController {
 		 */
 		
 	}
-	
+
+	/**
+	 * This method cast the genericMan to a Fisherman. Then search the up, down,
+	 * left and rigth coordinates for fishes. If a fish is found continue the method
+	 * and call for fishing() of the Fisherman.
+	 * 
+	 * @param board      The map to search for different things, such as the
+	 *                   surroundings of the Man.
+	 * @param genericMan Must be a Fisherman object and exists in the board.
+	 * 
+	 */
 	public static void interactFisherman(Board board, Man genericMan) {
 		Fisherman actualMan = (Fisherman) genericMan;
 		int actualX = actualMan.getMapX();
@@ -161,6 +175,32 @@ public class InteractController {
 				if (isName("FishWater", board, xToLook, yToLook)) {
 					FishWater toFish = (FishWater) board.getObjectAt(xToLook, yToLook);
 					actualMan.fishing(board, toFish);
+				}
+			}
+		}
+	}
+
+	/**
+	 * This method cast the genericMan to a Shepherd. Then search the up, down, left
+	 * and rigth coordinates for animals. If a animal is found continue the method
+	 * and call for feedAnimal() of the Shepherd.
+	 * 
+	 * @param board      The map to search for different things, such as the
+	 *                   surroundings of the Man.
+	 * @param genericMan Must be a Shepherd object and exists in the board.
+	 */
+	public static void interactShepherd(Board board, Man genericMan) {
+		Shepherd actualMan = (Shepherd) genericMan;
+		int actualX = actualMan.getMapX();
+		int actualY = actualMan.getMapY();
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
+
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName("Animal", board, xToLook, yToLook)) {
+					Animal toFeed = (Animal) board.getObjectAt(xToLook, yToLook);
+					actualMan.feedAnimal(board, toFeed);
 				}
 			}
 		}

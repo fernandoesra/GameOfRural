@@ -863,6 +863,8 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		}
 		citizenList.addAllCitizensToMap(board);
 		
+		
+		
 	}
 
 	/**
