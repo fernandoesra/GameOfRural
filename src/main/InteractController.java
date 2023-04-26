@@ -1,5 +1,6 @@
 package main;
 
+import base.Animal;
 import base.FishWater;
 import base.Man;
 import base.Tree;
@@ -15,6 +16,7 @@ import resources.Table;
 import resources.WoodPlanks;
 import works.Baker;
 import works.Blacksmith;
+import works.Butcher;
 import works.Carpenter;
 import works.Fisherman;
 import works.Lumberjack;
@@ -38,12 +40,14 @@ import works.Miner;
  * @see resources.WoodPlanks
  * @see resources.Grain
  * @see resources.Bread
+ * @see base.Animal
  * @see works.Blacksmith
  * @see works.Carpenter
  * @see works.Lumberjack
  * @see works.Miner
  * @see works.Baker
  * @see works.Fisherman
+ * @see works.Butcher
  *
  */
 
@@ -100,11 +104,13 @@ public class InteractController {
 		if (nameOfClass.indexOf("Fisherman") >= 0) {
 			interactFisherman(board, genericCitizen);
 		}
-				
-		// Farmer
 		
-				
 		// Butcher
+		if (nameOfClass.indexOf("Butcher") >= 0) {
+			interactButcher(board, genericCitizen);
+		}
+		
+		// Farmer
 				
 				
 		/*
@@ -152,6 +158,34 @@ public class InteractController {
 		}
 	}
 
+	/**
+	 * This method cast the genericMan to a Butcher. Then search the up, down, left
+	 * and rigth coordinates for animals. If a animal is found continue the method
+	 * and call for harvestAnimal() of the Butcher.
+	 * 
+	 * @param board      The map to search for different things, such as the
+	 *                   surroundings of the Man.
+	 * @param genericMan Must be a Butcher object and exists in the board.
+	 * 
+	 */
+	public static void interactButcher(Board board, Man genericMan) {
+		Butcher actualMan = (Butcher) genericMan;
+		int actualX = actualMan.getMapX();
+		int actualY = actualMan.getMapY();
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
+
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName("Animal", board, xToLook, yToLook)) {
+					Animal toHarvest = (Animal) board.getObjectAt(xToLook, yToLook);
+					actualMan.harvestAnimal(board, toHarvest);
+					board.eraseObject(toHarvest);
+				}
+			}
+		}
+	}
+	
 	/**
 	 * This method cast the genericMan to a Baker. Then search the up, down, left
 	 * and rigth coordinates for Grain. If a Grain is found continue the method

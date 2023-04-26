@@ -14,11 +14,14 @@ import base.Resource;
  *
  */
 
-public class Grain extends Resource{
+public class Grain extends Resource {
 
+	/**
+	 * A new grain object whit the amount value between 1 and 10.
+	 */
 	public Grain() {
-		super("Grain", ""+(char)968, 0);
-		int random = (int)((Math.random() * (11 - 1)) + 1);
+		super("Grain", "" + (char) 968, 0);
+		int random = (int) ((Math.random() * (11 - 1)) + 1);
 		this.setAmount(random);
 	}
 

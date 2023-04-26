@@ -8,7 +8,7 @@ import utils.AleatoricName;
 
 class AleatoricNameTest {
 
-	// @Test
+	@Test
 	void testGenerateMich() {
 		AleatoricName name = new AleatoricName();
 		long counter = 0l;
@@ -26,7 +26,7 @@ class AleatoricNameTest {
 
 	}
 	
-	// @Test
+	@Test
 	void testGenerateFer() {
 		AleatoricName name = new AleatoricName();
 		long counter = 0l;
@@ -44,7 +44,7 @@ class AleatoricNameTest {
 
 	}
 	
-	// @Test
+	@Test
 	void testGenerateMiguel() {
 		AleatoricName name = new AleatoricName();
 		long counter = 0l;
@@ -57,8 +57,26 @@ class AleatoricNameTest {
 			int nameLength = name1.length();
 			assertEquals(nameLength, 6 , 1);
 		} while (!name1.equals("Miguel"));
-
+	
 		System.out.println("Miguel in: " + counter + " attempts");
+
+	}
+	
+	@Test
+	void testGenerateDani() {
+		AleatoricName name = new AleatoricName();
+		long counter = 0l;
+		String name1 = "";
+
+		do {
+			name1 = name.generateAleatoricName(4, 4);
+			// System.out.println(name1);
+			counter++;
+			int nameLength = name1.length();
+			assertEquals(nameLength, 4);
+		} while (!name1.equals("Dani"));
+
+		System.out.println("Dani in: " + counter + " attempts");
 
 	}
 	

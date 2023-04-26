@@ -1,5 +1,6 @@
 package map;
 
+import base.Animal;
 import base.FishWater;
 import base.Furniture;
 import base.Man;
@@ -479,6 +480,11 @@ public class Board {
 					if (superClassName.indexOf("FishWater")>= 0) {
 						text += ((FishWater)board[i][j]).getIcon()+"|";
 					}
+					
+					if (superClassName.indexOf("Animal")>= 0) {
+						text += ((Animal)board[i][j]).getIcon()+"|";
+					}
+					
 					
 					// text += board[i][j].toString() + "|";
 				}

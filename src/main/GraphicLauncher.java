@@ -54,7 +54,7 @@ import javax.swing.ImageIcon;
  * 
  */
 
-public class graphicLauncher extends JFrame implements KeyListener{
+public class GraphicLauncher extends JFrame implements KeyListener{
 
 	/**
 	 * 
@@ -66,6 +66,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	Board board;
 	CitizenList citizenList;
 	ResourcesList resourcesList;
+	AnimalList animalList;
 	int actualCitizenID;			/* 1 at the program start */
 	Man actualCitizen;
 	ActionsLog log;
@@ -94,7 +95,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 
 			public void run() {
 				try {
-					graphicLauncher frame = new graphicLauncher();
+					GraphicLauncher frame = new GraphicLauncher();
 					frame.setVisible(true);
 					frame.setResizable(false);
 				} catch (Exception e) {
@@ -110,7 +111,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	/**
 	 * Empty constructor. Initialize all the attributes for the class.
 	 */
-	public graphicLauncher() {
+	public GraphicLauncher() {
 		
 		// Initialize the programInUse
 		programInUse = new AtomicBoolean();
@@ -462,6 +463,16 @@ public class graphicLauncher extends JFrame implements KeyListener{
 					// Grass carp Fish
 					high.addHighlight(i+1, i+2, setColor(2));
 					break;
+				case (char)993:
+					// Chicken animal
+				case (char)958:
+					// Pig animal
+				case (char)1065:
+					// Cow animal
+				case (char)1020:
+					// Goat animal
+					high.addHighlight(i+1, i+2, setColor(15));
+					break;
 				}
 			}
 		} catch (Exception ex) {
@@ -474,7 +485,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 * something on the highlightMainMap method.<br>
 	 * The index of the colors are:<p>
 	 * <b>Invalid number: </b>White. R: 255, G: 255, B: 255<br>
-	 * <b>1 : </b>Very Light Red.    R: 255, G: 102, B: 102<br>
+	 * <b>1 : </b>Fire Brick.        R: 255, G: 102, B: 102<br>
 	 * <b>2 : </b>Very light Blue.   R: 51, G: 190, B: 255<br>
 	 * <b>3 : </b>Very Light Green.  R: 102, G: 255, B: 102<br>
 	 * <b>4 : </b>Very Light Yellow. R: 255, G: 149, B: 120s<br>
@@ -488,84 +499,64 @@ public class graphicLauncher extends JFrame implements KeyListener{
 	 * <b>12: </b>Tree Green.        R: 84, G: 168, B: 51<br>
 	 * <b>13: </b>Ore Gold.          R: 255, G: 215, B: 0<br>
 	 * <b>14: </b>Chartreuse.        R: 223, G: 254, B: 0<br>
+	 * <b>15: </b>Salmon.            R: 180, G: 55, B: 87<br>
 	 * 
-	 * @param index A number between 1 and 13
+	 * @param index A number between 1 and 15
 	 * @return A HighlightPainter objetc with one color asigned. If the number of
 	 *         the param its not on the list return white
 	 */
 	public HighlightPainter setColor(int index) {
 
-		final Color white = new Color(255, 255, 255);
-		HighlightPainter selectedColor = new DefaultHighlighter.DefaultHighlightPainter(white);
-
-		if (index == 1) {
-			final Color VERY_LIGHT_RED = new Color(255, 102, 102);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_RED);
-		}
-		if (index == 2) {
-			final Color VERY_LIGHT_BLUE = new Color(51, 190, 255);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_BLUE);
-		}
-
-		if (index == 3) {
-			final Color VERY_LIGHT_GREEN = new Color(102, 255, 102);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_GREEN);
-		}
-
-		if (index == 4) {
-			final Color VERY_LIGHT_YELLOW = new Color(255, 240, 120);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_YELLOW);
-		}
-
-		if (index == 5) {
-			final Color VERY_LIGHT_GREY = new Color(204, 204, 204);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_GREY);
-		}
-
-		if (index == 6) {
-			final Color VERY_LIGHT_BROWN = new Color(153, 102, 0);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(VERY_LIGHT_BROWN);
-		}
-
-		if (index == 7) {
-			final Color PURPLE = new Color(102, 80, 200);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(PURPLE);
-		}
-
-		if (index == 8) {
-			final Color LIGHT_BLACK = new Color(90, 90, 90);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_BLACK);
-		}
-
-		if (index == 9) {
-			final Color LIGHT_ORANGE = new Color(155, 153, 0);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_ORANGE);
-		}
-
-		if (index == 10) {
-			final Color LIGHT_BLUE = new Color(51, 130, 255);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(LIGHT_BLUE);
-		}
+		Color actualColor = new Color(255, 255, 255);
 		
-		if (index == 11) {
-			final Color WATER_BLUE = new Color(30, 230, 255);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(WATER_BLUE);
+		switch (index) {
+		case 1:
+			actualColor = new Color(178, 34, 34);
+			break;
+		case 2:
+			actualColor = new Color(51, 190, 255);
+			break;
+		case 3:
+			actualColor = new Color(102, 255, 102);
+			break;
+		case 4:
+			actualColor = new Color(255, 240, 120);
+		case 5:
+			actualColor = new Color(204, 204, 204);
+		case 6:
+			actualColor = new Color(153, 102, 0);
+			break;
+		case 7:
+			actualColor = new Color(102, 80, 200);
+			break;
+		case 8:
+			actualColor = new Color(90, 90, 90);
+			break;
+		case 9:
+			actualColor = new Color(155, 153, 0);
+			break;
+		case 10:
+			actualColor = new Color(51, 130, 255);
+			break;
+		case 11:
+			actualColor = new Color(30, 230, 255);
+			break;
+		case 12:
+			actualColor = new Color(84, 168, 51);
+			break;
+		case 13:
+			actualColor = new Color(255, 215, 0);
+			break;
+		case 14:
+			actualColor = new Color(223, 254, 0);
+			break;
+		case 15:
+			actualColor = new Color(250, 128, 114);
+			break;
+		default:
+			break;
 		}
-		
-		if (index == 12) {
-			final Color TREE_GREEN = new Color(84, 168, 51);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(TREE_GREEN);
-		}
-		
-		if (index == 13) {
-			final Color ORE_GOLD = new Color(255, 215, 0);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(ORE_GOLD);
-		}
-		
-		if (index == 14) {
-			final Color CHARTREUSE = new Color(223, 254, 0);
-			selectedColor = new DefaultHighlighter.DefaultHighlightPainter(CHARTREUSE);
-		}
+		HighlightPainter selectedColor = new DefaultHighlighter.DefaultHighlightPainter(actualColor);
 
 		return selectedColor;
 	}
@@ -813,6 +804,15 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		}
 		
 	}
+	/**
+	 * Used to controll the actual turn on the log text area.
+	 */
+	public void passOneTurn() {
+		if (actualTurn.getQuantity() != 1) {
+			ActionsLog.registerAction("Actual turn: " + actualTurn);
+		}
+		actualTurn.oneTurn();
+	}
 
 	/**
 	 * This method initialize the map with a length of 50x100. Then create a new
@@ -828,6 +828,7 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		// Initialize the lists
 		resourcesList = new ResourcesList();
 		citizenList = new CitizenList();
+		animalList = new AnimalList();
 		
 		// Create biomes in order. First rivers, then forests
 		int totalRivers = ((int) ((height) / 10) / 2);
@@ -844,6 +845,10 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		// Generate basic resources (minerals and animals)
 		resourcesList.addGoldOreMineral((int)(totalMap*0.025));
 		resourcesList.addGrain((int)(totalMap*0.02));
+		
+		int totalAnimals = (int)((height * width)*0.04);
+		animalList.createAnimals(totalAnimals);
+		animalList.addAnimalsToBoard(board);
 		
 		int totalFishes = (int)(board.totalWater() * 0.2);
 		resourcesList.addFish(totalFishes);
@@ -891,13 +896,6 @@ public class graphicLauncher extends JFrame implements KeyListener{
 		citizenList.createFishmonger(quantity);
 		citizenList.createFarmer(quantity);
 		citizenList.addAllCitizensToMap(board);
-	}
-	
-	public void passOneTurn() {
-		if (actualTurn.getQuantity() != 1) {
-			ActionsLog.registerAction("Actual turn: " + actualTurn);
-		}
-		actualTurn.oneTurn();
 	}
 
 	@Override
