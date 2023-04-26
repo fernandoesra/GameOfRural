@@ -73,6 +73,7 @@ public class Farmer extends Man{
 	 * 
 	 * @param buyer Must be a adjacent Man object that perform the buy action.
 	 */
+	
 	public void sellSomething(Man buyer) {
 		int random = (int)((Math.random() * (5 - 1)) + 1);
 		boolean confirmedSell = false;
