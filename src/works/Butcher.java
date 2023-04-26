@@ -90,8 +90,26 @@ public class Butcher extends Man{
 		ActionsLog.registerAction(this.getName() + "(" + this.getID() + ") has sent a " + nameOfAnimal + " to animal heaven"
 				+ " and obtained " + totalMeatOnAnimal + " of raw meat.");
 		
-		this.inventory.addToInventory(newMeat);
+		addRawMeat(totalMeatOnAnimal);
 		return newMeat;
+	}
+	
+	/**
+	 * This method search if it already exists a RawMeat object in the inventory
+	 * to add more wood planks or if not exists to create a new object and then add
+	 * the amount.
+	 * 
+	 * @param amount Amount of RawMeat to add to the inventory of this
+	 *               Butcher.
+	 */
+	public void addRawMeat(int amount) {
+		if (this.inventory.searchForName("Raw meat")) {
+			RawMeat meatInInventory = (RawMeat) this.inventory.fetchForName("Raw meat");
+			meatInInventory.setAmount(amount + meatInInventory.getAmount());
+		} else {
+			RawMeat meatToAdd = new RawMeat(amount);
+			this.inventory.addToInventory(meatToAdd);
+		}
 	}
 	
 	@Override

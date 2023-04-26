@@ -836,7 +836,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		int totalRivers = ((int) ((height) / 10) / 2);
 		biomeGenerator.createRiver(board, totalRivers);
 		
-		int totalForest = (int) ((height * width) / 100) / 6;
+		int totalForest = (int) ((height * width) / 100) / 5;
 		biomeGenerator.createCircularForest(board, totalForest, 10);
 		biomeGenerator.createNonCircularForest(board, totalForest, 15);
 		

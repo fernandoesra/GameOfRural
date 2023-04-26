@@ -62,8 +62,25 @@ public class Miner extends Man {
 		MinedGold groundMineral = new MinedGold(random + 1);
 		ActionsLog.registerAction(this.name +"(" + this.ID + ") has mined a gold ore and has manage to "
 				+ "refine a total of " + random + " gold mined.");
-		this.inventory.addToInventory(groundMineral);
+		addMinedGold(groundMineral.getAmount());
 		return groundMineral;
+	}
+	
+	/**
+	 * This method search if it already exists a MinedGold object in the inventory
+	 * to add more mined gold or if not exists to create a new object and then add
+	 * the amount.
+	 * 
+	 * @param amount Amount of MinedGold to add to the inventory of this Miner.
+	 */
+	public void addMinedGold(int amount) {
+		if (this.inventory.searchForName("Mined gold")) {
+			MinedGold minedInInventory = (MinedGold) this.inventory.fetchForName("Mined gold");
+			minedInInventory.setAmount(amount + minedInInventory.getAmount());
+		} else {
+			MinedGold minedToAdd = new MinedGold(amount);
+			this.inventory.addToInventory(minedToAdd);
+		}
 	}
 	
 	@Override

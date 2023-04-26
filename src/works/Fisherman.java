@@ -61,7 +61,7 @@ public class Fisherman extends Man{
 		int amountMeatOnFish = freshFish.getAmount();
 		RawMeat newRawMeat = new RawMeat(0);
 		newRawMeat.setAmount(((int) ((amountMeatOnFish) * 0.6) + 1));
-		this.inventory.addToInventory(newRawMeat);
+		this.addRawMeat(newRawMeat.getAmount());
 		
 		int mapX = board.searchXobject(freshFish);
 		int mapY = board.searchYobject(freshFish);
@@ -76,6 +76,24 @@ public class Fisherman extends Man{
 				+ newRawMeat.getAmount() + " raw meat.");
 
 		return newRawMeat;
+	}
+	
+	/**
+	 * This method search if it already exists a RawMeat object in the inventory
+	 * to add more wood planks or if not exists to create a new object and then add
+	 * the amount.
+	 * 
+	 * @param amount Amount of RawMeat to add to the inventory of this
+	 *               Fisherman.
+	 */
+	public void addRawMeat(int amount) {
+		if (this.inventory.searchForName("Raw meat")) {
+			RawMeat meatInInventory = (RawMeat) this.inventory.fetchForName("Raw meat");
+			meatInInventory.setAmount(amount + meatInInventory.getAmount());
+		} else {
+			RawMeat meatToAdd = new RawMeat(amount);
+			this.inventory.addToInventory(meatToAdd);
+		}
 	}
 	
 	@Override
