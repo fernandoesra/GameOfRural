@@ -19,7 +19,7 @@ public class PigAnimal extends Animal {
 	 * Create a new pig.
 	 */
 	public PigAnimal() {
-		super("Pig", "", "" + (char) 958);
+		super("Pig", "", "" + (char) 958 , 0);
 	}
 
 }

@@ -19,7 +19,7 @@ public class GoatAnimal extends Animal {
 	 * Create a new goat.
 	 */
 	public GoatAnimal() {
-		super("Goat", "", "" + (char) 1020);
+		super("Goat", "", "" + (char) 1020 , 0);
 	}
 
 }

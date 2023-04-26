@@ -72,7 +72,7 @@ public class AnimalList {
 	 */
 	public Animal randomAnimal() {
 		
-		Animal toAdd = new Animal("a", "a", "a");
+		Animal toAdd = new Animal("a", "a", "a", 0);
 		int random = (int) ((Math.random() * (5 - 1)) + 1);
 
 		switch (random) {

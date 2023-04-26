@@ -110,7 +110,8 @@ public class InteractController {
 			interactButcher(board, genericCitizen);
 		}
 		
-		// Farmer
+		// Shepherd
+		
 				
 				
 		/*
@@ -134,6 +135,13 @@ public class InteractController {
 
 		// Fishmonger		
 	
+		
+		/*
+		 * Money related works:
+		 */
+		// Farmer
+		
+		
 		
 		/*
 		 * Other works:

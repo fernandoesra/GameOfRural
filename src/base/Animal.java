@@ -11,6 +11,7 @@ public class Animal implements Comparable{
 	String name;
 	String type;
 	String icon;
+	int amount;
 	
 	/**
 	 * Create a new Animal object.
@@ -19,13 +20,31 @@ public class Animal implements Comparable{
 	 * @param type Type of the animal
 	 * @param icon Icon for the animal
 	 */
-	public Animal(String name, String type, String icon) {
+	public Animal(String name, String type, String icon, int amount) {
 		this.name = name;
 		this.type = type;
 		this.icon = icon;
+		this.amount = amount;
 	}
 	
 	// Get and Set
+	
+	/**
+	 * 
+	 * @return The amount value of the animal
+	 */
+	public int getAmount() {
+		return this.amount;
+	}
+	
+	/**
+	 * 
+	 * @param amount Change the amount to the entered value.
+	 */
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+	
 	/**
 	 * 
 	 * @return The name of the animal.

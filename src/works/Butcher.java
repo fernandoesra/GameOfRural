@@ -59,24 +59,30 @@ public class Butcher extends Man{
 		RawMeat newMeat = new RawMeat(0);
 		String nameOfAnimal = animal.getClass().getName();
 		int totalMeatOnAnimal = 0;
+		int fedAnimal = animal.getAmount();
 		if (nameOfAnimal.indexOf("Pig") >= 0 ) {
 			nameOfAnimal = "pig";
+			
 			int random = (int)((Math.random() * (16 - 8)) + 8);
+			random += (fedAnimal*2);
 			totalMeatOnAnimal = random;
 		}
 		if (nameOfAnimal.indexOf("Cow") >= 0 ) {
 			nameOfAnimal = "cow";
 			int random = (int)((Math.random() * (21- 10)) + 10);
+			random += (fedAnimal*2);
 			totalMeatOnAnimal = random;
 		}
 		if (nameOfAnimal.indexOf("Goat") >= 0 ) {
 			nameOfAnimal = "goat";
 			int random = (int)((Math.random() * (11- 5)) + 5);
+			random += (fedAnimal*2);
 			totalMeatOnAnimal = random;
 		}
 		if (nameOfAnimal.indexOf("Chicken") >= 0 ) {
 			nameOfAnimal = "chicken";
 			int random = (int)((Math.random() * (6- 2)) + 2);
+			random += (fedAnimal*2);
 			totalMeatOnAnimal = random;
 		}
 		newMeat.setAmount(totalMeatOnAnimal);
