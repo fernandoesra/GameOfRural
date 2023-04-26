@@ -89,10 +89,18 @@ public class InteractController {
 		
 		String nameOfClass = genericCitizen.getClass().getName();
 		
-		/*
-		 * Harvesting works:
-		 */
+		/* Harvesting works: */
 		
+		// Shepherd
+		if (nameOfClass.indexOf("Shepherd") >= 0) {
+			interactShepherd(board, genericCitizen);
+		}
+
+		// Baker
+		if (nameOfClass.indexOf("Baker") >= 0) {
+			interactBaker(board, genericCitizen);
+		}
+
 		// Miner
 		if (nameOfClass.indexOf("Miner") >= 0) {
 			interactMiner(board, genericCitizen);
@@ -112,17 +120,9 @@ public class InteractController {
 		// Butcher
 		if (nameOfClass.indexOf("Butcher") >= 0) {
 			interactButcher(board, genericCitizen);
-		}
-		
-		// Shepherd
-		if (nameOfClass.indexOf("Shepherd") >= 0) {
-			interactShepherd(board, genericCitizen);
-		}
+		}			
 				
-				
-		/*
-		 * Crafting works:
-		 */
+		/* Crafting works: */
 		
 		// Blackmisth
 		if (nameOfClass.indexOf("Blacksmith") >= 0) {
@@ -133,27 +133,19 @@ public class InteractController {
 		if (nameOfClass.indexOf("Carpenter") >= 0) {
 			interactCarpenter(board, genericCitizen);
 		}
-		
-		// Baker
-		if (nameOfClass.indexOf("Baker") >= 0) {
-			interactBaker(board, genericCitizen);
-		}
 
 		// Fishmonger		
 	
 		
-		/*
-		 * Money related works:
-		 */
+		/* Money related works: */
+		
 		// Farmer
 		if (nameOfClass.indexOf("Farmer") >= 0) {
 			interactFarmer(board, genericCitizen);
 		}
 		
 		
-		/*
-		 * Other works:
-		 */
+		/* Others works: */
 		
 	}
 	
