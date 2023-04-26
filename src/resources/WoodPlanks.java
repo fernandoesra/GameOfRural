@@ -9,8 +9,8 @@ import base.Resource;
  * The wood planks are obtained by the Lumberjack using the method cutTree().
  * 
  * @author Fernando Tarrino del Pozo (FernandoEsra)
- * @see works.Carpenter
- * @see works.Lumberjack
+ * @see jobs.Carpenter
+ * @see jobs.Lumberjack
  * @see main.InteractController
  * @see base.Tree
  */

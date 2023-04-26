@@ -1,4 +1,4 @@
-package works;
+package jobs;
 
 import base.Man;
 import logs.ActionsLog;
@@ -15,7 +15,7 @@ import resources.Money;
  * @see map.Board
  * @see main.InteractController
  * @see main.MoveController
- * @see works.Miner
+ * @see jobs.Miner
  * @see resources.MinedGold
  * @see resources.Money
  * 
@@ -68,7 +68,7 @@ public class Blacksmith extends Man{
 		String toReturn = super.toString();
 		char jobChar[] = this.getClass().getName().toCharArray();
 		String jobName = "";
-		for (int i = 6; i < jobChar.length; i++) {
+		for (int i = 5; i < jobChar.length; i++) {
 			jobName += jobChar[i];
 		}
 		

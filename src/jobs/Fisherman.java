@@ -1,4 +1,4 @@
-package works;
+package jobs;
 
 import base.FishWater;
 import base.Man;
@@ -101,7 +101,7 @@ public class Fisherman extends Man{
 		String toReturn = super.toString();
 		char jobChar[] = this.getClass().getName().toCharArray();
 		String jobName = "";
-		for (int i = 6; i < jobChar.length; i++) {
+		for (int i = 5; i < jobChar.length; i++) {
 			jobName += jobChar[i];
 		}
 		

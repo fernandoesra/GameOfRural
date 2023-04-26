@@ -8,8 +8,8 @@ import base.Resource;
  * Is used for the Blacksmith on the method melt() to create Money.
  * 
  * @author Fernando Tarrino del Pozo (FernandoEsra)
- * @see works.Miner
- * @see works.Blacksmith
+ * @see jobs.Miner
+ * @see jobs.Blacksmith
  * @see resources.Money
  * @see main.InteractController
  * 

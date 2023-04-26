@@ -6,8 +6,8 @@ import base.Resource;
  * The raw meat are obtained by the Butcher and the Fisherman.
  * 
  * @author Fernando Tarrino del Pozo (FernandoEsra)
- * @see works.Butcher
- * @see works.Fisherman
+ * @see jobs.Butcher
+ * @see jobs.Fisherman
  * @see base.Resource
  *
  */

@@ -1,24 +1,25 @@
-package works;
+package jobs;
 
 import base.Man;
 import resources.Money;
 
-public class Farmer extends Man{
-
-	public Farmer() {
+public class Fishmonger extends Man{
+	
+	public Fishmonger() {
 		super();
 	}
 
-	public Farmer(int ID, int HP, Money money, int mapX, int mapY, int speed) {
-		super(ID, HP, money, mapX, mapY, speed, "F");
-	}	
+	public Fishmonger(int ID, int HP, Money money, int mapX, int mapY, int speed) {
+		super(ID, HP, money, mapX, mapY, speed, "G"
+				);
+	}
 	
 	@Override
 	public String toString() {
 		String toReturn = super.toString();
 		char jobChar[] = this.getClass().getName().toCharArray();
 		String jobName = "";
-		for (int i = 6; i < jobChar.length; i++) {
+		for (int i = 5; i < jobChar.length; i++) {
 			jobName += jobChar[i];
 		}
 		
@@ -26,4 +27,5 @@ public class Farmer extends Man{
 		
 		return toReturn;
 	}
+
 }

@@ -4,6 +4,15 @@ import base.Animal;
 import base.FishWater;
 import base.Man;
 import base.Tree;
+import jobs.Baker;
+import jobs.Blacksmith;
+import jobs.Butcher;
+import jobs.Carpenter;
+import jobs.Farmer;
+import jobs.Fisherman;
+import jobs.Lumberjack;
+import jobs.Miner;
+import jobs.Shepherd;
 import logs.ActionsLog;
 import map.Board;
 import resources.BedFurniture;
@@ -14,14 +23,6 @@ import resources.Grain;
 import resources.MinedGold;
 import resources.TableFurniture;
 import resources.WoodPlanks;
-import works.Baker;
-import works.Blacksmith;
-import works.Butcher;
-import works.Carpenter;
-import works.Fisherman;
-import works.Lumberjack;
-import works.Miner;
-import works.Shepherd;
 
 /**
  * That class controll the interactions between the map and the different Man
@@ -42,14 +43,15 @@ import works.Shepherd;
  * @see resources.Grain
  * @see resources.Bread
  * @see base.Animal
- * @see works.Blacksmith
- * @see works.Carpenter
- * @see works.Lumberjack
- * @see works.Miner
- * @see works.Baker
- * @see works.Fisherman
- * @see works.Butcher
- * @see works.Shepherd
+ * @see jobs.Blacksmith
+ * @see jobs.Carpenter
+ * @see jobs.Lumberjack
+ * @see jobs.Miner
+ * @see jobs.Baker
+ * @see jobs.Fisherman
+ * @see jobs.Butcher
+ * @see jobs.Shepherd
+ * @see jobs.Farmer
  *
  */
 
@@ -144,13 +146,32 @@ public class InteractController {
 		 * Money related works:
 		 */
 		// Farmer
-		
+		if (nameOfClass.indexOf("Farmer") >= 0) {
+			interactFarmer(board, genericCitizen);
+		}
 		
 		
 		/*
 		 * Other works:
 		 */
 		
+	}
+	
+	public static void interactFarmer(Board board, Man genericMan) {
+		Farmer actualMan = (Farmer) genericMan;
+		int actualX = actualMan.getMapX();
+		int actualY = actualMan.getMapY();
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
+
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName("jobs", board, xToLook, yToLook)) {
+					Man buyer = (Man) board.getObjectAt(xToLook, yToLook);
+					actualMan.sellSomething(buyer);
+				}
+			}
+		}
 	}
 
 	/**

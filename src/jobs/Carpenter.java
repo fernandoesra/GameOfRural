@@ -1,4 +1,4 @@
-package works;
+package jobs;
 
 import base.Man;
 import logs.ActionsLog;
@@ -16,7 +16,7 @@ import resources.TableFurniture;
  * @author Fernando Tarrino del Pozo (FernandoEsra)
  * @see base.Man
  * @see map.Board
- * @see works.Lumberjack
+ * @see jobs.Lumberjack
  * @see resources.WoodPlanks
  * @see resources.BedFurniture
  * @see resources.ChairFurniture
@@ -127,7 +127,7 @@ public class Carpenter extends Man{
 		String toReturn = super.toString();
 		char jobChar[] = this.getClass().getName().toCharArray();
 		String jobName = "";
-		for (int i = 6; i < jobChar.length; i++) {
+		for (int i = 5; i < jobChar.length; i++) {
 			jobName += jobChar[i];
 		}
 		

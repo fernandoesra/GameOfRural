@@ -215,22 +215,35 @@ public class Man implements Comparable, Movement{
 	}
 	
 	/**
-	 * This method subtract a double valor of the actual money of the man. But first
-	 * check if it possible (the man have enough money)
+	 * This method subtract a double value of money from the man but first check if
+	 * its possible.
 	 * 
-	 * @param totalToSubtract A double quantity to subtract for the actual money.
+	 * @param totalToSubtract The amount of money to subtract.
+	 */
+	public double subtractMoney(double totalToSubtract) {
+		if (this.checkSubtractMoney(totalToSubtract)) {
+			this.money.setQuantity(this.money.getQuantity() - totalToSubtract);
+		}
+		return this.money.getQuantity();
+	}
+	
+	/**
+	 * This method check if its possible to subtract a double valor of the actual
+	 * money of the man.
+	 * 
+	 * @param totalToSubtract A double quantity to chech the subtract operation over
+	 *                        the actual money.
 	 * @return <b><i>false</i></b> if the man does not have enough money<br>
 	 *         <b><i>true</i></b> If it has been possible to make the operation
 	 */
-	public boolean subtractMonet(double totalToSubtract) {
+	public boolean checkSubtractMoney(double totalToSubtract) {
 		boolean possibleToSubtract = false;
 		if (this.money.getQuantity() - totalToSubtract >= 0) {
-			money.setQuantity(this.money.getQuantity() - totalToSubtract);
 			possibleToSubtract = true;
 		}
 		return possibleToSubtract;
 	}
-	
+
 	/**
 	 * Update the (newX).(newY) coordinates of the man. This method does not check
 	 * anything. Like if it is possible to place the update man on the new

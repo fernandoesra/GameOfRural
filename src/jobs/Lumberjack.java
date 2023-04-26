@@ -1,4 +1,4 @@
-package works;
+package jobs;
 
 import base.Man;
 import base.Tree;
@@ -19,7 +19,7 @@ import resources.WoodPlanks;
  * @see main.MoveController
  * @see base.Tree
  * @see resources.WoodPlanks
- * @see works.Carpenter
+ * @see jobs.Carpenter
  *
  */
 
@@ -140,7 +140,7 @@ public class Lumberjack extends Man{
 		String toReturn = super.toString();
 		char jobChar[] = this.getClass().getName().toCharArray();
 		String jobName = "";
-		for (int i = 6; i < jobChar.length; i++) {
+		for (int i = 5; i < jobChar.length; i++) {
 			jobName += jobChar[i];
 		}
 		

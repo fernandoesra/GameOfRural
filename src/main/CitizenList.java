@@ -1,19 +1,19 @@
 package main;
 
 import base.Man;
+import jobs.Baker;
+import jobs.Blacksmith;
+import jobs.Butcher;
+import jobs.Carpenter;
+import jobs.Farmer;
+import jobs.Fisherman;
+import jobs.Fishmonger;
+import jobs.Lumberjack;
+import jobs.Miner;
+import jobs.Shepherd;
 import map.Board;
 import resources.Money;
 import utils.ObjectsList;
-import works.Farmer;
-import works.Butcher;
-import works.Carpenter;
-import works.Blacksmith;
-import works.Lumberjack;
-import works.Miner;
-import works.Baker;
-import works.Shepherd;
-import works.Fishmonger;
-import works.Fisherman;
 
 /**
  * This class store a ObjectsList for the citizens that populate the map. Only
@@ -414,15 +414,15 @@ public class CitizenList {
 	
 	/**
 	 * This method is used in actualMoney() to create new citizens with random
-	 * amount of money between 1 and 100.
+	 * amount of money between 500 and 1500.
 	 * 
 	 * @return A new Money object with a random value between 1 and 100 on the
 	 *         amount attribute.
 	 */
 	public Money aleatoricMoney() {
 		
-		int minMoney = 1;			/* Change to set the min range for the random */
-		int maxMoney = 100;			/* Change to set the max range for the random */
+		int minMoney = 500;			/* Change to set the min range for the random */
+		int maxMoney = 1501;		/* Change to set the max range for the random */
 		
 		double random = ((Math.random() * ((maxMoney+1) - minMoney)) + minMoney);
 		Money randomMoney = new Money(random);
