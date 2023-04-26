@@ -11,12 +11,12 @@ import base.Furniture;
  *
  */
 
-public class Table extends Furniture{
+public class TableFurniture extends Furniture{
 
 	/**
 	 * Create a new table.
 	 */
-	public Table() {
+	public TableFurniture() {
 		super("Table", "t");
 	}
 

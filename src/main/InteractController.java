@@ -6,13 +6,13 @@ import base.Man;
 import base.Tree;
 import logs.ActionsLog;
 import map.Board;
-import resources.Bed;
-import resources.Chair;
-import resources.Chest;
+import resources.BedFurniture;
+import resources.ChairFurniture;
+import resources.ChestFurniture;
 import resources.GoldOreMineral;
 import resources.Grain;
 import resources.MinedGold;
-import resources.Table;
+import resources.TableFurniture;
 import resources.WoodPlanks;
 import works.Baker;
 import works.Blacksmith;
@@ -32,12 +32,12 @@ import works.Shepherd;
  * @see base.Tree
  * @see logs.ActionsLog
  * @see map.Board
- * @see resources.Bed
- * @see resources.Chair
- * @see resources.Chest
+ * @see resources.BedFurniture
+ * @see resources.ChairFurniture
+ * @see resources.ChestFurniture
  * @see resources.GoldOreMineral
  * @see resources.MinedGold
- * @see resources.Table
+ * @see resources.TableFurniture
  * @see resources.WoodPlanks
  * @see resources.Grain
  * @see resources.Bread
@@ -318,42 +318,19 @@ public class InteractController {
 	 * @param genericMan Must be a Lumberjack object and exists in the board.
 	 */
 	public static void interactLumberjackFurniture(Board board, Man genericMan) {
-		Lumberjack actualLumberjack = (Lumberjack) genericMan;
-		int actualX = actualLumberjack.getMapX();
-		int actualY = actualLumberjack.getMapY();
+		Lumberjack actualMan = (Lumberjack) genericMan;
+		int actualX = actualMan.getMapX();
+		int actualY = actualMan.getMapY();
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
 
-		// Search up position
-		if (!board.validPosition(actualX - 1, actualY) && board.inBounds(actualX - 1, actualY)) {
-			String nameOfSuperItem = board.getObjectAt(actualX - 1, actualY).getClass().getSuperclass().getName();
-			if (nameOfSuperItem.indexOf("Furniture") >= 0) {
-				dismantleFurniture(board, actualX - 1, actualY, actualLumberjack);
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName("Furniture", board, xToLook, yToLook)) {
+					actualMan.dismantleFurniture(board, xToLook, yToLook, actualMan);
+				}
 			}
 		}
-
-		// Search down position
-		if (!board.validPosition(actualX + 1, actualY) && board.inBounds(actualX + 1, actualY)) {
-			String nameOfSuperItem = board.getObjectAt(actualX + 1, actualY).getClass().getSuperclass().getName();
-			if (nameOfSuperItem.indexOf("Furniture") >= 0) {
-				dismantleFurniture(board, actualX + 1, actualY, actualLumberjack);
-			}
-		}
-
-		// Search left position
-		if (!board.validPosition(actualX, actualY + 1) && board.inBounds(actualX, actualY + 1)) {
-			String nameOfSuperItem = board.getObjectAt(actualX, actualY + 1).getClass().getSuperclass().getName();
-			if (nameOfSuperItem.indexOf("Furniture") >= 0) {
-				dismantleFurniture(board, actualX, actualY + 1, actualLumberjack);
-			}
-		}
-
-		// Search right position
-		if (!board.validPosition(actualX, actualY - 1) && board.inBounds(actualX, actualY - 1)) {
-			String nameOfSuperItem = board.getObjectAt(actualX, actualY - 1).getClass().getSuperclass().getName();
-			if (nameOfSuperItem.indexOf("Furniture") >= 0) {
-				dismantleFurniture(board, actualX, actualY - 1, actualLumberjack);
-			}
-		}
-
 	}
 	
 	/**
@@ -375,7 +352,9 @@ public class InteractController {
 			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
 				if (isName("Tree", board, xToLook, yToLook)) {
 					Tree actualTree = (Tree) board.getObjectAt(xToLook, yToLook);
+					
 					actualMan.cutTree(actualTree);
+					
 					board.eraseObjectAt(xToLook, yToLook);
 				}
 			}
@@ -464,9 +443,9 @@ public class InteractController {
 			int random = (int) ((Math.random() * (5 - 1)) + 1);
 
 			if (random == 1) {
-				if (totalOfWoodPlanks >= 6) {
+				if (totalOfWoodPlanks >= 20) {
 
-					Table toAdd = actualCarpenter.createTable(adjacentLumberjack);
+					TableFurniture toAdd = actualCarpenter.createTable(adjacentLumberjack);
 					int randomX = 0;
 					int randomY = 0;
 					int totalX = board.getHeight();
@@ -485,9 +464,9 @@ public class InteractController {
 			}
 
 			if (random == 2) {
-				if (totalOfWoodPlanks >= 4) {
+				if (totalOfWoodPlanks >= 10) {
 
-					Chair toAdd = actualCarpenter.createChair(adjacentLumberjack);
+					ChairFurniture toAdd = actualCarpenter.createChair(adjacentLumberjack);
 					int randomX = 0;
 					int randomY = 0;
 					int totalX = board.getHeight();
@@ -506,9 +485,9 @@ public class InteractController {
 			}
 
 			if (random == 3) {
-				if (totalOfWoodPlanks >= 6) {
+				if (totalOfWoodPlanks >= 20) {
 
-					Bed toAdd = actualCarpenter.createBed(adjacentLumberjack);
+					BedFurniture toAdd = actualCarpenter.createBed(adjacentLumberjack);
 					int randomX = 0;
 					int randomY = 0;
 					int totalX = board.getHeight();
@@ -527,9 +506,9 @@ public class InteractController {
 			}
 
 			if (random == 4) {
-				if (totalOfWoodPlanks >= 4) {
+				if (totalOfWoodPlanks >= 10) {
 
-					Chest toAdd = actualCarpenter.createChest(adjacentLumberjack);
+					ChestFurniture toAdd = actualCarpenter.createChest(adjacentLumberjack);
 					int randomX = 0;
 					int randomY = 0;
 					int totalX = board.getHeight();
@@ -556,52 +535,7 @@ public class InteractController {
 
 		return totalOfWoodPlanks;
 	}
-	
-	/**
-	 * This item took a Lumberjack and a adjacent Furniture object then dismantle
-	 * the object and return wooden planks to the Lumberjack.
-	 * 
-	 * @param board            The board used to call the eraseObjectAt() method.
-	 * @param actualX          The X position of the furniture on the board.
-	 * @param actualY          The Y position of the furniture on the board.
-	 * @param actualLumberjack The Lumberjack doing the action.
-	 */
-	public static void dismantleFurniture(Board board, int actualX, int actualY, Lumberjack actualLumberjack) {
 
-		String nameOfItem = board.getNameOfItem(actualX, actualY);
-
-		if (nameOfItem.indexOf("Chair") >= 0) {
-			board.eraseObjectAt(actualX, actualY);
-			ActionsLog.registerAction(actualLumberjack.getName() + "(" + actualLumberjack.getID() + ")"
-					+ " dismantle a chair" + " and obtained 4 wood planks.");
-			WoodPlanks woodPlanks = new WoodPlanks(4);
-			actualLumberjack.inventory.addToInventory(woodPlanks);
-		}
-
-		if (nameOfItem.indexOf("Chest") >= 0) {
-			board.eraseObjectAt(actualX, actualY);
-			ActionsLog.registerAction(actualLumberjack.getName() + "(" + actualLumberjack.getID() + ")"
-					+ " dismantle a chest" + " and obtained 4 wood planks.");
-			WoodPlanks woodPlanks = new WoodPlanks(4);
-			actualLumberjack.inventory.addToInventory(woodPlanks);
-		}
-
-		if (nameOfItem.indexOf("Bed") >= 0) {
-			board.eraseObjectAt(actualX, actualY);
-			ActionsLog.registerAction(actualLumberjack.getName() + "(" + actualLumberjack.getID() + ")"
-					+ " dismantle a bed" + " and obtained 6 wood planks.");
-			WoodPlanks woodPlanks = new WoodPlanks(6);
-			actualLumberjack.inventory.addToInventory(woodPlanks);
-		}
-
-		if (nameOfItem.indexOf("Table") >= 0) {
-			board.eraseObjectAt(actualX, actualY);
-			ActionsLog.registerAction(actualLumberjack.getName() + "(" + actualLumberjack.getID() + ")"
-					+ " dismantle a table" + " and obtained 6 wood planks.");
-			WoodPlanks woodPlanks = new WoodPlanks(6);
-			actualLumberjack.inventory.addToInventory(woodPlanks);
-		}
-	}
 	
 	/**
 	 * Search if on object have the specific name.

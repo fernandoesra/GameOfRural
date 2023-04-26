@@ -11,12 +11,12 @@ import base.Furniture;
  *
  */
 
-public class Chair extends Furniture{
+public class ChairFurniture extends Furniture{
 
 	/**
 	 * Create a new chair.
 	 */
-	public Chair() {
+	public ChairFurniture() {
 		super("Chair", "c");
 	}
 

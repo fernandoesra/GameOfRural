@@ -521,8 +521,10 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 			break;
 		case 4:
 			actualColor = new Color(255, 240, 120);
+			break;
 		case 5:
 			actualColor = new Color(204, 204, 204);
+			break;
 		case 6:
 			actualColor = new Color(153, 102, 0);
 			break;

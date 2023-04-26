@@ -3,6 +3,7 @@ package works;
 import base.Man;
 import base.Tree;
 import logs.ActionsLog;
+import map.Board;
 import resources.Money;
 import resources.WoodPlanks;
 
@@ -62,15 +63,76 @@ public class Lumberjack extends Man{
 	public Object cutTree(Tree tree) {
 		int amount = tree.getAmount();
 		WoodPlanks woodPlanks = new WoodPlanks(0);
-		woodPlanks.setAmount((int)(amount/1.8));
-		inventory.addToInventory(woodPlanks);
+		woodPlanks.setAmount((int) (amount / 1.8));
+		this.addPlanks(amount);
 		String completeTreeName = tree.getClass().getName();
 		String treeNameWhitoutSuperclass = completeTreeName.replace("resources.", "");
 		String finalTreeName = treeNameWhitoutSuperclass.replace("Tree", "");
-		ActionsLog.registerAction(this.name + "(" + this.ID + ") felled an " + finalTreeName + ""
-				+ " and obtained " + woodPlanks.getAmount() + " wood planks.");
+		ActionsLog.registerAction(this.name + "(" + this.ID + ") felled an " + finalTreeName + "" + " and obtained "
+				+ woodPlanks.getAmount() + " wood planks.");
 		return woodPlanks;
-		
+
+	}
+	
+	/**
+	 * This item took a Lumberjack and a adjacent Furniture object then dismantle
+	 * the object and return wooden planks to the Lumberjack.
+	 * 
+	 * @param board            The board used to call the eraseObjectAt() method.
+	 * @param actualX          The X position of the furniture on the board.
+	 * @param actualY          The Y position of the furniture on the board.
+	 * @param actualLumberjack The Lumberjack doing the action.
+	 */
+	public void dismantleFurniture(Board board, int actualX, int actualY, Lumberjack actualLumberjack) {
+
+		String nameOfItem = board.getNameOfItem(actualX, actualY);
+
+		if (nameOfItem.indexOf("Chair") >= 0) {
+			board.eraseObjectAt(actualX, actualY);
+			ActionsLog.registerAction(actualLumberjack.getName() + "(" + actualLumberjack.getID() + ")"
+					+ " dismantle a chair" + " and obtained 10 wood planks.");
+			this.addPlanks(10);
+		}
+
+		if (nameOfItem.indexOf("Chest") >= 0) {
+			board.eraseObjectAt(actualX, actualY);
+			ActionsLog.registerAction(actualLumberjack.getName() + "(" + actualLumberjack.getID() + ")"
+					+ " dismantle a chest" + " and obtained 10 wood planks.");
+			this.addPlanks(10);
+		}
+
+		if (nameOfItem.indexOf("Bed") >= 0) {
+			board.eraseObjectAt(actualX, actualY);
+			ActionsLog.registerAction(actualLumberjack.getName() + "(" + actualLumberjack.getID() + ")"
+					+ " dismantle a bed" + " and obtained 20 wood planks.");
+			this.addPlanks(20);
+		}
+
+		if (nameOfItem.indexOf("Table") >= 0) {
+			board.eraseObjectAt(actualX, actualY);
+			ActionsLog.registerAction(actualLumberjack.getName() + "(" + actualLumberjack.getID() + ")"
+					+ " dismantle a table" + " and obtained 20 wood planks.");
+			this.addPlanks(20);
+		}
+	}
+	
+	/**
+	 * This method search if it already exists a WoodPlanks object in the inventory
+	 * to add more wood planks or if not exists to create a new object and then add
+	 * the amount.
+	 * 
+	 * @param amount Amount of WoodPlanks to add to the inventory of this
+	 *               Lumberjack.
+	 */
+	public void addPlanks(int amount) {
+		if (this.inventory.searchForName("Wood planks")) {
+			WoodPlanks planksInInventory = (WoodPlanks) this.inventory.fetchForName("Wood planks");
+			planksInInventory.setAmount(amount + planksInInventory.getAmount());
+
+		} else {
+			WoodPlanks woodPlanks = new WoodPlanks(amount);
+			this.inventory.addToInventory(woodPlanks);
+		}
 	}
 	
 	@Override

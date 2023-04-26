@@ -2,11 +2,11 @@ package works;
 
 import base.Man;
 import logs.ActionsLog;
-import resources.Bed;
-import resources.Chair;
-import resources.Chest;
+import resources.BedFurniture;
+import resources.ChairFurniture;
+import resources.ChestFurniture;
 import resources.Money;
-import resources.Table;
+import resources.TableFurniture;
 
 /**
  * A specialization of Man. The Carpenter walks through the map in search of
@@ -18,10 +18,10 @@ import resources.Table;
  * @see map.Board
  * @see works.Lumberjack
  * @see resources.WoodPlanks
- * @see resources.Bed
- * @see resources.Chair
- * @see resources.Chest
- * @see resources.Table
+ * @see resources.BedFurniture
+ * @see resources.ChairFurniture
+ * @see resources.ChestFurniture
+ * @see resources.TableFurniture
  * @see logs.ActionsLog
  * @see main.InteractController
  * @see main.MoveController
@@ -61,11 +61,11 @@ public class Carpenter extends Man{
 	 * @param lumberjack A Lumberjack object to obtain the name.
 	 * @return A new Table object.
 	 */
-	public Table createTable(Lumberjack lumberjack) {
-		Table furnitureToReturn = new Table();
+	public TableFurniture createTable(Lumberjack lumberjack) {
+		TableFurniture furnitureToReturn = new TableFurniture();
 		String lumberjackName = lumberjack.getName();
 		int lumberjackID = lumberjack.getID();
-		ActionsLog.registerAction(this.name + "(" + this.ID + ") has received 6 wooden planks from " + 
+		ActionsLog.registerAction(this.name + "(" + this.ID + ") has received 20 wooden planks from " + 
 		lumberjackName + "(" + lumberjackID + "), with which he has created a table.");
 		return furnitureToReturn;
 	}
@@ -78,11 +78,11 @@ public class Carpenter extends Man{
 	 * @param lumberjack A Lumberjack object to obtain the name.
 	 * @return A new Chair object.
 	 */
-	public Chair createChair(Lumberjack lumberjack) {
-		Chair furnitureToReturn = new Chair();
+	public ChairFurniture createChair(Lumberjack lumberjack) {
+		ChairFurniture furnitureToReturn = new ChairFurniture();
 		String lumberjackName = lumberjack.getName();
 		int lumberjackID = lumberjack.getID();
-		ActionsLog.registerAction(this.name + "(" + this.ID + ") has received 4 wooden planks from " + 
+		ActionsLog.registerAction(this.name + "(" + this.ID + ") has received 10 wooden planks from " + 
 				lumberjackName + "(" + lumberjackID + "), with which he has created a chair.");
 		return furnitureToReturn;
 	}
@@ -95,11 +95,11 @@ public class Carpenter extends Man{
 	 * @param lumberjack A Lumberjack object to obtain the name.
 	 * @return A new Bed object.
 	 */
-	public Bed createBed(Lumberjack lumberjack) {
-		Bed furnitureToReturn = new Bed();
+	public BedFurniture createBed(Lumberjack lumberjack) {
+		BedFurniture furnitureToReturn = new BedFurniture();
 		String lumberjackName = lumberjack.getName();
 		int lumberjackID = lumberjack.getID();
-		ActionsLog.registerAction(this.name + "(" + this.ID + ") has received 4 wooden planks from " + 
+		ActionsLog.registerAction(this.name + "(" + this.ID + ") has received 20 wooden planks from " + 
 				lumberjackName + "(" + lumberjackID + "), with which he has created a bed.");
 		return furnitureToReturn;
 	}
@@ -112,11 +112,11 @@ public class Carpenter extends Man{
 	 * @param lumberjack A Lumberjack object to obtain the name.
 	 * @return A new Chest object.
 	 */
-	public Chest createChest(Lumberjack lumberjack) {
-		Chest furnitureToReturn = new Chest();
+	public ChestFurniture createChest(Lumberjack lumberjack) {
+		ChestFurniture furnitureToReturn = new ChestFurniture();
 		String lumberjackName = lumberjack.getName();
 		int lumberjackID = lumberjack.getID();
-		ActionsLog.registerAction(this.name + "(" + this.ID + ") has received 4 wooden planks from " + 
+		ActionsLog.registerAction(this.name + "(" + this.ID + ") has received 10 wooden planks from " + 
 				lumberjackName + "(" + lumberjackID + "), with which he has created a chest.");
 		return furnitureToReturn;
 	}
