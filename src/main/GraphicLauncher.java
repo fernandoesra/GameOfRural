@@ -830,6 +830,8 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		this.width = 46;		/* 46 to fully fill the map area witouth scroll bar */
 		board = new Board(height, width);
 		
+		int citizenAmount = 1;	/* Change to add 'x' of each citizen */
+		
 		// Initialize the lists
 		resourcesList = new ResourcesList();
 		citizenList = new CitizenList();
@@ -862,7 +864,6 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		animalList.addAnimalsToBoard(board);
 		
 		// Generate citizens
-		int citizenAmount = 1;
 		for (int i = 0; i < citizenAmount; i++) {
 			citizenList.createAll(1);
 		}

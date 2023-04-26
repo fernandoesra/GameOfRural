@@ -62,12 +62,30 @@ public class Baker extends Man{
 		
 		int grainQuantity = grain.getAmount();
 		Bread newBread = new Bread((grainQuantity/2) + 1);
-		this.inventory.addToInventory(newBread);
+		addBread(newBread.getAmount());
 		
 		ActionsLog.registerAction(this.name + "(" + this.getID() +") made " + newBread.getAmount() + " breads "
 				+ "whit the grain at (" + grainX + "." + grainY + ")");
 		
 		return newBread;
+	}
+	
+	/**
+	 * This method search if it already exists a Bread object in the inventory to
+	 * add more Bread or if not exists to create a new object and then add the
+	 * amount.
+	 * 
+	 * @param amount Amount of Bread to add to the inventory of this Baker.
+	 */
+	public void addBread(int amount) {
+		if (this.inventory.searchForName("Bread")) {
+			Bread breadInInventory = (Bread) this.inventory.fetchForName("Bread");
+			breadInInventory.setAmount(amount + breadInInventory.getAmount());
+		} else {
+			Bread breadToAdd = new Bread(amount);
+			breadToAdd.setAmount(amount);
+			this.inventory.addToInventory(breadToAdd);
+		}
 	}
 	
 	@Override

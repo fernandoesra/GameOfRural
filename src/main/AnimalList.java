@@ -150,7 +150,8 @@ public class AnimalList {
 
 	/**
 	 * This method will read all the animals on this list and generate a 10%
-	 * probability to move one of echa his animals in one random direction.
+	 * probability to move one of echa his animals (not for fishes) in one random
+	 * direction.
 	 * 
 	 * @param board A board to move the animals of this animalList.
 	 */
@@ -158,21 +159,25 @@ public class AnimalList {
 		for (int i = 0; i < animalList.getLength(); i++) {
 			int random = (int)((Math.random() * (11 - 1)) + 1);
 			
-			switch (random) {
-			case 1:
-				board.moveSomethingUp(animalList.getObjectOnIndex(i));
-				break;
-			case 2:
-				board.moveSomethingDown(animalList.getObjectOnIndex(i));
-				break;
-			case 3:
-				board.moveSomethingLeft(animalList.getObjectOnIndex(i));
-				break;
-			case 4:
-				board.moveSomethingRight(animalList.getObjectOnIndex(i));
-				break;
-			default:
-				break;
+			String nameOfresource = animalList.getObjectOnIndex(i).getClass().getSuperclass().getName();
+
+			if (nameOfresource.indexOf("FishWater") < 0) {
+				switch (random) {
+				case 1:
+					board.moveSomethingUp(animalList.getObjectOnIndex(i));
+					break;
+				case 2:
+					board.moveSomethingDown(animalList.getObjectOnIndex(i));
+					break;
+				case 3:
+					board.moveSomethingLeft(animalList.getObjectOnIndex(i));
+					break;
+				case 4:
+					board.moveSomethingRight(animalList.getObjectOnIndex(i));
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}
