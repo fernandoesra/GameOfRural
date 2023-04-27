@@ -471,7 +471,7 @@ public class InteractController {
 					board.addSomething(toAdd, randomX, randomY);
 					ActionsLog.registerAction("The new table is at " + randomX + "." + randomY);
 
-					totalOfWoodPlanks -= 6;
+					totalOfWoodPlanks -= 20;
 
 				}
 			}
@@ -492,7 +492,7 @@ public class InteractController {
 					board.addSomething(toAdd, randomX, randomY);
 					ActionsLog.registerAction("The new chair is at " + randomX + "." + randomY);
 
-					totalOfWoodPlanks -= 4;
+					totalOfWoodPlanks -= 10;
 
 				}
 			}
@@ -513,7 +513,7 @@ public class InteractController {
 					board.addSomething(toAdd, randomX, randomY);
 					ActionsLog.registerAction("The new bed is at " + randomX + "." + randomY);
 
-					totalOfWoodPlanks -= 6;
+					totalOfWoodPlanks -= 20;
 
 				}
 			}
@@ -534,12 +534,12 @@ public class InteractController {
 					board.addSomething(toAdd, randomX, randomY);
 					ActionsLog.registerAction("The new chest is at " + randomX + "." + randomY);
 
-					totalOfWoodPlanks -= 4;
+					totalOfWoodPlanks -= 10;
 
 				}
 			}
 
-		} while (totalOfWoodPlanks > 4);
+		} while (totalOfWoodPlanks > 10);
 
 		if (totalOfWoodPlanks > 0) {
 			WoodPlanks planksReturn = new WoodPlanks(totalOfWoodPlanks);

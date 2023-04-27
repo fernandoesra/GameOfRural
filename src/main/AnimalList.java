@@ -144,6 +144,8 @@ public class AnimalList {
 		case 3:
 			fishToReturn = new TilapiaFishWater();
 			break;
+		default:
+			break;
 		}
 		return fishToReturn;
 	}

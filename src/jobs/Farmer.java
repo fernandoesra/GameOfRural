@@ -209,6 +209,8 @@ public class Farmer extends Man{
 				toAdd = (Potato) otherMan.inventory.fetchForName(itemName);
 				toAdd.setAmount(amountToAdd + toAdd.getAmount());
 				break;
+			default:
+				break;
 			}
 		} else {
 			Resource toAdd = new Resource("","",0);
@@ -228,6 +230,8 @@ public class Farmer extends Man{
 			case "Potatoes":
 				toAdd = new Potato(amountToAdd);
 				otherMan.inventory.addToInventory(toAdd);
+				break;
+			default:
 				break;
 			}
 		}

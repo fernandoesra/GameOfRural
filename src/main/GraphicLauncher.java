@@ -473,6 +473,8 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 					// Goat animal
 					high.addHighlight(i+1, i+2, setColor(15));
 					break;
+				default:
+					break;
 				}
 			}
 		} catch (Exception ex) {
@@ -721,7 +723,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		// Method for Background operations
 		protected Void doInBackground() {
 			try {
-				Thread.sleep(500);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
