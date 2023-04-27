@@ -78,6 +78,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	AtomicBoolean programInUse;
 	QuantityTurns turnX;
 	QuantityTurns actualTurn;
+	AtomicBoolean generatingTurns;
 	
 	public JPanel mainContentPane;
 	public JTextArea textCentralArea;
@@ -116,6 +117,8 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		// Initialize the programInUse
 		programInUse = new AtomicBoolean();
 		programInUse.lazySet(false);
+		generatingTurns = new AtomicBoolean();
+		generatingTurns.lazySet(false);
 		
 		// Initialize the biome generator
 		biomeGenerator = new BiomeGenerator();
@@ -140,6 +143,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(110, 45, 1700, 950);
 		mainContentPane = new JPanel();
+		mainContentPane.setBackground(new Color(85, 72, 98));
 		mainContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		// Center text area and scroll
@@ -150,7 +154,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		scrollPaneForCentralText.setBounds(10, 10, 850, 580);
 		scrollPaneForCentralText.setViewportView(textCentralArea);
 		textCentralArea.setForeground(new Color(0, 0, 0));
-		textCentralArea.setBackground(new Color(255, 255, 255));
+		textCentralArea.setBackground(new Color(254, 249, 235));
 		
 		// Create a Caret for the scrollPane, that prevents the auto-scroll
 		DefaultCaret caret = (DefaultCaret)textCentralArea.getCaret();
@@ -169,6 +173,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		
 		// Select Citizens Panel
 		JPanel selectCitizensPanel = new JPanel();
+		selectCitizensPanel.setBackground(new Color(252, 234, 184));
 		selectCitizensPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		selectCitizensPanel.setBounds(1255, 10, 419, 46);
 		selectCitizensPanel.setLayout(null);
@@ -178,11 +183,13 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		
 		// Objects for show citizens info
 		JLabel actualCitizenLabel = new JLabel("Actual citizen:");
+		actualCitizenLabel.setBackground(new Color(240, 240, 240));
 		actualCitizenLabel.setBounds(10, 11, 88, 22);
 		actualCitizenLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		// Objects for select the citizen to move
 		JTextField actualCitizenTextArea = new JTextField();
+		actualCitizenTextArea.setBackground(new Color(254, 249, 235));
 		actualCitizenTextArea.setFont(FiraFont);
 		actualCitizenTextArea.setBounds(108, 12, 46, 20);
 		actualCitizenTextArea.setHorizontalAlignment(SwingConstants.CENTER);
@@ -195,6 +202,8 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		selectCitizenLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
 		JTextField selectIDtextField = new JTextField();
+		selectIDtextField.setHorizontalAlignment(SwingConstants.CENTER);
+		selectIDtextField.setBackground(new Color(254, 249, 235));
 		selectIDtextField.setBounds(276, 12, 46, 20);
 		selectIDtextField.setColumns(10);
 
@@ -204,13 +213,14 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 
 		actualCitizenInfoText = new JTextArea();
 		scrollPaneActualCitizen.setViewportView(actualCitizenInfoText);
-		actualCitizenInfoText.setBackground(new Color(255, 255, 255));
+		actualCitizenInfoText.setBackground(new Color(254, 249, 235));
 		actualCitizenInfoText.setFont(new Font("Fira Code", Font.PLAIN, 11));
 		actualCitizenInfoText.setEditable(false);
 		actualCitizenInfoText.setColumns(10);
 		actualCitizenInfoText.setText(citizenList.getInfoID(actualCitizenID));
 
 		JPanel citizenInfoPanel = new JPanel();
+		citizenInfoPanel.setBackground(new Color(252, 234, 184));
 		citizenInfoPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		citizenInfoPanel.setBounds(1255, 67, 419, 336);
 		citizenInfoPanel.setLayout(null);
@@ -226,6 +236,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		
 		// Log panel
 		JPanel logPanel = new JPanel();
+		logPanel.setBackground(new Color(252, 234, 184));
 		logPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		logPanel.setBounds(870, 414, 804, 267);
 		logPanel.setLayout(null);
@@ -234,6 +245,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		scrollPaneLogArea.setBounds(10, 44, 784, 212);
 
 		logTextArea = new JTextArea();
+		logTextArea.setBackground(new Color(254, 249, 235));
 		logTextArea.setFont(new Font("Fira Code", Font.PLAIN, 13));
 		scrollPaneLogArea.setViewportView(logTextArea);
 		logTextArea.setEditable(false);
@@ -248,6 +260,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		
 		// Map Legend panel:
 		JPanel mapLegendPanel = new JPanel();
+		mapLegendPanel.setBackground(new Color(252, 234, 184));
 		mapLegendPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		mapLegendPanel.setBounds(870, 10, 375, 393);
 		mapLegendPanel.setLayout(null);
@@ -263,9 +276,21 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		
 		// Button panel
 		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.setBackground(new Color(252, 234, 184));
 		buttonsPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		buttonsPanel.setBounds(10, 601, 850, 81);
 		buttonsPanel.setLayout(null);
+		JButton stopButton = new JButton("");
+		stopButton.setForeground(new Color(240, 240, 240));
+		stopButton.setIcon(new ImageIcon("./assets/stopButton.png"));
+		
+		// Stop button
+		stopButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				stopTurns();
+			}
+		});
+		stopButton.setBounds(579, 22, 36, 36);
 
 		// Show actual map button
 		JButton showMapButton = new JButton("Show actual map");
@@ -305,6 +330,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		
 		// JTextFild for turns value
 		turnsValueTextField = new JTextField();
+		turnsValueTextField.setBackground(new Color(254, 249, 235));
 		turnsValueTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		turnsValueTextField.setFont(new Font("Tahoma", Font.BOLD, 18));
 		turnsValueTextField.setText("5");
@@ -346,6 +372,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		buttonsPanel.add(turnOneRandom);
 		buttonsPanel.add(turnIndicatedRandom);
 		buttonsPanel.add(turnsValueTextField);
+		buttonsPanel.add(stopButton);
 		
 		citizenInfoPanel.add(actualCitizenInfoLabel);
 		citizenInfoPanel.add(scrollPaneActualCitizen);
@@ -375,7 +402,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		actualCitizenTextArea.addKeyListener(this);
 		turnOneRandom.addKeyListener(this);
 		turnsValueTextField.addKeyListener(this);
-		
+		stopButton.addKeyListener(this);
 	}
 	
 	/**
@@ -738,12 +765,17 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 			
 			// Recursive control
 			actualExecute--;
-			if (actualExecute > 0) {
+			if (actualExecute > 0 && generatingTurns.get()) {
 				SwingWorkerRercursive worker = new SwingWorkerRercursive(actualExecute);
 				worker.execute(); 	/* Recursive */
 			} else {
 				// Final action
-				ActionsLog.registerAction("ALL TURNS HAVE BEEN COMPLETED");
+				if (!generatingTurns.get()) {
+					ActionsLog.registerAction("TURNS HAVE BEEN STOPPED");
+				} else {
+					ActionsLog.registerAction("ALL TURNS HAVE BEEN COMPLETED");
+					generatingTurns.lazySet(false);
+				}
 				logTextArea.setText(log.toString());
 				programInUse.set(false);
 			}
@@ -758,12 +790,27 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	 * @param quantity The amount of turns to generate.
 	 */
 	public void generateXturns(int quantity) {
-		if (!programInUse.get()) {
-			programInUse.set(true);
-			turnX = new QuantityTurns(quantity);
-			SwingWorkerRercursive worker = new SwingWorkerRercursive(quantity);
-			worker.execute();
+		
+		if (quantity >= 1 && quantity <= 9999) {
+			if (!programInUse.get()) {
+				programInUse.lazySet(true);
+				generatingTurns.lazySet(true);
+				turnX = new QuantityTurns(quantity);
+				SwingWorkerRercursive worker = new SwingWorkerRercursive(quantity);
+				worker.execute();
+			}
+		} else {
+			ActionsLog.registerAction("\"Generate turns\" value must be between 1 and 9999.");
+			logTextArea.setText(log.toString());
 		}
+	}
+	
+	/**
+	 * Set the generatingTurns variable to false to stop the generateXturns()
+	 * method.
+	 */
+	public void stopTurns() {
+		generatingTurns.lazySet(false);
 	}
 
 	/**
