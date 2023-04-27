@@ -723,7 +723,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		// Method for Background operations
 		protected Void doInBackground() {
 			try {
-				Thread.sleep(1);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -752,7 +752,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	}
 
 	/**
-	 * This method calls 'x' times the generateOneTurn() method with a half second
+	 * This method calls 'x' times the generateOneTurn() method with a 0.1 seconds
 	 * of waiting in between using a SwingWorker object.
 	 * 
 	 * @param quantity The amount of turns to generate.
