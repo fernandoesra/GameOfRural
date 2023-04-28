@@ -759,51 +759,82 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	 * @see javax.swing.SwingWorker;
 	 *
 	 */
-	private class SwingWorkerRercursive extends SwingWorker<Void, Void> {
+	private class SwingWorkerDoTurn extends SwingWorker<Void, Void> {
 		
 		// Attribute
-		private int actualExecute;
+		private AtomicBoolean runningProccess;
+		private final int msToWaitBetweenTurns;
+		private final int remainingTurns;
 		
 		// Constructor, set quantity
-		public SwingWorkerRercursive(int quantityExecute) {
-			this.actualExecute = quantityExecute;
+		public SwingWorkerDoTurn(AtomicBoolean runningProccess, int msToWaitBetweenTurns, int remainingTurns) {
+			this.runningProccess = runningProccess;
+			this.msToWaitBetweenTurns = msToWaitBetweenTurns;
+			this.remainingTurns = remainingTurns;
 		}
 		
 		// Method for Background operations
 		protected Void doInBackground() {
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			if(msToWaitBetweenTurns > 0){
+				try {
+					Thread.sleep(msToWaitBetweenTurns);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 			return null;
 		}
 		
-		// Recursive method
 		protected void done() {
-			// Actions
-			ActionsLog.registerAction("Remaining turns: " + actualExecute + "/" + turnX.getQuantity());
 			generateOneTurn();
-			
-			// Recursive control
-			actualExecute--;
-			if (actualExecute > 0 && generatingTurns.get()) {
-				SwingWorkerRercursive worker = new SwingWorkerRercursive(actualExecute);
-				worker.execute(); 	/* Recursive */
-			} else {
-				// Final action
-				if (!generatingTurns.get()) {
-					ActionsLog.registerAction("TURNS HAVE BEEN STOPPED");
-				} else {
-					ActionsLog.registerAction("ALL TURNS HAVE BEEN COMPLETED");
-					generatingTurns.lazySet(false);
-				}
-				logTextArea.setText(log.toString());
-				programInUse.set(false);
-			}
-
+			ActionsLog.registerAction("Remaining turns: " + remainingTurns + "/" + turnX.getQuantity());
+			runningProccess.set(false);
 		}
 	}
+
+	private class SwingWorkerGenerateTurns extends SwingWorker<Void, Void> {
+		
+		// Attribute
+		private int remainingTurns;
+		private AtomicBoolean isbackgroundProccessRunning;
+		private SwingWorkerDoTurn swingWorkerDoTurn;
+		
+		// Constructor, set quantity
+		public SwingWorkerGenerateTurns(int turnsToExecute) {
+			this.remainingTurns = turnsToExecute;
+			this.isbackgroundProccessRunning = new AtomicBoolean(false);
+		}
+		
+		// Method for Background operations
+		protected Void doInBackground() {
+			do{
+				if(!isbackgroundProccessRunning.get()){
+					remainingTurns--;
+
+					// Start wait proccess
+					isbackgroundProccessRunning.set(true);
+					swingWorkerDoTurn = new SwingWorkerDoTurn(isbackgroundProccessRunning,0,remainingTurns);
+					swingWorkerDoTurn.execute();
+				}
+			}while(remainingTurns > 0 && generatingTurns.get());
+
+			return null;
+		}
+		
+		protected void done() {
+			// Final action
+			if (!generatingTurns.get()) {
+				ActionsLog.registerAction("TURNS HAVE BEEN STOPPED");
+			} else {
+				ActionsLog.registerAction("ALL TURNS HAVE BEEN COMPLETED");
+				generatingTurns.lazySet(false);
+			}
+			logTextArea.setText(log.toString());
+			programInUse.set(false);
+		}
+	}
+
+	
 
 	/**
 	 * This method calls 'x' times the generateOneTurn() method with a 0.1 seconds
@@ -818,7 +849,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 				programInUse.lazySet(true);
 				generatingTurns.lazySet(true);
 				turnX = new QuantityTurns(quantity);
-				SwingWorkerRercursive worker = new SwingWorkerRercursive(quantity);
+				SwingWorkerGenerateTurns worker = new SwingWorkerGenerateTurns(quantity);
 				worker.execute();
 			}
 		} else {
