@@ -759,9 +759,57 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	 * @see javax.swing.SwingWorker;
 	 *
 	 */
-	private class SwingWorkerDoTurn extends SwingWorker<Void, Void> {
+	/*
+	private class SwingWorkerRercursive extends SwingWorker<Void, Void> {
 		
 		// Attribute
+		private int actualExecute;
+		
+		// Constructor, set quantity
+		public SwingWorkerRercursive(int quantityExecute) {
+			this.actualExecute = quantityExecute;
+		}
+		
+		// Method for Background operations
+		protected Void doInBackground() {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+		// Recursive method
+		protected void done() {
+			// Actions
+			ActionsLog.registerAction("Remaining turns: " + actualExecute + "/" + turnX.getQuantity());
+			generateOneTurn();
+			
+			// Recursive control
+			actualExecute--;
+			if (actualExecute > 0 && generatingTurns.get()) {
+				SwingWorkerRercursive worker = new SwingWorkerRercursive(actualExecute);
+				worker.execute(); // Recursive
+			} else {
+				// Final action
+				if (!generatingTurns.get()) {
+					ActionsLog.registerAction("TURNS HAVE BEEN STOPPED");
+				} else {
+					ActionsLog.registerAction("ALL TURNS HAVE BEEN COMPLETED");
+					generatingTurns.lazySet(false);
+				}
+				logTextArea.setText(log.toString());
+				programInUse.set(false);
+			}
+
+		}
+	}
+	*/
+
+
+	private class SwingWorkerDoTurn extends SwingWorker<Void, Void> {
+		// Attributes
 		private AtomicBoolean runningProccess;
 		private final int msToWaitBetweenTurns;
 		private final int remainingTurns;
@@ -793,8 +841,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	}
 
 	private class SwingWorkerGenerateTurns extends SwingWorker<Void, Void> {
-		
-		// Attribute
+		// Attributes
 		private int remainingTurns;
 		private AtomicBoolean isbackgroundProccessRunning;
 		private SwingWorkerDoTurn swingWorkerDoTurn;
@@ -850,6 +897,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 				generatingTurns.lazySet(true);
 				turnX = new QuantityTurns(quantity);
 				SwingWorkerGenerateTurns worker = new SwingWorkerGenerateTurns(quantity);
+				//SwingWorkerRercursive worker = new SwingWorkerRercursive(quantity);
 				worker.execute();
 			}
 		} else {
