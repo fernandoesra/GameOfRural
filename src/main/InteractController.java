@@ -11,6 +11,8 @@ import jobs.Carpenter;
 import jobs.Farmer;
 import jobs.Fisherman;
 import jobs.Lumberjack;
+import jobs.Marshal;
+import jobs.Mayor;
 import jobs.Miner;
 import jobs.Shepherd;
 import logs.ActionsLog;
@@ -52,6 +54,7 @@ import resources.WoodPlanks;
  * @see jobs.Butcher
  * @see jobs.Shepherd
  * @see jobs.Farmer
+ * @see jobs.Mayor
  *
  */
 
@@ -134,7 +137,8 @@ public class InteractController {
 			interactCarpenter(board, genericCitizen);
 		}
 
-		// Fishmonger		
+		// Fishmonger
+		//*TODO
 	
 		
 		/* Money related works: */
@@ -144,11 +148,82 @@ public class InteractController {
 			interactFarmer(board, genericCitizen);
 		}
 		
+		// Mayor
+		if (nameOfClass.indexOf("Mayor") >= 0) {
+			interactMayor(board, genericCitizen);
+		}
+		
+		// Marshal
+		if (nameOfClass.indexOf("Marshal") >= 0) {
+			interactMarshal(board, genericCitizen);
+		}
 		
 		/* Others works: */
 		
 	}
 	
+	/**
+	 * This method cast the genericMan to a Marshal. Then search the up, down, left
+	 * and rigth coordinates for others citizens. If a citizen is found continue the
+	 * method and call for beCareful() of the Marshal.
+	 * 
+	 * @param board      The map to search for different things, such as the
+	 *                   surroundings of the Man.
+	 * @param genericMan Must be a Marshal object and exists in the board.
+	 * 
+	 */
+	public static void interactMarshal(Board board, Man genericMan) {
+		Marshal actualMan = (Marshal) genericMan;
+		int actualX = actualMan.getMapX();
+		int actualY = actualMan.getMapY();		
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName("jobs", board, xToLook, yToLook)) {
+					Man adjacentMan = (Man) board.getObjectAt(xToLook, yToLook);
+					actualMan.beCareful(adjacentMan, board);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * This method cast the genericMan to a Mayor. Then search the up, down, left
+	 * and rigth coordinates for others citizens. If a citizen is found continue the
+	 * method and call for goodDay() of the Mayor.
+	 * 
+	 * @param board      The map to search for different things, such as the
+	 *                   surroundings of the Man.
+	 * @param genericMan Must be a Mayor object and exists in the board.
+	 * 
+	 */
+	public static void interactMayor(Board board, Man genericMan) {
+		Mayor actualMan = (Mayor) genericMan;
+		int actualX = actualMan.getMapX();
+		int actualY = actualMan.getMapY();		
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName("jobs", board, xToLook, yToLook)) {
+					Man adjacentMan = (Man) board.getObjectAt(xToLook, yToLook);
+					actualMan.goodDay(adjacentMan, board);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * This method cast the genericMan to a Farmer. Then search the up, down, left
+	 * and rigth coordinates for others citizens. If a citizen is found continue the
+	 * method and call for sellSomething() of the Farmer.
+	 * 
+	 * @param board      The map to search for different things, such as the
+	 *                   surroundings of the Man.
+	 * @param genericMan Must be a Farmer object and exists in the board.
+	 * 
+	 */
 	public static void interactFarmer(Board board, Man genericMan) {
 		Farmer actualMan = (Farmer) genericMan;
 		int actualX = actualMan.getMapX();

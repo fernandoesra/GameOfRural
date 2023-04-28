@@ -9,6 +9,8 @@ import jobs.Farmer;
 import jobs.Fisherman;
 import jobs.Fishmonger;
 import jobs.Lumberjack;
+import jobs.Marshal;
+import jobs.Mayor;
 import jobs.Miner;
 import jobs.Shepherd;
 import map.Board;
@@ -187,6 +189,47 @@ public class CitizenList {
 		this.createShepherd(total);
 		this.createFishmonger(total);
 		this.createFisherman(total);
+		this.createMayor(total);
+		this.createMarshal(total);
+	}
+	
+	/**
+	 * This method create 'x' amount of <b>Marshals</b> and adds them to the
+	 * citizenList. <b>Important: </b>This method only create the objects and add
+	 * them to the citizenList, does not add them to the map. To add the citizens it
+	 * is necessary to use the methods addCitizensToMap(board) or
+	 * addLastCitizen(board).
+	 * <p>
+	 * The money of the new citizen its set in the actualMoney() method.
+	 * 
+	 * @param amount Hoy many <b>Marshals</b> want to create.
+	 */
+	public void createMarshal(int amount) {
+
+		for (int i = 0; i < amount; i++) {
+			Marshal newCitizen = new Marshal(IDs, 30, actualMoney(), 0, 0, 1);
+			citizenList.addEnd(newCitizen);
+			IDs++;
+		}
+	}
+	
+	/**
+	 * This method create 'x' amount of <b>Mayors</b> and adds them to the
+	 * citizenList. <b>Important: </b>This method only create the objects and add
+	 * them to the citizenList, does not add them to the map. To add the citizens it
+	 * is necessary to use the methods addCitizensToMap(board) or
+	 * addLastCitizen(board).
+	 * <p>
+	 * The money of the new citizen its set in the actualMoney() method.
+	 * 
+	 * @param amount Hoy many <b>Mayors</b> want to create.
+	 */
+	public void createMayor(int amount) {
+		for (int i = 0; i < amount; i++) {
+			Mayor newCitizen = new Mayor(IDs, 30, actualMoney(), 0, 0, 1);
+			citizenList.addEnd(newCitizen);
+			IDs++;
+		}
 	}
 	
 	/**

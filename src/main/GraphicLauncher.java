@@ -468,6 +468,14 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 					// Fisherman
 					high.addHighlight(i+1, i+2, setColor(2));
 					break;
+				case 'Y':
+					// Mayor
+					high.addHighlight(i+1, i+2, setColor(16));
+					break;
+				case 'A':
+					// Marshal
+					high.addHighlight(i+1, i+2, setColor(17));
+					break;
 					
 				// Resources:
 				case (char)9540:
@@ -529,8 +537,10 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	 * <b>13: </b>Ore Gold.          R: 255, G: 215, B: 0<br>
 	 * <b>14: </b>Chartreuse.        R: 223, G: 254, B: 0<br>
 	 * <b>15: </b>Salmon.            R: 180, G: 55, B: 87<br>
+	 * <b>16: </b>Dark Orange.       R: 205, G: 85, B: 30<br>
+	 * <b>17: </b>Pink.              R: 255, G: 51, B: 153<br>
 	 * 
-	 * @param index A number between 1 and 15
+	 * @param index A number between 1 and 17
 	 * @return A HighlightPainter objetc with one color asigned. If the number of
 	 *         the param its not on the list return white
 	 */
@@ -583,6 +593,12 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 			break;
 		case 15:
 			actualColor = new Color(250, 128, 114);
+			break;
+		case 16:
+			actualColor = new Color(205, 85, 30);
+			break;
+		case 17:
+			actualColor = new Color(255, 51, 153);
 			break;
 		default:
 			break;
@@ -718,9 +734,12 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	 */
 	public void generateOneTurn() {
 		this.passOneTurn();
+		
+		// Each 5 turns move the animals
 		if (this.actualTurn.getQuantity() % 5 == 0) {
 			this.animalList.moveAllAnimals(board);
 		}
+		
 		MoveController.moveAllCitizens(board, citizenList);
 		InteractController.interactAll(board, citizenList);
 		textCentralArea.setText("\n" + board.toString());
