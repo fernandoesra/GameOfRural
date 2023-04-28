@@ -1,7 +1,10 @@
 package jobs;
 
+import java.util.Iterator;
+
 import base.Man;
 import logs.ActionsLog;
+import main.CitizenList;
 import map.Board;
 import resources.Money;
 
@@ -55,6 +58,28 @@ public class Marshal extends Man{
 				+ ") to be careful, " + board.getName() + "'s streets are dangerous.");
 	}
 	
+	/*
+	 * TODO
+	 */
+	public double distributeTaxes(CitizenList citizenList) {
+		double distributeToEach = 0d;
+		Mayor actualMayor = (Mayor) citizenList.searchForCitizen("Mayor");
+		
+		double taxesTotalValue = actualMayor.getTaxes().getQuantity();
+		int totalCitizens = citizenList.getLength();
+		distributeToEach = taxesTotalValue / totalCitizens;
+		
+		for (int i = 0; i < totalCitizens; i++) {
+			Man actualCitizen = (Man) citizenList.searchForCitizen(i+1);
+			actualCitizen.getMoney().setQuantity(distributeToEach + actualCitizen.getMoney().getQuantity());
+		}
+		
+		Money zeroMoney = new Money(0);
+		actualMayor.setTaxes(zeroMoney);
+		
+		return distributeToEach;
+	}
+
 	@Override
 	public String toString() {
 		String toReturn = super.toString();

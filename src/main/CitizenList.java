@@ -129,16 +129,36 @@ public class CitizenList {
 		return find;
 	}
 	
+	/**
+	 * Search in the citizenList for one citizen with a specifies job. Returns only
+	 * the first appaerance.
+	 * 
+	 * @param job A String to search
+	 * @return If the citizen with the job are on the list, return that citizen
+	 */
+	public Object searchForCitizen(String job) {
+		Object find = null;
+		for (int i = 0; i < citizenList.getLength(); i++) {
+			Man toFind = (Man) citizenList.getObjectOnIndex(i);
+			String jobToFind = toFind.getClass().getName();
+
+			if (jobToFind.contains(job)) {
+				find = toFind;
+			}
+		}
+		return find;
+	}
+
 	@Override
 	public String toString() {
-		String respuesta = "";
+		String citizenInfo = "";
 		
 		for (int i = 0; i < citizenList.getLength(); i++) {
 			
-			respuesta += "Citizen "+(i+1)+": "+ citizenList.getObjectOnIndex(i).toString() + "\n\n";
+			citizenInfo += "Citizen "+(i+1)+": "+ citizenList.getObjectOnIndex(i).toString() + "\n\n";
 		}
 		
-		return respuesta;
+		return citizenInfo;
 	}
 	
 	/**
@@ -178,6 +198,12 @@ public class CitizenList {
 	}
 	
 	
+	/**
+	 * This method add 'x' of each citizen to the list but just 1 mayor and 1
+	 * marshal.
+	 * 
+	 * @param total How much of each citizen to create (not Mayors and Marshals).
+	 */
 	public void createAll(int total) {
 		this.createFarmer(total);
 		this.createButcher(total);
@@ -189,8 +215,8 @@ public class CitizenList {
 		this.createShepherd(total);
 		this.createFishmonger(total);
 		this.createFisherman(total);
-		this.createMayor(total);
-		this.createMarshal(total);
+		this.createMayor(1);
+		this.createMarshal(1);
 	}
 	
 	/**

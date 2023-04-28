@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import base.Man;
+import jobs.Marshal;
 import jobs.Mayor;
 import logs.ActionsLog;
 import map.Board;
@@ -64,6 +65,8 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	
 	int height; 					/* Height of the board */
 	int width; 						/* Width of the board */
+	int timeBetweenTurns;
+	
 	Board board;
 	CitizenList citizenList;
 	ResourcesList resourcesList;
@@ -73,13 +76,16 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	ActionsLog log;
 	BiomeGenerator biomeGenerator;
 	/**
-	 * This variable programInUse is used on generateXturns() to prevent the player
+	 * The variable programInUse is used on generateXturns() to prevent the player
 	 * use other buttons during the performance of the method.
 	 */
 	AtomicBoolean programInUse;
+	
 	QuantityTurns turnX;
 	QuantityTurns actualTurn;
 	AtomicBoolean generatingTurns;
+	
+	AtomicBoolean payOrTax;
 	
 	public JPanel mainContentPane;
 	public JTextArea textCentralArea;
@@ -115,11 +121,16 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	 */
 	public GraphicLauncher() {
 		
+		//Set the time to sleep between turns
+		timeBetweenTurns = setTimeBetweenTurns("default");
+		
 		// Initialize the programInUse
 		programInUse = new AtomicBoolean();
 		programInUse.lazySet(false);
 		generatingTurns = new AtomicBoolean();
 		generatingTurns.lazySet(false);
+		payOrTax = new AtomicBoolean();
+		payOrTax.lazySet(true);
 		
 		// Initialize the biome generator
 		biomeGenerator = new BiomeGenerator();
@@ -402,8 +413,35 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		showMapButton.addKeyListener(this);
 		actualCitizenTextArea.addKeyListener(this);
 		turnOneRandom.addKeyListener(this);
+		turnIndicatedRandom.addKeyListener(this);
 		turnsValueTextField.addKeyListener(this);
 		stopButton.addKeyListener(this);
+	}
+	
+	/**
+	 * This method is used on the GraphicLauncher constructor to change the sleep
+	 * time between turns.<br>
+	 * The returned value will be interpreted in millisecods.
+	 * 
+	 * @param keyword "default" for 100, "slow" for 1000 and "fast" for 1
+	 * @return 100 for "default", 100 for "slow" and 1 for "fast"
+	 */
+	public int setTimeBetweenTurns(String keyword) {
+		int speed = 100;
+		switch (keyword) {
+		case "default":
+			speed = 100;
+			break;
+		case "slow":
+			speed = 1000;
+			break;
+		case "fast":
+			speed = 1;
+			break;
+		default:
+			break;
+		}
+		return speed;
 	}
 	
 	/**
@@ -732,23 +770,75 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	/**
 	 * This method move all the citizens on the citizenList and then performs a
 	 * action for each citizen.
+	 * <p>
+	 * 
+	 * This method also control the movement of the animals each 5 turns. And the
+	 * collect or distribute taxes methods each 200 turns.
 	 */
 	public void generateOneTurn() {
 		this.passOneTurn();
-		
+				
 		// Each 5 turns move the animals
 		if (this.actualTurn.getQuantity() % 5 == 0) {
 			this.animalList.moveAllAnimals(board);
 		}
-		// Mayor prueba = (Mayor) citizenList.searchForCitizen(11);
-		// prueba.collectTaxes(citizenList);
+
+		// Each 200 turns its time to collect or distribute taxes
+		if (this.actualTurn.getQuantity() % 200 == 0) {
+			/*
+			 * True   for collect taxes
+			 * False  for distriute taxes 
+			 */
+			
+			if (payOrTax.get()) {
+				mayorCollectTaxes();
+				payOrTax.lazySet(false);
+				
+			} else {				
+				marshalDistributeTaxes();
+				payOrTax.lazySet(true);
+			}
+		}
 		
+		// Update the text areas
 		MoveController.moveAllCitizens(board, citizenList);
 		InteractController.interactAll(board, citizenList);
 		textCentralArea.setText("\n" + board.toString());
 		highlightMainMap(textCentralArea);
 		logTextArea.setText(log.toString());
 		actualCitizenInfoText.setText(citizenList.getInfoID(actualCitizenID));
+	}
+	
+	/**
+	 * Search for the marshal of the town and distribute the taxes.
+	 */
+	public void marshalDistributeTaxes() {
+		Marshal actualMarshal = (Marshal) citizenList.searchForCitizen("Marshal");
+		
+		double toEachCitizen = actualMarshal.distributeTaxes(citizenList);
+		ActionsLog.registerAction(""
+			+ "-----------------------------------------------------------------------------------------------\n"
+			+ "It's payday in " + board.getName() + "! " + actualMarshal.getName()
+			+ " delivers " + (Math.floor(toEachCitizen*100.0d) / 100.0d) + " ruralcoins to each citizen.\n"
+			+ "-----------------------------------------------------------------------------------------------");
+		
+		logTextArea.setText(log.toString());
+	}
+	
+	/**
+	 * Search for the mayor of the town and collect the taxes.
+	 */
+	public void mayorCollectTaxes() {
+		Mayor actualMayor = (Mayor) citizenList.searchForCitizen("Mayor");
+		
+		double totalCollected = actualMayor.collectTaxes(citizenList);
+		ActionsLog.registerAction(""
+			+ "-----------------------------------------------------------------------------------------------\n"
+			+ "It's tax day in " + board.getName() + "! " + actualMayor.getName()
+			+ " has collected " + (Math.floor(totalCollected*100.0d) / 100.0d) + " ruralcoins in taxes.\n"
+			+ "-----------------------------------------------------------------------------------------------");
+		
+		logTextArea.setText(log.toString());
 	}
 	
 	/**
@@ -788,7 +878,10 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		protected void done() {
 			// Actions for Game of Rural
 			generateOneTurn();
-			ActionsLog.registerAction("Remaining turns: " + remainingTurns + "/" + turnX.getQuantity());
+			
+			if (remainingTurns>0) {
+				ActionsLog.registerAction("Remaining turns: " + remainingTurns + "/" + turnX.getQuantity());
+			}
 			runningProccess.set(false);
 		}
 	}
@@ -806,13 +899,13 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		private int remainingTurns;
 		private AtomicBoolean isbackgroundProccessRunning;
 		private SwingWorkerDoTurn swingWorkerDoTurn;
-		private int timeBetweenTurns;
+		private int SetTimeBetweenTurns;
 		
 		// Constructor, set quantity
 		public SwingWorkerGenerateTurns(int turnsToExecute) {
 			this.remainingTurns = turnsToExecute;
 			this.isbackgroundProccessRunning = new AtomicBoolean(false);
-			this.timeBetweenTurns = 100;	/* Sleep time between turns */
+			this.SetTimeBetweenTurns = timeBetweenTurns;	/* Set in the GraphicLauncher constructor */
 		}
 		
 		// Method for Background operations
@@ -822,7 +915,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 					remainingTurns--;
 					// Start wait proccess
 					isbackgroundProccessRunning.set(true);
-					swingWorkerDoTurn = new SwingWorkerDoTurn(isbackgroundProccessRunning,timeBetweenTurns,remainingTurns);
+					swingWorkerDoTurn = new SwingWorkerDoTurn(isbackgroundProccessRunning,SetTimeBetweenTurns,remainingTurns);
 					swingWorkerDoTurn.execute();
 				}
 			}while(remainingTurns > 0 && generatingTurns.get());
@@ -837,9 +930,9 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 				ActionsLog.registerAction("TURNS HAVE BEEN STOPPED");
 			} else {
 				ActionsLog.registerAction("ALL TURNS HAVE BEEN COMPLETED");
-				generatingTurns.lazySet(false);
 			}
 			
+			generatingTurns.lazySet(false);
 			logTextArea.setText(log.toString());
 			programInUse.set(false);
 		}
@@ -921,8 +1014,9 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		}
 		
 	}
+
 	/**
-	 * Used to controll the actual turn on the log text area.
+	 * Used to controll the actual turn on the log text area adding one turn.
 	 */
 	public void passOneTurn() {
 		if (actualTurn.getQuantity() != 1) {

@@ -63,21 +63,29 @@ public class Mayor extends Man {
 		return taxes;
 	}
 	
-	public void collectTaxes(CitizenList citizenList) {
+	/**
+	 * This method run over one CitizenList object and collect a 5% of the total
+	 * money of each citizen. Then add the total collected to the taxes Money object
+	 * of the Mayor.
+	 * 
+	 * @param citizenList A list of citizens to collect the money.
+	 * @return The double valor for the total money collected.
+	 * 
+	 */
+	public double collectTaxes(CitizenList citizenList) {
 		double totalTaxes = 0;
-		
 		for (int i = 0; i < citizenList.getLength(); i++) {
-			Man actualCitizen = (Man)citizenList.searchForCitizen(i+1);
-			
+			Man actualCitizen = (Man) citizenList.searchForCitizen(i + 1);
+
 			double actualCitizenMoney = actualCitizen.getMoney().getQuantity();
 			double actualTaxe = actualCitizenMoney * 0.05;
 			actualCitizen.getMoney().setQuantity(actualCitizenMoney - actualTaxe);
-			
+
 			totalTaxes += actualTaxe;
 		}
-		
-		this.money.setQuantity(this.money.getQuantity() + totalTaxes);
-		System.out.println(this.money.getQuantity());
+
+		this.taxes.setQuantity(this.taxes.getQuantity() + totalTaxes);
+		return totalTaxes;
 	}
 
 	/**
