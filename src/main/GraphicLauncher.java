@@ -752,62 +752,14 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	}
 	
 	/**
-	 * A SwingWorker object used to control multiple random turns.
+	 * A SwingWorker object used to control what to do on each of the consucitive
+	 * random turns.
 	 * 
 	 * @author Miguel Angel Croche Munoz (MichValwin)
 	 * @see javax.swing.SwingConstants;
 	 * @see javax.swing.SwingWorker;
 	 *
 	 */
-	/*
-	private class SwingWorkerRercursive extends SwingWorker<Void, Void> {
-		
-		// Attribute
-		private int actualExecute;
-		
-		// Constructor, set quantity
-		public SwingWorkerRercursive(int quantityExecute) {
-			this.actualExecute = quantityExecute;
-		}
-		
-		// Method for Background operations
-		protected Void doInBackground() {
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-		
-		// Recursive method
-		protected void done() {
-			// Actions
-			ActionsLog.registerAction("Remaining turns: " + actualExecute + "/" + turnX.getQuantity());
-			generateOneTurn();
-			
-			// Recursive control
-			actualExecute--;
-			if (actualExecute > 0 && generatingTurns.get()) {
-				SwingWorkerRercursive worker = new SwingWorkerRercursive(actualExecute);
-				worker.execute(); // Recursive
-			} else {
-				// Final action
-				if (!generatingTurns.get()) {
-					ActionsLog.registerAction("TURNS HAVE BEEN STOPPED");
-				} else {
-					ActionsLog.registerAction("ALL TURNS HAVE BEEN COMPLETED");
-					generatingTurns.lazySet(false);
-				}
-				logTextArea.setText(log.toString());
-				programInUse.set(false);
-			}
-
-		}
-	}
-	*/
-
-
 	private class SwingWorkerDoTurn extends SwingWorker<Void, Void> {
 		// Attributes
 		private AtomicBoolean runningProccess;
@@ -834,22 +786,33 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		}
 		
 		protected void done() {
+			// Actions for Game of Rural
 			generateOneTurn();
 			ActionsLog.registerAction("Remaining turns: " + remainingTurns + "/" + turnX.getQuantity());
 			runningProccess.set(false);
 		}
 	}
 
+	/**
+	 * A SwingWorker object used to control multiple random turns.
+	 * 
+	 * @author Miguel Angel Croche Munoz (MichValwin)
+	 * @see javax.swing.SwingConstants;
+	 * @see javax.swing.SwingWorker;
+	 *
+	 */
 	private class SwingWorkerGenerateTurns extends SwingWorker<Void, Void> {
 		// Attributes
 		private int remainingTurns;
 		private AtomicBoolean isbackgroundProccessRunning;
 		private SwingWorkerDoTurn swingWorkerDoTurn;
+		private int timeBetweenTurns;
 		
 		// Constructor, set quantity
 		public SwingWorkerGenerateTurns(int turnsToExecute) {
 			this.remainingTurns = turnsToExecute;
 			this.isbackgroundProccessRunning = new AtomicBoolean(false);
+			this.timeBetweenTurns = 100;	/* Sleep time between turns */
 		}
 		
 		// Method for Background operations
@@ -857,10 +820,9 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 			do{
 				if(!isbackgroundProccessRunning.get()){
 					remainingTurns--;
-
 					// Start wait proccess
 					isbackgroundProccessRunning.set(true);
-					swingWorkerDoTurn = new SwingWorkerDoTurn(isbackgroundProccessRunning,0,remainingTurns);
+					swingWorkerDoTurn = new SwingWorkerDoTurn(isbackgroundProccessRunning,timeBetweenTurns,remainingTurns);
 					swingWorkerDoTurn.execute();
 				}
 			}while(remainingTurns > 0 && generatingTurns.get());
@@ -870,18 +832,18 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		
 		protected void done() {
 			// Final action
+			
 			if (!generatingTurns.get()) {
 				ActionsLog.registerAction("TURNS HAVE BEEN STOPPED");
 			} else {
 				ActionsLog.registerAction("ALL TURNS HAVE BEEN COMPLETED");
 				generatingTurns.lazySet(false);
 			}
+			
 			logTextArea.setText(log.toString());
 			programInUse.set(false);
 		}
 	}
-
-	
 
 	/**
 	 * This method calls 'x' times the generateOneTurn() method with a 0.1 seconds
