@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import base.Man;
+import jobs.Mayor;
 import logs.ActionsLog;
 import map.Board;
 
@@ -739,6 +740,8 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		if (this.actualTurn.getQuantity() % 5 == 0) {
 			this.animalList.moveAllAnimals(board);
 		}
+		// Mayor prueba = (Mayor) citizenList.searchForCitizen(11);
+		// prueba.collectTaxes(citizenList);
 		
 		MoveController.moveAllCitizens(board, citizenList);
 		InteractController.interactAll(board, citizenList);

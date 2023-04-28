@@ -2,6 +2,7 @@ package jobs;
 
 import base.Man;
 import logs.ActionsLog;
+import main.CitizenList;
 import map.Board;
 import resources.Money;
 
@@ -18,7 +19,9 @@ import resources.Money;
  * 
  */
 public class Mayor extends Man {
-
+	
+	Money taxes;
+	
 	/**
 	 * Do not use
 	 */
@@ -28,7 +31,8 @@ public class Mayor extends Man {
 
 	/**
 	 * Create a new Mayor and set the icon to 'Y'.<br>
-	 * The Man object create a random name automatically.
+	 * The Man object create a random name automatically.<br>
+	 * The mayor have a specific wallet for the taxes separated from his money.
 	 * 
 	 * @param ID    The ID for the Mayor.
 	 * @param HP    Starting life points (HP) of the Mayor.
@@ -40,6 +44,40 @@ public class Mayor extends Man {
 	public Mayor(int ID, int HP, Money money, int mapX, int mapY, int speed) {
 		super(ID, HP, money, mapX, mapY, speed, "Y"
 				);
+		taxes = new Money(0);
+	}
+	
+	/**
+	 * 
+	 * @param taxes Set the taxes money object.
+	 */
+	public void setTaxes(Money taxes) {
+		this.taxes = taxes;
+	}
+	
+	/**
+	 * 
+	 * @return The actual taxes money object.
+	 */
+	public Money getTaxes() {
+		return taxes;
+	}
+	
+	public void collectTaxes(CitizenList citizenList) {
+		double totalTaxes = 0;
+		
+		for (int i = 0; i < citizenList.getLength(); i++) {
+			Man actualCitizen = (Man)citizenList.searchForCitizen(i+1);
+			
+			double actualCitizenMoney = actualCitizen.getMoney().getQuantity();
+			double actualTaxe = actualCitizenMoney * 0.05;
+			actualCitizen.getMoney().setQuantity(actualCitizenMoney - actualTaxe);
+			
+			totalTaxes += actualTaxe;
+		}
+		
+		this.money.setQuantity(this.money.getQuantity() + totalTaxes);
+		System.out.println(this.money.getQuantity());
 	}
 
 	/**
