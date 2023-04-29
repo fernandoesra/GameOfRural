@@ -201,10 +201,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 			System.err.println("Font not found");
 			e.printStackTrace();
 		}
-		
-		// Create Font:
-		Font FiraFont = new Font("./assets/FiraCode-Regular.ttf", Font.PLAIN, 11);
-		
+				
 		// Select Citizens Panel
 		JPanel selectCitizensPanel = new JPanel();
 		selectCitizensPanel.setBackground(new Color(252, 234, 184));
@@ -224,7 +221,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		// Objects for select the citizen to move
 		JTextField actualCitizenTextArea = new JTextField();
 		actualCitizenTextArea.setBackground(new Color(254, 249, 235));
-		actualCitizenTextArea.setFont(FiraFont);
+		// actualCitizenTextArea.setFont(FiraFont11);
 		actualCitizenTextArea.setBounds(108, 12, 46, 20);
 		actualCitizenTextArea.setHorizontalAlignment(SwingConstants.CENTER);
 		actualCitizenTextArea.setEditable(false);
@@ -248,10 +245,18 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		actualCitizenInfoText = new JTextArea();
 		scrollPaneActualCitizen.setViewportView(actualCitizenInfoText);
 		actualCitizenInfoText.setBackground(new Color(254, 249, 235));
-		actualCitizenInfoText.setFont(new Font("Fira Code", Font.PLAIN, 11));
 		actualCitizenInfoText.setEditable(false);
 		actualCitizenInfoText.setColumns(10);
 		actualCitizenInfoText.setText(citizenList.getInfoID(actualCitizenID));
+		
+		// Set text for actual citizen text info
+		try {
+			Font font = Font.createFont(Font.PLAIN, new FileInputStream(new File("./assets/FiraCode-Regular.ttf")));
+			actualCitizenInfoText.setFont(font.deriveFont(Font.PLAIN, 11f));
+		} catch (FontFormatException | IOException e) {
+			System.err.println("Font not found");
+			e.printStackTrace();
+		}
 
 		JPanel citizenInfoPanel = new JPanel();
 		citizenInfoPanel.setBackground(new Color(252, 234, 184));
@@ -280,9 +285,17 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 
 		logTextArea = new JTextArea();
 		logTextArea.setBackground(new Color(254, 249, 235));
-		logTextArea.setFont(new Font("Fira Code", Font.PLAIN, 13));
-		scrollPaneLogArea.setViewportView(logTextArea);
 		logTextArea.setEditable(false);
+		scrollPaneLogArea.setViewportView(logTextArea);
+		
+		// Set text for citizen log
+		try {
+			Font font = Font.createFont(Font.PLAIN, new FileInputStream(new File("./assets/FiraCode-Regular.ttf")));
+			logTextArea.setFont(font.deriveFont(Font.PLAIN, 13f));
+		} catch (FontFormatException | IOException e) {
+			System.err.println("Font not found");
+			e.printStackTrace();
+		}
 
 		JLabel logLabel = new JLabel("Log:");
 		logLabel.setBounds(10, 11, 157, 14);
