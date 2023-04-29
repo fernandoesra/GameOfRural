@@ -36,7 +36,14 @@ import javax.swing.text.Highlighter.HighlightPainter;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.border.BevelBorder;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
+import java.awt.SystemColor;
 
 /**
  * The graphicLauncher its the main class of the project.
@@ -87,6 +94,9 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	
 	AtomicBoolean payOrTax;
 	
+	FloatControl musicController;
+	boolean controlMusicChanger;
+	
 	public JPanel mainContentPane;
 	public JTextArea textCentralArea;
 	public JTextArea actualCitizenInfoText;
@@ -120,8 +130,8 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	 * Empty constructor. Initialize all the attributes for the class.
 	 */
 	public GraphicLauncher() {
-		
-		//Set the time to sleep between turns
+			
+		// Set the time to sleep between turns
 		timeBetweenTurns = setTimeBetweenTurns("default");
 		
 		// Initialize the programInUse
@@ -138,13 +148,25 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		// Initialize the action log
 		log = new ActionsLog();
 		
-		// Set the actual turn to 1
-		actualTurn = new QuantityTurns(1);
-		ActionsLog.registerAction("Actual turn: " + actualTurn);
-		
 		// Initialize and fill the map, set the starting actual Citizen to 1
 		this.initialize();
 		actualCitizenID = 1;
+		
+		// Set the actual turn to 1 and show the welcome text
+				actualTurn = new QuantityTurns(1);
+				ActionsLog.registerAction(""
+		+ "***********************************************************************************************\r\n"
+		+ "                                           WELCOME TO\r\n"
+		+ "                                          GAME OF RURAL\r\n"
+		+ "-----------------------------------------------------------------------------------------------\r\n"
+		+ "You can move the characters using 'W,A,S,D' or the arrow keys.\r\n"
+		+ "You can interact using the 'E' key.\r\n"
+		+ "You can change your character in the upper right area.\r\n"
+		+ "You can generate random turns in the central area.\r\n"
+		+ "-----------------------------------------------------------------------------------------------\r\n"
+		+ "Thanks for playing! For more information visit: https://github.com/fernandoesra/GameOfRural\r\n"
+		+ "***********************************************************************************************\r\n"
+		+ "A new day dawns in " + board.getName() + ". Actual turn: " + actualTurn );
 		
 		/*
 		 * From here we create all the graphic objetcs of Java Swing
@@ -254,7 +276,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		logPanel.setLayout(null);
 
 		JScrollPane scrollPaneLogArea = new JScrollPane();
-		scrollPaneLogArea.setBounds(10, 44, 784, 212);
+		scrollPaneLogArea.setBounds(10, 36, 784, 220);
 
 		logTextArea = new JTextArea();
 		logTextArea.setBackground(new Color(254, 249, 235));
@@ -263,7 +285,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		logTextArea.setEditable(false);
 
 		JLabel logLabel = new JLabel("Log:");
-		logLabel.setBounds(10, 22, 157, 14);
+		logLabel.setBounds(10, 11, 157, 14);
 		
 		// Banner image
 		JLabel bannerLabel = new JLabel("");
@@ -286,6 +308,19 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		mapLegendImage.setBounds(10, 45, 355, 337);
 		mapLegendImage.setIcon(new ImageIcon("./assets/legendImage.png"));
 		
+		// Start background music
+		try {
+			this.musicController = backgroundMusic();
+		} catch (UnsupportedAudioFileException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (LineUnavailableException e1) {
+			e1.printStackTrace();
+		}
+		
+		// this.controlMusic(musicController, "pause" / "continue");
+		
 		// Button panel
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setBackground(new Color(252, 234, 184));
@@ -294,7 +329,20 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		buttonsPanel.setLayout(null);
 		JButton stopButton = new JButton("");
 		stopButton.setForeground(new Color(240, 240, 240));
+		stopButton.setBounds(579, 22, 36, 36);
 		stopButton.setIcon(new ImageIcon("./assets/stopButton.png"));
+		JButton musicButton = new JButton("");
+		musicButton.setForeground(SystemColor.menu);
+		musicButton.setBounds(533, 22, 36, 36);
+		musicButton.setIcon(new ImageIcon("./assets/musicOFF.png"));
+		controlMusicChanger = true;
+		
+		// Music button
+		musicButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlMusic(musicController, musicButton);
+			}
+		});
 		
 		// Stop button
 		stopButton.addActionListener(new ActionListener() {
@@ -302,7 +350,6 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 				stopTurns();
 			}
 		});
-		stopButton.setBounds(579, 22, 36, 36);
 
 		// Show actual map button
 		JButton showMapButton = new JButton("Show actual map");
@@ -385,6 +432,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		buttonsPanel.add(turnIndicatedRandom);
 		buttonsPanel.add(turnsValueTextField);
 		buttonsPanel.add(stopButton);
+		buttonsPanel.add(musicButton);
 		
 		citizenInfoPanel.add(actualCitizenInfoLabel);
 		citizenInfoPanel.add(scrollPaneActualCitizen);
@@ -416,6 +464,46 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		turnIndicatedRandom.addKeyListener(this);
 		turnsValueTextField.addKeyListener(this);
 		stopButton.addKeyListener(this);
+		musicButton.addKeyListener(this);
+	}
+	
+	/**
+	 * TODO
+	 * 
+	 * @param keyWord
+	 * @throws UnsupportedAudioFileException
+	 * @throws IOException
+	 * @throws LineUnavailableException
+	 */
+	public FloatControl backgroundMusic() throws UnsupportedAudioFileException, IOException, LineUnavailableException {	
+		File medievalMusic = new File("./assets/medieval01.wav");
+		AudioInputStream audioStream = AudioSystem.getAudioInputStream(medievalMusic);
+		Clip clip = AudioSystem.getClip();
+		clip.open(audioStream);
+		clip.loop(clip.LOOP_CONTINUOUSLY);
+		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		gainControl.setValue(-35.0f);
+		clip.start();
+		return gainControl;
+	}
+	
+	/**
+	 * TODO
+	 * 
+	 * @param gainControl
+	 * @param controlMusicChanger
+	 * @param musicButton
+	 */
+	public void controlMusic(FloatControl gainControl, JButton musicButton) {
+		if (this.controlMusicChanger) {
+			gainControl.setValue(-80.0f);
+			musicButton.setIcon(new ImageIcon("./assets/musicON.png"));
+			this.controlMusicChanger = false;
+		} else {
+			gainControl.setValue(-35.0f);
+			musicButton.setIcon(new ImageIcon("./assets/musicOFF.png"));
+			this.controlMusicChanger = true;
+		}
 	}
 	
 	/**
