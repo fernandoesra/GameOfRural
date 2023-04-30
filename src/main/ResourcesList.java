@@ -1,13 +1,8 @@
 package main;
 
-import base.FishWater;
-import base.Water;
 import map.Board;
 import resources.GoldOreMineral;
 import resources.Grain;
-import resources.GrassCarpFishWater;
-import resources.SilverCarpFishWater;
-import resources.TilapiaFishWater;
 import utils.ObjectsList;
 
 /**

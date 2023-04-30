@@ -1,7 +1,5 @@
 package jobs;
 
-import java.util.Iterator;
-
 import base.Man;
 import logs.ActionsLog;
 import main.CitizenList;
@@ -11,7 +9,7 @@ import resources.Money;
 /**
  * A specialization of Man. The Marshal walks through the map in search of other
  * citizens . When found one, call the method beCareful().<br>
- * The icon for the Marshal are 'A'.
+ * The icon for the Marshal are 'A'.<br>
  * 
  * @author Fernando Tarrino del Pozo (FernandoEsra)
  * @see base.Man

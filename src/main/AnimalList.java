@@ -152,8 +152,8 @@ public class AnimalList {
 
 	/**
 	 * This method will read all the animals on this list and generate a 10%
-	 * probability to move one of echa his animals (not for fishes) in one random
-	 * direction.
+	 * probability to move one of echa his animals in one random direction.<br>
+	 * Also controll if the animal is a fish to move only through the water.
 	 * 
 	 * @param board A board to move the animals of this animalList.
 	 */
@@ -176,6 +176,23 @@ public class AnimalList {
 					break;
 				case 4:
 					board.moveSomethingRight(animalList.getObjectOnIndex(i));
+					break;
+				default:
+					break;
+				}
+			} else {
+				switch (random) {
+				case 1:
+					board.moveSomethingUpWater(animalList.getObjectOnIndex(i));
+					break;
+				case 2:
+					board.moveSomethingDownWater(animalList.getObjectOnIndex(i));
+					break;
+				case 3:
+					board.moveSomethingLeftWater(animalList.getObjectOnIndex(i));
+					break;
+				case 4:
+					board.moveSomethingRightWater(animalList.getObjectOnIndex(i));
 					break;
 				default:
 					break;

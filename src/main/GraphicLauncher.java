@@ -149,10 +149,10 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		log = new ActionsLog();
 		
 		// Initialize and fill the map, set the starting actual Citizen to 1
-		this.initialize();
+		this.initialize();		/* Main method of the initialize part */
 		actualCitizenID = 1;
 		
-		// Set the actual turn to 1 and show the welcome text
+		// Show the welcome text
 				actualTurn = new QuantityTurns(1);
 				ActionsLog.registerAction(""
 		+ "***********************************************************************************************\r\n"
@@ -481,9 +481,10 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	}
 	
 	/**
-	 * TODO
+	 * This method initialize the background music and generate a new FloatControl
+	 * to change the volume on the controlMusic() method.
 	 * 
-	 * @param keyWord
+	 * @return A FloatControl object to control the volume.
 	 * @throws UnsupportedAudioFileException
 	 * @throws IOException
 	 * @throws LineUnavailableException
@@ -493,7 +494,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(medievalMusic);
 		Clip clip = AudioSystem.getClip();
 		clip.open(audioStream);
-		clip.loop(clip.LOOP_CONTINUOUSLY);
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
 		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		gainControl.setValue(-35.0f);
 		clip.start();
@@ -501,11 +502,11 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	}
 	
 	/**
-	 * TODO
+	 * This method mute or unmute the background volume also change the icon for the
+	 * music button.
 	 * 
-	 * @param gainControl
-	 * @param controlMusicChanger
-	 * @param musicButton
+	 * @param gainControl A FloatControl object to change the volume.
+	 * @param musicButton The JButton to change the image.
 	 */
 	public void controlMusic(FloatControl gainControl, JButton musicButton) {
 		if (this.controlMusicChanger) {
@@ -1163,7 +1164,7 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		int totalAnimals = (int)((height * width)*0.04);
 		animalList.createAnimals(totalAnimals);
 		
-		int totalFishes = (int)(board.totalWater() * 0.2);
+		int totalFishes = (int)(board.totalWater() * 0.35);
 		animalList.addFish(totalFishes);
 		
 		// Add basic resources to the map
@@ -1188,7 +1189,6 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	 * 
 	 * @param quantity The amount of citizens to create and add to the map.
 	 */
-	@SuppressWarnings("unused")
 	@Deprecated
 	public void initialize(int quantity) {
 		int height = 28;

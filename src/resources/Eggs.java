@@ -29,7 +29,7 @@ public class Eggs extends Resource {
 	
 	/**
 	 * 
-	 * @return The price of the milk.
+	 * @return The price of the eggs.
 	 */
 	public double getPrice() {
 		return this.price;

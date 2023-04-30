@@ -38,7 +38,7 @@ import utils.Movement;
  * @see utils.Movement
  * 
  */
-public class Man implements Comparable, Movement{
+public class Man implements Comparable<Man>, Movement{
 	
 	// Attributes
 	protected String name;
@@ -192,11 +192,10 @@ public class Man implements Comparable, Movement{
 	}
 
 	@Override
-	public int compareTo(Object obj) {
+	public int compareTo(Man obj) {
 		// Compare the IDs
 		int comparable = 0;
-		Man other = (Man) obj;
-		comparable = this.ID - other.ID;
+		comparable = this.ID - obj.ID;
 		return comparable;
 		
 	}

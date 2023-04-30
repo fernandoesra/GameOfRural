@@ -5,7 +5,7 @@ package base;
  * @author Fernando Tarrino del Pozo (FernandoEsra)
  *
  */
-public class Animal implements Comparable{
+public class Animal implements Comparable<Animal>{
 	
 	// Attributes
 	String name;
@@ -88,11 +88,10 @@ public class Animal implements Comparable{
 	}
 	
 	@Override
-	public int compareTo(Object obj) {
+	public int compareTo(Animal obj) {
 		// Compare just the names
 		int compare = 0;
-		Animal other = (Animal) obj;
-		compare = this.name.compareTo(other.name);
+		compare = this.name.compareTo(obj.name);
 		return compare;
 	}
 	

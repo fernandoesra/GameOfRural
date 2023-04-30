@@ -7,7 +7,7 @@ package base;
  * @author Fernando Tarrino del Pozo (FernandoEsra)
  *
  */
-public class Furniture implements Comparable {
+public class Furniture implements Comparable<Furniture> {
 
 	// Attributes
 	String name;
@@ -61,11 +61,10 @@ public class Furniture implements Comparable {
 	}
 
 	@Override
-	public int compareTo(Object obj) {
+	public int compareTo(Furniture obj) {
 		// Compare just the name
 		int compare = 0;
-		Furniture other = (Furniture) obj;
-		compare = this.name.compareTo(other.name);
+		compare = this.name.compareTo(obj.name);
 		return compare;
 	}
 

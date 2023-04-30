@@ -7,7 +7,6 @@ import base.Man;
 import base.Resource;
 import base.Tree;
 import base.Water;
-import resources.GrassCarpFishWater;
 import utils.AleatoricName;
 
 /**
@@ -409,6 +408,122 @@ public class Board {
 					if(validPosition(x,y - 1)) {
 						board[x][y-1] = obj;
 						board[x][y] = null;
+						movement = true;
+					}
+				}
+			}
+		}
+		return movement;
+	}
+	
+	/**
+	 * This method run over the array till found the indicated object. Then check if
+	 * the upper position is <b>water</b>, if it is, asign the object to that
+	 * position and fill with water the original position.
+	 * 
+	 * @param obj The object to move up.
+	 * @return If something is moved return <b><i>true</i></b>, if not, return
+	 *         <b><i>false</i></b>.
+	 */
+	public boolean moveSomethingUpWater(Object obj) {
+		boolean movement = false;
+		for (int x = 0; x < height; x++) {
+			for (int y = 0; y < width; y++) {
+				if (board[x][y] == obj) {
+					if (isWater(x - 1, y)) {
+						board[x][y] = null;
+						board[x - 1][y] = obj;
+						board[x][y] = new Water();
+						movement = true;
+					}
+				}
+			}
+		}
+		return movement;
+	}
+	
+	/**
+	 * This method run over the array till found the indicated object. Then check if
+	 * the lower position is <b>water</b>, if it is, asign the object to that
+	 * position and fill with water the original position.
+	 * 
+	 * @param obj The object to move up.
+	 * @return If something is moved return <b><i>true</i></b>, if not, return
+	 *         <b><i>false</i></b>.
+	 */
+	public boolean moveSomethingDownWater(Object obj) {
+		boolean movement = false;
+		for (int x = 0; x < height; x++) {
+			for (int y = 0; y < width; y++) {
+				if (board[x][y] == obj) {
+					if (isWater(x + 1, y)) {
+						board[x][y] = null;
+						board[x + 1][y] = obj;
+						board[x][y] = new Water();
+						movement = true;
+					}
+				}
+				if (movement) {
+					break;
+				}
+			}
+			if (movement) {
+				break;
+			}
+		}
+		return movement;
+	}
+	
+	/**
+	 * This method run over the array till found the indicated object. Then check if
+	 * the right position is <b>water</b>, if it is, asign the object to that
+	 * position and fill with water the original position.
+	 * 
+	 * @param obj The object to move up.
+	 * @return If something is moved return <b><i>true</i></b>, if not, return
+	 *         <b><i>false</i></b>.
+	 */
+	public boolean moveSomethingRightWater(Object obj) {
+		boolean movement = false;
+		for (int x = 0; x < height; x++) {
+			for (int y = 0; y < width; y++) {
+				if (board[x][y] == obj) {
+					if (isWater(x,y + 1)) {
+						board[x][y] = null;
+						board[x][y+1] = obj;
+						board[x][y] = new Water();
+						movement = true;
+					}
+				}
+				if (movement) {
+					break;
+				}
+			}
+			if (movement) {
+				break;
+			}
+		}
+		return movement;
+	}
+	
+	/**
+	 * This method run over the array till found the indicated object. Then check if
+	 * the left position is <b>water</b>, if it is, asign the object to that
+	 * position and fill with water the original position.
+	 * 
+	 * @param obj The object to move up.
+	 * @return If something is moved return <b><i>true</i></b>, if not, return
+	 *         <b><i>false</i></b>.
+	 */
+	public boolean moveSomethingLeftWater(Object obj) {
+		boolean movement = false;
+		for (int x = 0; x < height; x++) {
+			for (int y = 0; y < width; y++) {
+				if (board[x][y] == obj) {
+					if(isWater(x,y - 1)) {
+						board[x][y] = null;
+						board[x][y-1] = obj;
+						board[x][y] = new Water();
 						movement = true;
 					}
 				}

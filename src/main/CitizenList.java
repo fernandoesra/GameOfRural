@@ -224,7 +224,9 @@ public class CitizenList {
 	 * citizenList. <b>Important: </b>This method only create the objects and add
 	 * them to the citizenList, does not add them to the map. To add the citizens it
 	 * is necessary to use the methods addCitizensToMap(board) or
-	 * addLastCitizen(board).
+	 * addLastCitizen(board).<br>
+	 * The Marshal is the only citizen who has 2 value for speed. Thats because he
+	 * rides a horse.
 	 * <p>
 	 * The money of the new citizen its set in the actualMoney() method.
 	 * 
@@ -233,7 +235,7 @@ public class CitizenList {
 	public void createMarshal(int amount) {
 
 		for (int i = 0; i < amount; i++) {
-			Marshal newCitizen = new Marshal(IDs, 30, actualMoney(), 0, 0, 1);
+			Marshal newCitizen = new Marshal(IDs, 30, actualMoney(), 0, 0, 2);
 			citizenList.addEnd(newCitizen);
 			IDs++;
 		}

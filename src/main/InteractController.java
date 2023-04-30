@@ -10,6 +10,7 @@ import jobs.Butcher;
 import jobs.Carpenter;
 import jobs.Farmer;
 import jobs.Fisherman;
+import jobs.Fishmonger;
 import jobs.Lumberjack;
 import jobs.Marshal;
 import jobs.Mayor;
@@ -55,12 +56,16 @@ import resources.WoodPlanks;
  * @see jobs.Shepherd
  * @see jobs.Farmer
  * @see jobs.Mayor
+ * @see jobs.Fishmonger
  *
  */
 
 public class InteractController {
 	
-	
+	/**
+	 * This array is used on the different interact methods to change the X and Y
+	 * values of the coordinates. <b>See template(Board, Man)</b>.
+	 */
 	private static final int posToSearch[][] = {{0,1}, {1,0}, {0,-1}, {-1,0}};
 	
 	/**
@@ -138,7 +143,10 @@ public class InteractController {
 		}
 
 		// Fishmonger
-		//*TODO
+		if (nameOfClass.indexOf("Fishmonger") >= 0) {
+			interactFishmonger(board, genericCitizen);
+		}
+
 	
 		
 		/* Money related works: */
@@ -160,6 +168,33 @@ public class InteractController {
 		
 		/* Others works: */
 		
+	}
+	
+	/**
+	 * This method cast the genericMan to a Fishmonger. Then search the up, down,
+	 * left and rigth coordinates for others citizens. If a citizen is found
+	 * continue the method and call for sellSomething() of the Fishmonger.
+	 * 
+	 * @param board      The map to search for different things, such as the
+	 *                   surroundings of the Man.
+	 * @param genericMan Must be a Fishmonger object and exists in the board.
+	 * 
+	 */
+	public static void interactFishmonger(Board board, Man genericMan) {
+		Fishmonger actualMan = (Fishmonger) genericMan;
+		int actualX = actualMan.getMapX();
+		int actualY = actualMan.getMapY();
+		for (int i = 0; i < posToSearch.length; i++) {
+			int xToLook = actualX + posToSearch[i][0];
+			int yToLook = actualY + posToSearch[i][1];
+
+			if (!board.validPosition(xToLook, yToLook) && board.inBounds(xToLook, yToLook)) {
+				if (isName("jobs", board, xToLook, yToLook)) {
+					Man buyer = (Man) board.getObjectAt(xToLook, yToLook);
+					actualMan.sellSomething(buyer);
+				}
+			}
+		}
 	}
 	
 	/**
