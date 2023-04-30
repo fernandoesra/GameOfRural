@@ -65,10 +65,24 @@ Since this is a game, some part of it has to be fantasy. When 200 turns have ela
 # Images of the game
 This montage was made using version 1.0 of the game and allowing 9999 turns to pass.
 
+![](https://i.imgur.com/6Tei14G.png)
+> *The town of Lääco before and after 9999 turns.*
 
+In this first test we can see that both the lumberjack and the butcher have covered almost the entire map and have deforested the whole of Lääco. Hardly anything is left alive. In addition the lumberjack and the carpenter have met resulting in the creation of different furniture. A perfect example of modern capitalism. There is hardly any vegatation or animal life left, only human creations.
+
+![](https://i.imgur.com/eKkOwn4.png)
+> *The town of Bíëluxuz before and after 9999 turns.*
+
+The town of Bíëluxuz, on the other hand, has had better luck. A gold ore has blocked the advance across the river. This prevented the lumberjack from crossing to the upper side or the butcher from descending to the lower side. Bíëluxuz is in a wilder state. After 9999 turns the original state has not been changed that much. Of course the player can now manually take control of the citizens and make the lumberjack cross the river, perhaps in another 9999 turns Bíëluxuz will be very different.
+
+# Modifying the game
+
+All Game of Rural files are public and can be modified. The aim of this project has been to create something with the knowledge acquired during the first year of study in the degree 'Development of multiplatform applications' ('Desarrollo de aplicaciones multiplataforma (DAM1)' in Spanish). I want to thank my teachers for their time and effort and I encourage anyone curious to import and modify the project to their liking.
+
+All the files are documented and from the GraphicLauncher class and the initialize() method you can change factors to make, for example, a bigger map (50x100 maybe?) or add 3 characters of each profession. Any doubt or suggestion I will be glad to hear it.
 
 # External links
 Source for graphic resources:
-- Banner image: https://www.behance.net/gallery/121312861/Medieval-village
+- Medieval images: https://www.behance.net/pietrosmurra
 - Background Song: https://www.youtube.com/watch?v=eZ_r1H9vHkI
 - Fonts: https://github.com/tonsky/FiraCode
