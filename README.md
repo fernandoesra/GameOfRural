@@ -20,6 +20,7 @@ The aim of the project is not to create a complex game, but a functional one. It
 - 10 different jobs to control and 2 administrators (Mayor and Marshal) to move around the map with.
 - Every 200 turns the Mayor will collect taxes from citizens. In the following 200 turns the Marshal will distribute the collected money.
 - 4 different types of land animals, 3 different types of fish and 5 different types of trees.
+- Background music that can be muted and unmuted.
 
 # Jobs
 Each citizen will have a different job and based on that will act on the map in a unique way.
@@ -80,6 +81,9 @@ The town of Bíëluxuz, on the other hand, has had better luck. A gold ore has b
 All Game of Rural files are public and can be modified. The aim of this project has been to create something with the knowledge acquired during the first year of study in the degree 'Development of multiplatform applications' ('Desarrollo de aplicaciones multiplataforma (DAM1)' in Spanish). I want to thank my teachers for their time and effort and I encourage anyone curious to import and modify the project to their liking.
 
 All the files are documented and from the GraphicLauncher class and the initialize() method you can change factors to make, for example, a bigger map (50x100 maybe?) or add 3 characters of each profession. Any doubt or suggestion I will be glad to hear it.
+
+![](https://i.imgur.com/uiiQtLl.png)
+> *A 100x100 map with 3 citizens of each type. Click on the image to view in higher resolution.*
 
 # External links
 Source for graphic resources:
