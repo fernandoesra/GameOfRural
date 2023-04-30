@@ -22,6 +22,9 @@ import utils.AleatoricName;
 public class Board {
 	
 	// Attributes
+	/**
+	 * A two-dimensional array to store the objects of the "map"
+	 */
 	public Object board[][];
 	String name;
 	int height;
@@ -219,12 +222,14 @@ public class Board {
 
 		return newY;
 	}
-	
+
 	/**
+	 * This method search for the class name of a object in (searchX.searchY)
 	 * 
-	 * @param searchX
-	 * @param searchY
-	 * @return
+	 * @param searchX Height coordinate to search on the board
+	 * @param searchY Width coordinate to search on the board
+	 * @return If exists something inside the indicates coordinates, return the
+	 *         class name.
 	 */
 	public String getNameOfItem(int searchX, int searchY) {
 		String nameOfItem = "";

@@ -19,6 +19,8 @@ public class Animal implements Comparable<Animal>{
 	 * @param name Name of the animal
 	 * @param type Type of the animal
 	 * @param icon Icon for the animal
+	 * @param amount Amount of "meat" on the animal.
+	 * 
 	 */
 	public Animal(String name, String type, String icon, int amount) {
 		this.name = name;

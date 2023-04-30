@@ -29,9 +29,12 @@ import utils.ObjectsList;
 public class AnimalList {
 	
 	// Attribute
+	/**
+	 * A ObjectsList where save the differents animals.
+	 */
 	public ObjectsList animalList;
 	
-	/*
+	/**
 	 * Create a new empy AnimalList.
 	 */
 	public AnimalList() {

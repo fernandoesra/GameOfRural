@@ -48,10 +48,19 @@ public class Man implements Comparable<Man>, Movement{
 	protected int mapX;
 	protected int mapY;
 	protected int speed;
+	/**
+	 * A single character to represent the man on the map
+	 */
 	public String icon;
+	/**
+	 * A main.Inventory object to store all the things that the Man have.
+	 */
 	public Inventory inventory;
 	
 	// Constructor
+	/**
+	 * Empty constructor. Avoid use.
+	 */
 	public Man() {};
 	
 	/**
@@ -218,6 +227,7 @@ public class Man implements Comparable<Man>, Movement{
 	 * its possible.
 	 * 
 	 * @param totalToSubtract The amount of money to subtract.
+	 * @return The resulting amount after subtraction
 	 */
 	public double subtractMoney(double totalToSubtract) {
 		if (this.checkSubtractMoney(totalToSubtract)) {

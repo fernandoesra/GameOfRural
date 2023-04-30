@@ -70,17 +70,52 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	int height; 					/* Height of the board */
-	int width; 						/* Width of the board */
+	// Attributes
+	
+	/**
+	 * Height of the board. Set on the constructor.
+	 */
+	int height;
+	/**
+	 * Width of the board. Set on the constructor.
+	 */
+	int width;
+	/**
+	 * Time on ms between turns. Set on the constructor.
+	 */
 	int timeBetweenTurns;
 	
+	/**
+	 * Store the map and all the objects of the game.
+	 */
 	Board board;
+	/**
+	 * Used to store the citizens of the map.
+	 */
 	CitizenList citizenList;
+	/**
+	 * Used to store the resources of the map.
+	 */
 	ResourcesList resourcesList;
+	/**
+	 * Used to store the animals of the map.
+	 */
 	AnimalList animalList;
-	int actualCitizenID;			/* 1 at the program start */
+	/**
+	 * Set to 1 at the start of the game.
+	 */
+	int actualCitizenID;
+	/**
+	 * Its used to show the actualCitizen info on the log.
+	 */
 	Man actualCitizen;
+	/**
+	 * Used to store all the actions and later show the text on the logTextArea.
+	 */
 	ActionsLog log;
+	/**
+	 * Used on the initialize() method to generate new biomes.
+	 */
 	BiomeGenerator biomeGenerator;
 	/**
 	 * The variable programInUse is used on generateXturns() to prevent the player
@@ -88,22 +123,63 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	 */
 	AtomicBoolean programInUse;
 	
+	/**
+	 * Used on the SwingWorkerGenerateTurns class to know how much turns are have
+	 * been requested to generate.
+	 */
 	QuantityTurns turnX;
+	/**
+	 * This variable is used to write the actual turn on the log.
+	 */
 	QuantityTurns actualTurn;
+	/**
+	 * Used on the SwingWorkerGenerateTurns class to know how much turns remain.
+	 */
 	AtomicBoolean generatingTurns;
-	
+	/**
+	 * Used on the generateOneTurn() method each 200 turns to know if its time to
+	 * pay or collect taxes.
+	 */
 	AtomicBoolean payOrTax;
 	
+	/**
+	 * Used on the controlMusic() method to know the song to wich change the volume.
+	 */
 	FloatControl musicController;
+	/**
+	 * Used on the controlMusic() method to know if its time to mute or unmute the
+	 * audio.
+	 */
 	boolean controlMusicChanger;
 	
+	/**
+	 * The main frame of the program window
+	 */
 	public JPanel mainContentPane;
+	/**
+	 * The JTextArea where to draw the map
+	 */
 	public JTextArea textCentralArea;
+	/**
+	 * The JTextArea where to show the selected citizen info
+	 */
 	public JTextArea actualCitizenInfoText;
+	/**
+	 * The JTextArea where to show the log String
+	 */
 	public JTextArea logTextArea;
+	/**
+	 * The JTextField where write the amount value for a random generated turns
+	 */
 	private JTextField turnsValueTextField;
 	
 	// Main
+	/**
+	 * The main method of the game. Here whe create the interface and initialize
+	 * all.
+	 * 
+	 * @param args Java magic.
+	 */
 	public static void main(String[] args) {
 		// Methods to launch before the interface
 		/**
@@ -125,7 +201,8 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 		// Methods to launche after the interface
 		
 	}
-
+	
+	// Constructor
 	/**
 	 * Empty constructor. Initialize all the attributes for the class.
 	 */
@@ -485,9 +562,9 @@ public class GraphicLauncher extends JFrame implements KeyListener{
 	 * to change the volume on the controlMusic() method.
 	 * 
 	 * @return A FloatControl object to control the volume.
-	 * @throws UnsupportedAudioFileException
-	 * @throws IOException
-	 * @throws LineUnavailableException
+	 * @throws UnsupportedAudioFileException Error generated for the audio.
+	 * @throws IOException                   Error generated for the audio.
+	 * @throws LineUnavailableException      Error generated for the audio.
 	 */
 	public FloatControl backgroundMusic() throws UnsupportedAudioFileException, IOException, LineUnavailableException {	
 		File medievalMusic = new File("./assets/medieval01.wav");

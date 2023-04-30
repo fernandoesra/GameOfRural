@@ -17,6 +17,13 @@ public class Resource {
 	int amount;
 
 	// Constructor
+	/**
+	 * Create a new Resource object with new name, icon and amount.
+	 * 
+	 * @param name A new name for the resource.
+	 * @param icon A single character to represent the resource on the map.
+	 * @param amount How much of the resource to store.
+	 */
 	public Resource(String name, String icon, int amount) {
 		this.name = name;
 		this.icon = icon;

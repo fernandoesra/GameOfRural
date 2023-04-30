@@ -20,10 +20,10 @@ import resources.Money;
  * @see main.InteractController
  * @see main.MoveController
  * @see resources.Money
- * @see resources.BakedLemonGarlicSalmon;
- * @see resources.BakedWhiteFish;
- * @see resources.FishSoup;
- * @see resources.Sushi;
+ * @see resources.BakedLemonGarlicSalmon
+ * @see resources.BakedWhiteFish
+ * @see resources.FishSoup
+ * @see resources.Sushi
  * 
  */
 

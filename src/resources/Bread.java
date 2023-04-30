@@ -13,7 +13,12 @@ import base.Resource;
  */
 
 public class Bread extends Resource{
-
+	
+	/**
+	 * A new Bread object whit the amount value defined by the construcor.
+	 * 
+	 * @param amount The amount of Bread.
+	 */
 	public Bread(int amount) {
 		super("Bread", "", amount);
 	}

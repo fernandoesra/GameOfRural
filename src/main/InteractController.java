@@ -556,7 +556,7 @@ public class InteractController {
 	 * @param actualCarpenter    The carpenter doing the action.
 	 * @param adjacentLumberjack Its necessary to register the adjacentLumberjack in
 	 *                           case of leftover wood planks to return.
-	 * @return
+	 * @return Total Wood Planks left over (if any).
 	 */
 	public static int createFurniture(Board board, int totalOfWoodPlanks, Carpenter actualCarpenter,
 			Lumberjack adjacentLumberjack) {

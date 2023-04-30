@@ -56,8 +56,13 @@ public class Marshal extends Man{
 				+ ") to be careful, " + board.getName() + "'s streets are dangerous.");
 	}
 	
-	/*
-	 * TODO
+	/**
+	 * This method runs over a citizenList, read every citizen and give to each of
+	 * them the corresponding amount of taxes. Equally distributed between all
+	 * citizens.
+	 * 
+	 * @param citizenList A CitizenList object to search for all the citizens.
+	 * @return The amount that corresponds to each citizen
 	 */
 	public double distributeTaxes(CitizenList citizenList) {
 		double distributeToEach = 0d;

@@ -30,6 +30,9 @@ import utils.ObjectsList;
 public class CitizenList {
 	
 	// List
+	/**
+	 * A ObjectsList where save the differents citizens.
+	 */
 	public ObjectsList citizenList;
 	int IDs;
 	
