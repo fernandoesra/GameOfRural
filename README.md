@@ -10,3 +10,5 @@ The aim of the project is not to create a complex game, but a functional one. It
 
 Banner image:
 https://www.behance.net/gallery/121312861/Medieval-village
+Background Song:
+https://www.youtube.com/watch?v=eZ_r1H9vHkI
