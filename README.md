@@ -1,5 +1,5 @@
 # GameOfRural
-### *Mini game project on java about the life on a rural village.*
+### *Mini game project on java 11 about the life on a rural village.*
 
 # Resume
 Small project in Java as a first-year final project for the "DAM 1" module of my higher grade. The goal is to create an interactive town with different professions and actions. Each character has a profession and can interact in a specific way with the map and other characters.
